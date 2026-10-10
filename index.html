@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stick War: Legacy - Perang Tongkat Legenda</title>
+    <meta name="description" content="Game strategi Stick War Legacy dengan grafis stickman halus, sistem ekonomi tambang emas, perintah taktis pasukan, kendali manual prajurit, dan pertempuran patung kolosal.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- TOP HUD -->
+        <header id="top-hud">
+            <!-- Player Statue Status (Left) -->
+            <div class="statue-status player-side" id="player-statue-box">
+                <div class="statue-avatar">🗿</div>
+                <div class="statue-info">
+                    <div class="statue-header">
+                        <span>Patung Kita</span>
+                        <span id="player-statue-hp">1200 HP</span>
+                    </div>
+                    <div class="health-track">
+                        <div class="health-fill" id="player-statue-bar" style="width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center HUD: Resources & Controls -->
+            <div id="center-hud">
+                <div class="resource-badge gold-badge" id="gold-display" title="Emas Kerajaan">
+                    <span class="coin-icon">🪙</span>
+                    <span id="gold-count">500</span>
+                </div>
+                <div class="resource-badge gems-badge" id="gems-display" title="Permata Toko & Skin">
+                    <span class="gem-icon">💎</span>
+                    <span id="gems-count">1250</span>
+                </div>
+                <div class="resource-badge pop-badge" id="pop-display" title="Populasi Pasukan">
+                    <span>👥</span>
+                    <span id="pop-count">2/35</span>
+                </div>
+
+                <!-- Day / Night Zombie Badge -->
+                <div id="hud-time-badge" class="time-badge day" title="Status Waktu Pertempuran">☀️ SIANG HARI</div>
+
+                <!-- Difficulty Badge -->
+                <div id="hud-diff-badge" class="diff-badge medium" title="Klik untuk ubah tingkat kesulitan">🟡 SEDANG</div>
+
+                <!-- Active Cheats Indicator -->
+                <div id="active-cheats-hud">
+                    <span id="pill-cheat-gold" class="cheat-pill gold hidden">GOLD ∞</span>
+                    <span id="pill-cheat-cd" class="cheat-pill cd hidden">NO CD</span>
+                    <span id="pill-cheat-pop" class="cheat-pill pop hidden">NO POP</span>
+                    <span id="pill-cheat-spell" class="cheat-pill spell hidden">SPELL ∞</span>
+                    <span id="pill-cheat-gems" class="cheat-pill gem hidden">GEMS ∞</span>
+                    <span id="pill-cheat-upgrade" class="cheat-pill upgrade hidden">UPGRADE MAX</span>
+                </div>
+
+                <div class="hud-actions">
+                    <button class="hud-btn" id="btn-shop" title="Toko Penyihir & Peningkatan Senjata">🏪 TOKO</button>
+                    <button class="hud-btn" id="btn-track" title="Ganti Lagu Perang Stick War (BGM Jukebox)">🎵 Inamorta War March</button>
+                    <button class="hud-btn hd-active" id="btn-hd" title="Ubah Mode Grafis HD (Ultra Sharp)">💎 HD</button>
+                    <button class="hud-btn" id="btn-bgm" title="Lagu Perang Tema Stick War (BGM)">🎵 BGM: ON</button>
+                    <button class="hud-btn" id="btn-level-map" title="Peta Kampanye Level 1-100">🗺️ LV 1-100</button>
+                    <button class="hud-btn cheat-btn" id="btn-cheat" title="Masukkan Kode Rahasia / Cheat">📜 KODE</button>
+                    <button class="hud-btn" id="btn-speed" title="Ubah Kecepatan">⚡ 1x</button>
+                    <button class="hud-btn" id="btn-sound" title="Efek Suara">🔊</button>
+                    <button class="hud-btn" id="btn-pause" title="Jeda">⏸️</button>
+                    <button class="hud-btn" id="btn-help" title="Petunjuk Kontrol">❓</button>
+                </div>
+            </div>
+
+            <!-- Enemy Statue Status (Right) -->
+            <div class="statue-status enemy-side" id="enemy-statue-box">
+                <div class="statue-info" style="text-align: right;">
+                    <div class="statue-header">
+                        <span id="enemy-statue-hp">1200 HP</span>
+                        <span>Patung Musuh</span>
+                    </div>
+                    <div class="health-track">
+                        <div class="health-fill" id="enemy-statue-bar" style="width: 100%;"></div>
+                    </div>
+                </div>
+                <div class="statue-avatar">💀</div>
+            </div>
+        </header>
+
+        <!-- ENEMY SPELL WARNING BANNER -->
+        <div id="enemy-spell-banner" class="enemy-spell-banner hidden"></div>
+
+        <!-- TACTICAL STANCE ORDERS (Top Right) -->
+        <aside id="stance-hud">
+            <button class="stance-btn active" data-stance="defend" id="stance-defend" title="Pasukan bertahan di garis depan">
+                <span>🛡️</span>
+                <span>BERTAHAN (D)</span>
+            </button>
+            <button class="stance-btn" data-stance="attack" id="stance-attack" title="Pasukan menyerang dan serbu patung musuh">
+                <span>⚔️</span>
+                <span>SERANG (A)</span>
+            </button>
+            <button class="stance-btn" data-stance="retreat" id="stance-retreat" title="Mundur ke benteng pertahanan">
+                <span>🏰</span>
+                <span>MUNDUR (R)</span>
+            </button>
+        </aside>
+
+        <!-- CANVAS GAME VIEWPORT -->
+        <main id="canvas-container">
+            <canvas id="gameCanvas"></canvas>
+        </main>
+
+        <!-- MANUAL CONTROL OVERLAY (When a player unit is selected) -->
+        <div id="controlled-unit-panel" class="hidden">
+            <div class="ctrl-info">
+                <span class="ctrl-badge" style="background: linear-gradient(135deg, #ffd700, #f59e0b); color: #0a0d14; font-weight: 800;">⭐ KENDALI KOMANDAN (2X DAMAGE)</span>
+                <span class="ctrl-name" id="ctrl-unit-name">SPEARTON</span>
+                <span class="ctrl-hp" id="ctrl-unit-hp">360/360 HP</span>
+            </div>
+            <div class="ctrl-hints">
+                <b>A / D</b>: Jalan | <b>Spasi/Klik</b>: Serang (2X DMG 💥) | <b>S / Klik Kanan</b>: Tangkis Perisai | <b>Esc</b>: Lepas
+            </div>
+            <button class="ctrl-btn" id="btn-release-control">Mode Auto (Esc)</button>
+        </div>
+
+        <!-- CRYSTAL BALL SPELLS DOCK (Inspired by Wizard Armory) -->
+        <aside id="spells-hud">
+            <!-- 1. Miner Hustle (Q) -->
+            <div class="spell-orb-card" id="spell-minerHustle" data-spell="minerHustle" title="Miner Hustle: Lari cepat & hasil tambang ganda 2x (Q)">
+                <div class="orb-sphere">
+                    <div class="orb-glint"></div>
+                    <span class="orb-icon">⛏️</span>
+                    <div class="orb-cd-overlay hidden"></div>
+                </div>
+                <div class="orb-wood-base"></div>
+                <span class="orb-stock-badge">3</span>
+                <span class="orb-key-badge">Q</span>
+            </div>
+
+            <!-- 2. Arrow Rain (W) -->
+            <div class="spell-orb-card" id="spell-arrowRain" data-spell="arrowRain" title="Arrow Rain: Hujan 35 panah membakar ke musuh (W)">
+                <div class="orb-sphere">
+                    <div class="orb-glint"></div>
+                    <span class="orb-icon">🏹</span>
+                    <div class="orb-cd-overlay hidden"></div>
+                </div>
+                <div class="orb-wood-base"></div>
+                <span class="orb-stock-badge">3</span>
+                <span class="orb-key-badge">W</span>
+            </div>
+
+            <!-- 3. Healing Wave (E) -->
+            <div class="spell-orb-card" id="spell-healWave" data-spell="healWave" title="Healing Wave: Sembuhkan seluruh pasukan & patung (E)">
+                <div class="orb-sphere">
+                    <div class="orb-glint"></div>
+                    <span class="orb-icon">💖</span>
+                    <div class="orb-cd-overlay hidden"></div>
+                </div>
+                <div class="orb-wood-base"></div>
+                <span class="orb-stock-badge">3</span>
+                <span class="orb-key-badge">E</span>
+            </div>
+
+            <!-- 4. Sword Rage (F) -->
+            <div class="spell-orb-card" id="spell-swordRage" data-spell="swordRage" title="Sword Rage: Pasukan membara api +50% Damage (F)">
+                <div class="orb-sphere">
+                    <div class="orb-glint"></div>
+                    <span class="orb-icon">⚔️</span>
+                    <div class="orb-cd-overlay hidden"></div>
+                </div>
+                <div class="orb-wood-base"></div>
+                <span class="orb-stock-badge">3</span>
+                <span class="orb-key-badge">F</span>
+            </div>
+
+            <!-- 5. Golden Spartan (T) -->
+            <div class="spell-orb-card" id="spell-goldenSpearton" data-spell="goldenSpearton" title="Golden Spartan: Panggil Prajurit Elit Spartan 950 HP (T)">
+                <div class="orb-sphere">
+                    <div class="orb-glint"></div>
+                    <span class="orb-icon">🛡️</span>
+                    <div class="orb-cd-overlay hidden"></div>
+                </div>
+                <div class="orb-wood-base"></div>
+                <span class="orb-stock-badge">2</span>
+                <span class="orb-key-badge">T</span>
+            </div>
+
+            <!-- 6. Training Haste (G) -->
+            <div class="spell-orb-card" id="spell-trainingHaste" data-spell="trainingHaste" title="Training Haste: Percepat rekrut pasukan 4x lipat selama 20 detik (G)">
+                <div class="orb-sphere">
+                    <div class="orb-glint"></div>
+                    <span class="orb-icon">➰</span>
+                    <div class="orb-cd-overlay hidden"></div>
+                </div>
+                <div class="orb-wood-base"></div>
+                <span class="orb-stock-badge">3</span>
+                <span class="orb-key-badge">G</span>
+            </div>
+
+            <!-- 7. Lightning Storm (H) -->
+            <div class="spell-orb-card" id="spell-lightningStorm" data-spell="lightningStorm" title="Lightning Storm: 12 Halilintar petir dahsyat membakar musuh (H)">
+                <div class="orb-sphere">
+                    <div class="orb-glint"></div>
+                    <span class="orb-icon">⚡</span>
+                    <div class="orb-cd-overlay hidden"></div>
+                </div>
+                <div class="orb-wood-base"></div>
+                <span class="orb-stock-badge">3</span>
+                <span class="orb-key-badge">H</span>
+            </div>
+
+            <!-- 8. Summon Undead (J) -->
+            <div class="spell-orb-card" id="spell-summonDead" data-spell="summonDead" title="Summon Undead: Bangkitkan 5 prajurit mayat hidup beracun (J)">
+                <div class="orb-sphere">
+                    <div class="orb-glint"></div>
+                    <span class="orb-icon">💀</span>
+                    <div class="orb-cd-overlay hidden"></div>
+                </div>
+                <div class="orb-wood-base"></div>
+                <span class="orb-stock-badge">3</span>
+                <span class="orb-key-badge">J</span>
+            </div>
+
+            <!-- 9. Gold Rush (K) -->
+            <div class="spell-orb-card" id="spell-goldRush" data-spell="goldRush" title="Gold Rush: Seketika +450 Emas & isi penuh tas penambang (K)">
+                <div class="orb-sphere">
+                    <div class="orb-glint"></div>
+                    <span class="orb-icon">💰</span>
+                    <div class="orb-cd-overlay hidden"></div>
+                </div>
+                <div class="orb-wood-base"></div>
+                <span class="orb-stock-badge">3</span>
+                <span class="orb-key-badge">K</span>
+            </div>
+
+            <!-- 10. Summon Marrowkai (U) -->
+            <div class="spell-orb-card" id="spell-summonMarrowkai" data-spell="summonMarrowkai" title="Summon Marrowkai: Panggil Titan Raksasa Marrowkai 1500 HP (U)">
+                <div class="orb-sphere">
+                    <div class="orb-glint"></div>
+                    <span class="orb-icon">☠️</span>
+                    <div class="orb-cd-overlay hidden"></div>
+                </div>
+                <div class="orb-wood-base"></div>
+                <span class="orb-stock-badge">2</span>
+                <span class="orb-key-badge">U</span>
+            </div>
+        </aside>
+
+        <!-- BOTTOM DECK: UNIT RECRUITMENT -->
+        <nav id="bottom-hud">
+            <!-- 1. Miner -->
+            <div class="unit-card" id="btn-miner" data-type="miner" title="Penambang Emas: Menghasilkan pendapatan emas">
+                <span class="hotkey-badge">1</span>
+                <div class="unit-icon">⛏️</div>
+                <div class="unit-title">MINER</div>
+                <div class="unit-cost">🪙 150</div>
+                <div class="cd-overlay" id="cd-miner"></div>
+            </div>
+
+            <!-- 2. Swordwrath -->
+            <div class="unit-card" id="btn-swordwrath" data-type="swordwrath" title="Swordwrath: Pendekar pedang lincah dan cepat">
+                <span class="hotkey-badge">2</span>
+                <div class="unit-icon">⚔️</div>
+                <div class="unit-title">SWORD</div>
+                <div class="unit-cost">🪙 125</div>
+                <div class="cd-overlay" id="cd-swordwrath"></div>
+            </div>
+
+            <!-- 3. Archidon -->
+            <div class="unit-card" id="btn-archidon" data-type="archidon" title="Archidon: Pemanah jarak jauh berpanah tajam">
+                <span class="hotkey-badge">3</span>
+                <div class="unit-icon">🏹</div>
+                <div class="unit-title">ARCHIDON</div>
+                <div class="unit-cost">🪙 300</div>
+                <div class="cd-overlay" id="cd-archidon"></div>
+            </div>
+
+            <!-- 4. Spearton -->
+            <div class="unit-card" id="btn-spearton" data-type="spearton" title="Spearton: Prajurit tombak berpelindung perisai baja Spartan">
+                <span class="hotkey-badge">4</span>
+                <div class="unit-icon">🛡️</div>
+                <div class="unit-title">SPEARTON</div>
+                <div class="unit-cost">🪙 500</div>
+                <div class="cd-overlay" id="cd-spearton"></div>
+            </div>
+
+            <!-- 5. Magikill -->
+            <div class="unit-card" id="btn-magikill" data-type="magikill" title="Magikill: Penyihir sakti pemanggil ledakan sihir area">
+                <span class="hotkey-badge">5</span>
+                <div class="unit-icon">🔮</div>
+                <div class="unit-title">MAGIKILL</div>
+                <div class="unit-cost">🪙 800</div>
+                <div class="cd-overlay" id="cd-magikill"></div>
+            </div>
+
+            <!-- 6. Giant -->
+            <div class="unit-card" id="btn-giant" data-type="giant" title="Giant: Raksasa penghancur dengan gada batu gempa">
+                <span class="hotkey-badge">6</span>
+                <div class="unit-icon">🗿</div>
+                <div class="unit-title">GIANT</div>
+                <div class="unit-cost">🪙 1200</div>
+                <div class="cd-overlay" id="cd-giant"></div>
+            </div>
+        </nav>
+
+        <!-- TOAST MESSAGE NOTIFICATION -->
+        <div id="toast-msg" class="toast"></div>
+
+        <!-- START / MENU MODAL -->
+        <div id="start-modal" class="modal-overlay">
+            <div class="modal-card">
+                <h1 class="modal-title">STICK WAR: LEGACY</h1>
+                <p class="modal-desc">
+                    Pimpin pasukan prajurit tongkatmu! Tambang emas, latih angkatan perang, gunakan formasi taktis pertahanan atau serbuan total, dan hancurkan patung musuh untuk menaklukkan medan perang!
+                </p>
+
+                <!-- Difficulty Selection -->
+                <div style="font-weight: 800; font-size: 13px; color: #ffd700; margin-bottom: 6px; text-transform: uppercase;">PILIH TINGKAT KESULITAN:</div>
+                <div class="difficulty-selector">
+                    <button class="diff-btn" data-diff="easy" id="diff-easy">
+                        <span class="diff-stars">⭐</span>
+                        <span class="diff-name">MUDAH</span>
+                        <span class="diff-sub">Emas 1000G, Musuh Santai</span>
+                    </button>
+                    <button class="diff-btn active" data-diff="medium" id="diff-medium">
+                        <span class="diff-stars">⭐⭐</span>
+                        <span class="diff-name">SEDANG</span>
+                        <span class="diff-sub">Standar Seimbang</span>
+                    </button>
+                    <button class="diff-btn" data-diff="hard" id="diff-hard">
+                        <span class="diff-stars">⭐⭐⭐</span>
+                        <span class="diff-name">SULIT</span>
+                        <span class="diff-sub">Musuh Agresif & Elit</span>
+                    </button>
+                    <button class="diff-btn insane" data-diff="insane" id="diff-insane">
+                        <span class="diff-stars">🔥🔥🔥</span>
+                        <span class="diff-name">GILA-GILAAN</span>
+                        <span class="diff-sub">Musuh Super Pro & Terlalu Jago</span>
+                    </button>
+                </div>
+
+                <div class="help-grid">
+                    <div class="help-item">
+                        <b>⛏️ Tambang Emas</b>
+                        Rekrut Miner untuk menambang deposit emas agar ekonomi lancar.
+                    </div>
+                    <div class="help-item">
+                        <b>👑 Kendali Manual</b>
+                        Klik prajurit mana pun untuk mengendalikannya secara langsung!
+                    </div>
+                    <div class="help-item">
+                        <b>🛡️ 3 Perintah Formasi</b>
+                        Bertahan (Defend), Serang (Attack), atau Mundur (Garrison).
+                    </div>
+                    <div class="help-item">
+                        <b>📜 Kode Rahasia</b>
+                        Ketik <b>gemsnotreal</b> atau <b>upgradereal</b> kapan saja!
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button class="primary-btn" id="btn-start-game">⚔️ MULAI PERANG!</button>
+                    <button class="secondary-btn" id="btn-open-shop-start" style="background: linear-gradient(135deg, #7c3aed, #a855f7); color: #fff; border-color: #c084fc;">🏪 Toko & Peningkatan</button>
+                    <button class="secondary-btn" id="btn-open-help">❓ Petunjuk</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- CHEAT CODES MODAL -->
+        <div id="cheat-modal" class="modal-overlay hidden">
+            <div class="modal-card">
+                <h2 class="modal-title" style="font-size: 26px;">📜 KODE RAHASIA / CHEAT</h2>
+                <p class="modal-desc" style="margin-bottom: 16px;">
+                    Ketik kode rahasia atau aktifkan langsung lewat tombol di bawah:
+                </p>
+
+                <div class="cheat-input-wrap">
+                    <input type="text" id="cheat-input" class="cheat-input" placeholder="Ketik 'gemsnotreal', 'upgradereal', 'minegoldrich', 'cooldownnotspawn'..." autocomplete="off">
+                    <button class="primary-btn" id="btn-submit-cheat" style="padding: 10px 18px;">Gunakan</button>
+                </div>
+
+                <div class="cheat-list">
+                    <div class="cheat-card">
+                        <div class="cheat-card-info">
+                            <b>💎 gemsnotreal</b>
+                            <p>Tak terbatas gems (999,999 Gems) untuk beli spell dan skin sepuasnya</p>
+                        </div>
+                        <button class="cheat-toggle-btn" id="toggle-cheat-gems">AKTIFKAN</button>
+                    </div>
+
+                    <div class="cheat-card">
+                        <div class="cheat-card-info">
+                            <b>⚔️ upgradereal</b>
+                            <p>Peningkatan tak terbatas (semua 10 kategori langsung level 3 maksimal)</p>
+                        </div>
+                        <button class="cheat-toggle-btn" id="toggle-cheat-upgrade">AKTIFKAN</button>
+                    </div>
+
+                    <div class="cheat-card">
+                        <div class="cheat-card-info">
+                            <b>🪙 minegoldrich</b>
+                            <p>Emas tak terbatas (999,999G) untuk rekrut pasukan sepuasnya</p>
+                        </div>
+                        <button class="cheat-toggle-btn" id="toggle-cheat-gold">AKTIFKAN</button>
+                    </div>
+
+                    <div class="cheat-card">
+                        <div class="cheat-card-info">
+                            <b>⚡ cooldownnotspawn</b>
+                            <p>Hilangkan semua waktu cooldown saat memasang/merekrut pasukan</p>
+                        </div>
+                        <button class="cheat-toggle-btn" id="toggle-cheat-cd">AKTIFKAN</button>
+                    </div>
+
+                    <div class="cheat-card">
+                        <div class="cheat-card-info">
+                            <b>👥 nopopuation</b>
+                            <p>Populasi tak terbatas (tanpa batas maksimal 35 prajurit)</p>
+                        </div>
+                        <button class="cheat-toggle-btn" id="toggle-cheat-pop">AKTIFKAN</button>
+                    </div>
+
+                    <div class="cheat-card">
+                        <div class="cheat-card-info">
+                            <b>🔮 spellol</b>
+                            <p>Spell tak terbatas (stok selalu 99 & tanpa waktu cooldown)</p>
+                        </div>
+                        <button class="cheat-toggle-btn" id="toggle-cheat-spell">AKTIFKAN</button>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="secondary-btn" id="btn-close-cheat">Tutup</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- GAME OVER / VICTORY MODAL -->
+        <div id="game-over-modal" class="modal-overlay hidden">
+            <div class="modal-card">
+                <h2 class="modal-title" id="modal-title">🏆 KEMENANGAN!</h2>
+                <div class="modal-desc" id="modal-desc">
+                    Patung musuh berhasil dihancurkan!
+                </div>
+                <div class="modal-actions">
+                    <button class="primary-btn" id="btn-next-level">Lanjut Level Berikutnya ➔</button>
+                    <button class="secondary-btn" id="btn-restart">Main Lagi 🔄</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- HELP / TUTORIAL MODAL -->
+        <div id="help-modal" class="modal-overlay hidden">
+            <div class="modal-card" style="max-width: 620px;">
+                <h2 class="modal-title" style="font-size: 26px;">PETUNJUK BERMAIN</h2>
+                <div class="help-grid">
+                    <div class="help-item">
+                        <b>⌨️ Shortcut Pasukan</b>
+                        Tombol <b>1-6</b> untuk merekrut unit (Miner, Sword, Archer, Spearton, Mage, Giant).
+                    </div>
+                    <div class="help-item">
+                        <b>🛡️ Perintah Formasi</b>
+                        <b>D</b>: Bertahan (Defend)<br>
+                        <b>A</b>: Serang Penuh (Attack)<br>
+                        <b>R</b>: Mundur ke Benteng (Retreat)
+                    </div>
+                    <div class="help-item" style="grid-column: span 2;">
+                        <b>🔮 10 Bola Kristal Sihir (Spells)</b>
+                        <b>Q</b>: Hustle | <b>W</b>: Panah Api | <b>E</b>: Heal | <b>F</b>: Rage | <b>T</b>: Golden Spartan | <b>G</b>: Haste 4x | <b>H</b>: Badai Petir | <b>J</b>: Undead | <b>K</b>: Gold Rush | <b>U</b>: Titan Marrowkai
+                    </div>
+                    <div class="help-item">
+                        <b>💎 Mode Grafis HD</b>
+                        Tekan tombol <b>HD</b> di atas untuk grafis tajam retina display dan efek partikel atmosferik.
+                    </div>
+                    <div class="help-item">
+                        <b>⭐ Kontrol Manual (X2 DAMAGE)</b>
+                        Klik prajurit untuk mengontrolnya! Muncul <b>Bintang ⭐</b> di atas kepala dan menghasilkan <b>2X DAMAGE</b>! Di <i>Mode Gila-Gilaan</i>, musuh juga bisa mengontrol pasukannya dengan bintang!
+                    </div>
+                    <div class="help-item" style="grid-column: span 2;">
+                        <b>📜 Kode Rahasia</b>
+                        Ketik <b>minegoldrich</b>, <b>cooldownnotspawn</b>, <b>nopopuation</b>, atau <b>spellol</b> kapan saja!
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button class="primary-btn" id="btn-close-help">Mengerti, Lanjutkan!</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- LEVEL SELECTOR MODAL (LEVEL 1-100) -->
+        <div id="level-modal" class="modal-overlay hidden">
+            <div class="modal-card level-modal-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <h2 class="modal-title" style="font-size: 24px; margin: 0;">🗺️ PETA KAMPANYE (LEVEL 1-100)</h2>
+                    <button class="secondary-btn" id="btn-close-level" style="padding: 6px 14px; font-size: 13px;">✖ Tutup</button>
+                </div>
+                <p class="modal-desc" style="font-size: 13px; margin-bottom: 12px;">
+                    Pilih level pertempuran! Setiap 10 level terdapat Pasukan Bos & Titan Khusus. Musuh juga menggunakan sihir!
+                </p>
+                <div class="level-scroll-wrap">
+                    <div class="level-grid" id="level-grid-container"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOKO PENYIHIR & ARMORY MODAL -->
+        <div id="shop-modal" class="modal-overlay hidden">
+            <div class="modal-card shop-modal-card">
+                <div class="shop-header">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div class="shop-wizard-avatar">🧙‍♂️</div>
+                        <div>
+                            <h2 class="modal-title" style="font-size: 24px; margin: 0; text-align: left;">TOKO PENYIHIR & ARMORY PENINGKATAN</h2>
+                            <p style="font-size: 13px; color: #94a3b8; margin: 2px 0 0 0;">Beli stok mantra, buka skin elemen api & es, dan tingkatkan persenjataan!</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div class="shop-balance-badge gems-badge">
+                            <span>💎</span>
+                            <span id="shop-gems-balance">1250</span>
+                        </div>
+                        <div class="shop-balance-badge upgrade-pts-badge">
+                            <span>🌟</span>
+                            <span id="shop-upgrade-points">0</span> Poin
+                        </div>
+                        <button class="secondary-btn" id="btn-close-shop" style="padding: 6px 14px; font-size: 13px;">✖ Tutup</button>
+                    </div>
+                </div>
+
+                <!-- Shop Navigation Tabs -->
+                <div class="shop-tabs">
+                    <button class="shop-tab-btn active" data-tab="upgrades">⚔️ PENINGKATAN SENJATA (10 KATEGORI)</button>
+                    <button class="shop-tab-btn" data-tab="skins">🔥 SKIN ELEMEN (API & ES)</button>
+                    <button class="shop-tab-btn" data-tab="spells">🔮 PEMBELIAN SPELL (10 MANTRA)</button>
+                </div>
+
+                <!-- Tab 1: Upgrades -->
+                <div class="shop-tab-pane" id="shop-pane-upgrades">
+                    <div style="font-size: 12px; color: #cbd5e1; margin-bottom: 12px; background: rgba(30, 41, 59, 0.7); padding: 8px 14px; border-radius: 8px; border-left: 3px solid #ffd700;">
+                        💡 <b>Aturan Peningkatan:</b> Maksimal 3 tingkat per kategori. Menang 1 kali pertempuran = <b>+2 Poin Peningkatan 🌟</b> & <b>+150 Gems 💎</b> didapatkan!
+                    </div>
+                    <div class="upgrade-list" id="shop-upgrades-container"></div>
+                </div>
+
+                <!-- Tab 2: Skins (Api & Es) -->
+                <div class="shop-tab-pane hidden" id="shop-pane-skins">
+                    <div style="font-size: 12px; color: #cbd5e1; margin-bottom: 12px; background: rgba(30, 41, 59, 0.7); padding: 8px 14px; border-radius: 8px; border-left: 3px solid #ff6b00;">
+                        🔥 <b>Skin Api:</b> Efek bakar 10 kerusakan & membalas 5 kerusakan api saat menerima damage! | ❄️ <b>Skin Es:</b> Musuh MEMBEKU 3 detik saat menyerang kita & efek slow gerak -35%!
+                    </div>
+                    <div class="skins-grid" id="shop-skins-container"></div>
+                </div>
+
+                <!-- Tab 3: Spells -->
+                <div class="shop-tab-pane hidden" id="shop-pane-spells">
+                    <div style="font-size: 12px; color: #cbd5e1; margin-bottom: 12px; background: rgba(30, 41, 59, 0.7); padding: 8px 14px; border-radius: 8px; border-left: 3px solid #a855f7;">
+                        🔮 <b>Toko Mantra:</b> Beli stok ekstra untuk 10 bola kristal sihir menggunakan Permata (Gems).
+                    </div>
+                    <div class="shop-grid" id="shop-spells-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="audio.js"></script>
+    <script src="stickman.js"></script>
+    <script src="game.js"></script>
+    <script>
+        // DOM Event Hookups & UI Controller
+        window.addEventListener('DOMContentLoaded', () => {
+            const startModal = document.getElementById('start-modal');
+            const helpModal = document.getElementById('help-modal');
+            const cheatModal = document.getElementById('cheat-modal');
+            const gameOverModal = document.getElementById('game-over-modal');
+
+            // Resume audio helper on any interaction
+            const resumeAudio = () => {
+                if (window.soundCtrl) {
+                    window.soundCtrl.init();
+                    window.soundCtrl.resume();
+                }
+            };
+            window.addEventListener('click', resumeAudio);
+            window.addEventListener('keydown', resumeAudio);
+
+            // Difficulty selection buttons in start modal
+            let selectedDiff = 'medium';
+            document.querySelectorAll('.diff-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    selectedDiff = btn.dataset.diff;
+                    document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    if (window.game) window.game.difficulty = selectedDiff;
+                });
+            });
+
+            // HUD Difficulty badge click (cycle difficulty)
+            const hudDiffBadge = document.getElementById('hud-diff-badge');
+            if (hudDiffBadge) {
+                hudDiffBadge.addEventListener('click', () => {
+                    const diffCycle = { easy: 'medium', medium: 'hard', hard: 'insane', insane: 'easy' };
+                    const nextDiff = diffCycle[window.game.difficulty] || 'medium';
+                    window.game.setDifficulty(nextDiff);
+                });
+            }
+
+            // Start Game Button
+            document.getElementById('btn-start-game').addEventListener('click', () => {
+                startModal.classList.add('hidden');
+                window.game.start(1, 'campaign', selectedDiff);
+            });
+
+            // Restart Button
+            document.getElementById('btn-restart').addEventListener('click', () => {
+                gameOverModal.classList.add('hidden');
+                window.game.start(window.game.currentLevel, 'campaign');
+            });
+
+            // Next Level Button
+            document.getElementById('btn-next-level').addEventListener('click', () => {
+                gameOverModal.classList.add('hidden');
+                window.game.start(window.game.currentLevel + 1, 'campaign');
+            });
+
+            // Help Modal Open / Close
+            document.getElementById('btn-help').addEventListener('click', () => {
+                helpModal.classList.remove('hidden');
+            });
+            document.getElementById('btn-open-help').addEventListener('click', () => {
+                helpModal.classList.remove('hidden');
+            });
+            document.getElementById('btn-close-help').addEventListener('click', () => {
+                helpModal.classList.add('hidden');
+            });
+
+            // Cheat Modal Open / Close
+            const cheatBtn = document.getElementById('btn-cheat');
+            const closeCheatBtn = document.getElementById('btn-close-cheat');
+            if (cheatBtn) {
+                cheatBtn.addEventListener('click', () => {
+                    cheatModal.classList.remove('hidden');
+                    window.game.updateCheatUI();
+                    document.getElementById('cheat-input').focus();
+                });
+            }
+            if (closeCheatBtn) {
+                closeCheatBtn.addEventListener('click', () => {
+                    cheatModal.classList.add('hidden');
+                });
+            }
+
+            // Cheat Input Submit
+            const cheatInput = document.getElementById('cheat-input');
+            const submitCheatBtn = document.getElementById('btn-submit-cheat');
+            const handleCheatSubmit = () => {
+                const code = cheatInput.value.trim();
+                if (code) {
+                    window.game.applyCheat(code);
+                    cheatInput.value = '';
+                }
+            };
+            if (submitCheatBtn) submitCheatBtn.addEventListener('click', handleCheatSubmit);
+            if (cheatInput) {
+                cheatInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') handleCheatSubmit();
+                });
+            }
+
+            // Toggle Cheat buttons inside modal
+            const toggleGems = document.getElementById('toggle-cheat-gems');
+            if (toggleGems) {
+                toggleGems.addEventListener('click', () => {
+                    window.game.applyCheat('gemsnotreal');
+                });
+            }
+            const toggleUpgrade = document.getElementById('toggle-cheat-upgrade');
+            if (toggleUpgrade) {
+                toggleUpgrade.addEventListener('click', () => {
+                    window.game.applyCheat('upgradereal');
+                });
+            }
+            const toggleGold = document.getElementById('toggle-cheat-gold');
+            if (toggleGold) {
+                toggleGold.addEventListener('click', () => {
+                    window.game.applyCheat('minegoldrich');
+                });
+            }
+            const toggleCd = document.getElementById('toggle-cheat-cd');
+            if (toggleCd) {
+                toggleCd.addEventListener('click', () => {
+                    window.game.applyCheat('cooldownnotspawn');
+                });
+            }
+            const togglePop = document.getElementById('toggle-cheat-pop');
+            if (togglePop) {
+                togglePop.addEventListener('click', () => {
+                    window.game.applyCheat('nopopuation');
+                });
+            }
+            const toggleSpell = document.getElementById('toggle-cheat-spell');
+            if (toggleSpell) {
+                toggleSpell.addEventListener('click', () => {
+                    window.game.applyCheat('spellol');
+                });
+            }
+
+            // Jukebox Track Switcher Button
+            const trackBtn = document.getElementById('btn-track');
+            if (trackBtn) {
+                trackBtn.addEventListener('click', () => {
+                    if (window.soundCtrl) {
+                        const trackName = window.soundCtrl.nextTrack();
+                        trackBtn.innerText = `🎵 ${trackName}`;
+                        if (window.game) window.game.showToast(`🎶 Memutar Lagu: ${trackName}`, 'gold');
+                    }
+                });
+            }
+
+            // Shop Modal Open / Close & Tab switching
+            const btnShop = document.getElementById('btn-shop');
+            const btnOpenShopStart = document.getElementById('btn-open-shop-start');
+            const btnCloseShop = document.getElementById('btn-close-shop');
+            if (btnShop) {
+                btnShop.addEventListener('click', () => {
+                    if (window.game) window.game.openShopModal('upgrades');
+                });
+            }
+            if (btnOpenShopStart) {
+                btnOpenShopStart.addEventListener('click', () => {
+                    if (window.game) window.game.openShopModal('upgrades');
+                });
+            }
+            if (btnCloseShop) {
+                btnCloseShop.addEventListener('click', () => {
+                    if (window.game) window.game.closeShopModal();
+                });
+            }
+            document.querySelectorAll('.shop-tab-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (window.game) window.game.switchShopTab(btn.dataset.tab);
+                });
+            });
+
+            // HD Graphics Mode Toggle
+            const hdBtn = document.getElementById('btn-hd');
+            if (hdBtn) {
+                hdBtn.addEventListener('click', () => {
+                    window.game.toggleHD();
+                });
+            }
+
+            // BGM War Theme Toggle
+            const bgmBtn = document.getElementById('btn-bgm');
+            if (bgmBtn) {
+                bgmBtn.addEventListener('click', () => {
+                    if (window.soundCtrl) {
+                        const isPlaying = window.soundCtrl.toggleBGM();
+                        bgmBtn.innerText = isPlaying ? '🎵 BGM: ON' : '🔇 BGM: OFF';
+                        bgmBtn.style.color = isPlaying ? '#ffd700' : '#94a3b8';
+                    }
+                });
+            }
+
+            // Level Map Modal Toggle (Level 1-100)
+            const levelMapBtn = document.getElementById('btn-level-map');
+            const closeLevelBtn = document.getElementById('btn-close-level');
+            if (levelMapBtn) {
+                levelMapBtn.addEventListener('click', () => {
+                    if (window.game) window.game.openLevelModal();
+                });
+            }
+            if (closeLevelBtn) {
+                closeLevelBtn.addEventListener('click', () => {
+                    if (window.game) window.game.closeLevelModal();
+                });
+            }
+
+            // Crystal Ball Spell Orbs Click Handlers
+            document.querySelectorAll('.spell-orb-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const spellId = card.dataset.spell;
+                    window.game.castSpell(spellId);
+                });
+            });
+
+            // Stance Buttons
+            document.querySelectorAll('.stance-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    window.game.setStance(btn.dataset.stance);
+                });
+            });
+
+            // Unit Recruitment Cards
+            document.querySelectorAll('.unit-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    window.game.trainUnit(card.dataset.type);
+                });
+            });
+
+            // Release manual control button
+            document.getElementById('btn-release-control').addEventListener('click', () => {
+                window.game.deselectUnit();
+            });
+
+            // HUD Speed toggle
+            const speedBtn = document.getElementById('btn-speed');
+            speedBtn.addEventListener('click', () => {
+                if (window.game.gameSpeed === 1) {
+                    window.game.gameSpeed = 2;
+                    speedBtn.innerText = '⚡ 2x';
+                    speedBtn.style.color = '#ffd700';
+                } else {
+                    window.game.gameSpeed = 1;
+                    speedBtn.innerText = '⚡ 1x';
+                    speedBtn.style.color = '#f1f5f9';
+                }
+            });
+
+            // HUD Sound toggle
+            const soundBtn = document.getElementById('btn-sound');
+            soundBtn.addEventListener('click', () => {
+                if (window.soundCtrl) {
+                    const isMuted = window.soundCtrl.toggleMute();
+                    soundBtn.innerText = isMuted ? '🔇' : '🔊';
+                }
+            });
+
+            // HUD Pause toggle
+            const pauseBtn = document.getElementById('btn-pause');
+            pauseBtn.addEventListener('click', () => {
+                window.game.paused = !window.game.paused;
+                pauseBtn.innerText = window.game.paused ? '▶️' : '⏸️';
+                window.game.showToast(window.game.paused ? 'Game Dijeda' : 'Game Dilanjutkan');
+            });
+        });
+    </script>
+</body>
+</html>
