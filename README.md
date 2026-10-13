@@ -1,6 +1,7 @@
 # ⚔️ Stick War: Legacy - Perang Tongkat Legenda
 
-> 🌐 **Live Demo (Cloudflare Pages)**: [https://stickwarlegacy-3ym.pages.dev](https://stickwarlegacy-3ym.pages.dev)  
+> 🌐 **Live Demo (Cloudflare)**: [https://stickwarlegacy.zhafranramadhan.workers.dev](https://stickwarlegacy.zhafranramadhan.workers.dev)  
+> ⚡ **Mirror (Pages)**: [https://stickwarlegacy-3ym.pages.dev](https://stickwarlegacy-3ym.pages.dev)  
 > 📦 **GitHub Repository**: [https://github.com/ZhafranRMD/stickwarlegacy](https://github.com/ZhafranRMD/stickwarlegacy)
 
 ---
