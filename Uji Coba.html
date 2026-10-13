@@ -771,9 +771,74 @@ body {
     box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
 }
 
+.cheat-target-selector {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: rgba(15, 23, 42, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 8px 12px;
+    margin-bottom: 12px;
+}
+
+.cheat-target-selector .target-label {
+    font-size: 13px;
+    font-weight: 800;
+    color: #ffd700;
+    letter-spacing: 0.5px;
+}
+
+.target-btn-group {
+    display: flex;
+    gap: 6px;
+}
+
+.target-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #cbd5e1;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.target-btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+.target-btn.active {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    border-color: #ffd700;
+    color: #000;
+    box-shadow: 0 0 12px rgba(245, 158, 11, 0.6);
+    font-weight: 900;
+}
+
+.target-btn[data-target="enemy"].active {
+    background: linear-gradient(135deg, #ef4444, #991b1b);
+    border-color: #fca5a5;
+    color: #fff;
+    box-shadow: 0 0 12px rgba(239, 68, 68, 0.6);
+}
+
+.target-btn[data-target="both"].active {
+    background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+    border-color: #c4b5fd;
+    color: #fff;
+    box-shadow: 0 0 12px rgba(139, 92, 246, 0.6);
+}
+
 /* Active Cheats HUD Indicator */
 #active-cheats-hud {
     display: flex;
+    flex-wrap: wrap;
     gap: 6px;
     margin-left: 8px;
 }
@@ -811,6 +876,190 @@ body {
     box-shadow: 0 0 10px rgba(52, 211, 153, 0.6);
 }
 
+.cheat-pill.gem {
+    background: #ec4899;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(236, 72, 153, 0.6);
+}
+
+.cheat-pill.upgrade {
+    background: #f97316;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(249, 115, 22, 0.6);
+}
+
+.cheat-pill.spy {
+    background: #38bdf8;
+    color: #000;
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+}
+
+.cheat-pill.statue {
+    background: #eab308;
+    color: #000;
+    box-shadow: 0 0 10px rgba(234, 179, 8, 0.6);
+}
+
+.cheat-pill.heart {
+    background: linear-gradient(135deg, #ef4444, #be123c);
+    color: #fff;
+    box-shadow: 0 0 12px rgba(239, 68, 68, 0.7);
+}
+
+.cheat-pill.hitting {
+    background: linear-gradient(135deg, #f59e0b, #b45309);
+    color: #000;
+    box-shadow: 0 0 12px rgba(245, 158, 11, 0.7);
+}
+
+.cheat-pill.enemy-pill {
+    background: linear-gradient(135deg, #881337, #4c0519);
+    color: #fecdd3;
+    border: 1px solid rgba(244, 63, 94, 0.4);
+    box-shadow: 0 0 10px rgba(225, 29, 72, 0.6);
+}
+
+/* ================= ENEMY INTEL SPY RADAR HUD ================= */
+#enemy-spy-hud {
+    position: absolute;
+    bottom: 85px;
+    right: 250px;
+    width: 280px;
+    background: rgba(15, 23, 42, 0.95);
+    border: 2px solid rgba(56, 189, 248, 0.6);
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85), 0 0 20px rgba(56, 189, 248, 0.35);
+    backdrop-filter: blur(12px);
+    padding: 10px 14px;
+    z-index: 25;
+    color: #f8fafc;
+    font-family: inherit;
+    animation: fadeIn 0.3s ease;
+    transition: all 0.25s ease;
+}
+
+#enemy-spy-hud.collapsed {
+    padding: 6px 12px;
+    border-color: rgba(56, 189, 248, 0.45);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7), 0 0 10px rgba(56, 189, 248, 0.2);
+}
+
+#enemy-spy-hud.collapsed .spy-body {
+    display: none !important;
+}
+
+#enemy-spy-hud.collapsed .spy-header {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.spy-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(56, 189, 248, 0.3);
+    padding-bottom: 7px;
+    margin-bottom: 8px;
+}
+
+.spy-header-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.spy-toggle-collapse-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(56, 189, 248, 0.5);
+    color: #38bdf8;
+    font-size: 11px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.3);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.spy-toggle-collapse-btn:hover {
+    background: #38bdf8;
+    color: #000;
+    transform: scale(1.15);
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.8);
+}
+
+.spy-title {
+    font-size: 13px;
+    font-weight: 800;
+    color: #38bdf8;
+    letter-spacing: 0.5px;
+}
+
+.spy-badge {
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 6px;
+    text-transform: uppercase;
+}
+
+.spy-badge.defend {
+    background: rgba(59, 130, 246, 0.3);
+    color: #60a5fa;
+    border: 1px solid #3b82f6;
+}
+
+.spy-badge.attack {
+    background: rgba(239, 68, 68, 0.3);
+    color: #f87171;
+    border: 1px solid #ef4444;
+}
+
+.spy-badge.retreat {
+    background: rgba(245, 158, 11, 0.3);
+    color: #fbbf24;
+    border: 1px solid #f59e0b;
+}
+
+.spy-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.spy-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+}
+
+.spy-label {
+    color: #94a3b8;
+    font-weight: 600;
+}
+
+.spy-val {
+    color: #e2e8f0;
+    font-weight: 700;
+    text-align: right;
+}
+
+.spy-army-breakdown {
+    font-size: 10px;
+    color: #cbd5e1;
+    background: rgba(0, 0, 0, 0.45);
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px dashed rgba(56, 189, 248, 0.3);
+    line-height: 1.4;
+}
+
 /* ================= CRYSTAL BALL SPELLS DOCK ================= */
 #spells-hud {
     position: absolute;
@@ -826,6 +1075,97 @@ body {
     border: 2px solid rgba(0, 229, 255, 0.35);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 229, 255, 0.2);
     backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#spells-hud.collapsed {
+    padding: 6px 12px;
+    gap: 0;
+    border-color: rgba(255, 215, 0, 0.5);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7), 0 0 12px rgba(255, 215, 0, 0.3);
+}
+
+#spells-hud.collapsed .spell-orb-card {
+    display: none !important;
+}
+
+#spells-hud.collapsed #spell-page-control {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+#spell-page-control {
+    grid-column: span 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px 4px 6px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    margin-bottom: 2px;
+}
+
+.spell-nav-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.spell-toggle-collapse-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(15, 23, 42, 0.9);
+    border: 1.5px solid #ffd700;
+    color: #ffd700;
+    font-size: 13px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.spell-toggle-collapse-btn:hover {
+    background: #ffd700;
+    color: #000;
+    transform: scale(1.12);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+}
+
+.spell-nav-circle-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #4ade80 0%, #22c55e 50%, #15803d 100%);
+    border: 2.5px solid #000;
+    color: #000;
+    font-size: 16px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 0 12px rgba(34, 197, 94, 0.8), inset 0 2px 4px rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.spell-nav-circle-btn:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 20px rgba(74, 222, 128, 1), inset 0 2px 6px rgba(255, 255, 255, 0.9);
+}
+
+#spell-page-indicator {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #4ade80;
+    background: rgba(0, 0, 0, 0.55);
+    padding: 3px 9px;
+    border-radius: 10px;
+    border: 1px solid rgba(74, 222, 128, 0.45);
 }
 
 .spell-orb-card {
@@ -835,6 +1175,10 @@ body {
     align-items: center;
     cursor: pointer;
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.spell-orb-card.hidden-by-page {
+    display: none !important;
 }
 
 .spell-orb-card:hover:not(.disabled) {
@@ -1331,6 +1675,16 @@ body {
     background: linear-gradient(145deg, rgba(8, 47, 73, 0.8), rgba(15, 23, 42, 0.9));
 }
 
+.skin-card.bomb-theme {
+    border-color: #f59e0b;
+    background: linear-gradient(145deg, rgba(69, 26, 3, 0.8), rgba(15, 23, 42, 0.9));
+}
+
+.skin-card.vampire-theme {
+    border-color: #e11d48;
+    background: linear-gradient(145deg, rgba(76, 5, 25, 0.85), rgba(15, 23, 42, 0.9));
+}
+
 .skin-card.equipped {
     border-color: #ffd700 !important;
     box-shadow: 0 0 16px rgba(255, 215, 0, 0.4) !important;
@@ -1538,6 +1892,14 @@ body {
                     <span id="pill-cheat-spell" class="cheat-pill spell hidden">SPELL ∞</span>
                     <span id="pill-cheat-gems" class="cheat-pill gem hidden">GEMS ∞</span>
                     <span id="pill-cheat-upgrade" class="cheat-pill upgrade hidden">UPGRADE MAX</span>
+                    <span id="pill-cheat-spy" class="cheat-pill spy hidden">RADAR INTEL</span>
+                    <span id="pill-cheat-statue" class="cheat-pill statue hidden">PATUNG KEBAL</span>
+                    <span id="pill-cheat-heart" class="cheat-pill heart hidden">❤️ IMMORTAL ARMY</span>
+                    <span id="pill-cheat-hitting" class="cheat-pill hitting hidden">💀 1-HIT KILL</span>
+                    <span id="pill-enemy-heart" class="cheat-pill enemy-pill hidden">💀❤️ MUSUH IMMORTAL</span>
+                    <span id="pill-enemy-hitting" class="cheat-pill enemy-pill hidden">💀⚔️ MUSUH 1-HIT</span>
+                    <span id="pill-enemy-gold" class="cheat-pill enemy-pill hidden">💀💰 MUSUH GOLD ∞</span>
+                    <span id="pill-enemy-statue" class="cheat-pill enemy-pill hidden">💀🛡️ MUSUH KEBAL</span>
                 </div>
 
                 <div class="hud-actions">
@@ -1571,6 +1933,42 @@ body {
 
         <!-- ENEMY SPELL WARNING BANNER -->
         <div id="enemy-spell-banner" class="enemy-spell-banner hidden"></div>
+
+        <!-- ENEMY INTEL SPY RADAR (Cheat: lookinvisble) -->
+        <div id="enemy-spy-hud" class="hidden">
+            <div class="spy-header">
+                <span class="spy-title">👁️ RADAR MUSUH</span>
+                <div class="spy-header-right">
+                    <span class="spy-badge" id="spy-stance-badge">BERTAHAN</span>
+                    <button id="btn-spy-toggle" class="spy-toggle-collapse-btn" title="Sembunyikan / Tampilkan Detail Radar Musuh (Panah Atas / Bawah)">▼</button>
+                </div>
+            </div>
+            <div class="spy-body">
+                <div class="spy-row">
+                    <span class="spy-label">💰 Emas Musuh:</span>
+                    <span class="spy-val" id="spy-gold-val">500 Gold</span>
+                </div>
+                <div class="spy-row">
+                    <span class="spy-label">👕 Skin Musuh:</span>
+                    <span class="spy-val" id="spy-skin-val">Klasik 🛡️</span>
+                </div>
+                <div class="spy-row">
+                    <span class="spy-label">🪖 Pasukan Musuh:</span>
+                    <span class="spy-val" id="spy-army-val">0 Prajurit</span>
+                </div>
+                <div class="spy-army-breakdown" id="spy-army-breakdown">
+                    Tidak ada prajurit di lapangan
+                </div>
+                <div class="spy-row">
+                    <span class="spy-label">🔮 Mantra Musuh:</span>
+                    <span class="spy-val" id="spy-spell-val">Siaga Meluncurkan Mantra!</span>
+                </div>
+                <div class="spy-row">
+                    <span class="spy-label">⏳ Produksi Musuh:</span>
+                    <span class="spy-val" id="spy-train-val">Standby</span>
+                </div>
+            </div>
+        </div>
 
         <!-- TACTICAL STANCE ORDERS (Top Right) -->
         <aside id="stance-hud">
@@ -1608,6 +2006,15 @@ body {
 
         <!-- CRYSTAL BALL SPELLS DOCK (Inspired by Wizard Armory) -->
         <aside id="spells-hud">
+            <!-- PAGE NAVIGATION & HIDE/SHOW TRAY TOGGLE -->
+            <div id="spell-page-control">
+                <div class="spell-nav-left">
+                    <button id="btn-spell-page" class="spell-nav-circle-btn" title="Ganti Halaman Mantra (Tekan P)">▶</button>
+                    <span id="spell-page-indicator">HAL 1/2</span>
+                </div>
+                <button id="btn-spell-toggle" class="spell-toggle-collapse-btn" title="Sembunyikan / Tampilkan Rak Mantra (Panah Atas / Bawah / Tekan V)">▼</button>
+            </div>
+
             <!-- 1. Miner Hustle (Q) -->
             <div class="spell-orb-card" id="spell-minerHustle" data-spell="minerHustle" title="Miner Hustle: Lari cepat & hasil tambang ganda 2x (Q)">
                 <div class="orb-sphere">
@@ -1721,6 +2128,127 @@ body {
                 <div class="orb-sphere">
                     <div class="orb-glint"></div>
                     <span class="orb-icon">☠️</span>
+                    <div class="orb-cd-overlay hidden"></div>
+                </div>
+                <div class="orb-wood-base"></div>
+                <span class="orb-stock-badge">2</span>
+                <span class="orb-key-badge">U</span>
+            </div>
+
+            <!-- ===== PAGE 2 SPELLS (From Reference Photos 1 & 2) ===== -->
+            <!-- 11. Flame War Cry (Q) - Foto 1 -->
+            <div class="spell-orb-card hidden-by-page" id="spell-flameHelm" data-spell="flameHelm" title="Flame War Cry: Seluruh prajurit membara kobaran api (+12 Burn per serangan) (Q)">
+                <div class="orb-sphere">
+                    <div class="orb-glint"></div>
+                    <span class="orb-icon">🔥</span>
+                    <div class="orb-cd-overlay hidden"></div>
+                </div>
+                <div class="orb-wood-base"></div>
+                <span class="orb-stock-badge">3</span>
+                <span class="orb-key-badge">Q</span>
+            </div>
+
+            <!-- 12. Divine Aegis (W) - Foto 1 -->
+            <div class="spell-orb-card hidden-by-page" id="spell-divineShield" data-spell="divineShield" title="Divine Aegis: Perisai suci meredam 70% kerusakan musuh (15s) (W)">
+                <div class="orb-sphere">
+                    <div class="orb-glint"></div>
+                    <span class="orb-icon">🛡️</span>
+                    <div class="orb-cd-overlay hidden"></div>
+                </div>
+                <div class="orb-wood-base"></div>
+                <span class="orb-stock-badge">2</span>
+                <span class="orb-key-badge">W</span>
+            </div>
+
+            <!-- 13. Archidon Volley (E) - Foto 1 -->
+            <div class="spell-orb-card hidden-by-page" id="spell-archidonFury" data-spell="archidonFury" title="Archidon Volley: Seluruh pemanah meluncurkan 3 panah serentak (E)">
+                <div class="orb-sphere">
+                    <div class="orb-glint"></div>
+                    <span class="orb-icon">🏹</span>
+                    <div class="orb-cd-overlay hidden"></div>
+                </div>
+                <div class="orb-wood-base"></div>
+                <span class="orb-stock-badge">3</span>
+                <span class="orb-key-badge">E</span>
+            </div>
+
+            <!-- 14. Holy Mass Mend (F) - Foto 1 -->
+            <div class="spell-orb-card hidden-by-page" id="spell-massMend" data-spell="massMend" title="Holy Mass Mend: Sembuhkan instan +350 HP seluruh prajurit & patung (F)">
+                <div class="orb-sphere">
+                    <div class="orb-glint"></div>
+                    <span class="orb-icon">💚</span>
+                    <div class="orb-cd-overlay hidden"></div>
+                </div>
+                <div class="orb-wood-base"></div>
+                <span class="orb-stock-badge">3</span>
+                <span class="orb-key-badge">F</span>
+            </div>
+
+            <!-- 15. Spearton Phalanx (T) - Foto 1 -->
+            <div class="spell-orb-card hidden-by-page" id="spell-speartonPhalanx" data-spell="speartonPhalanx" title="Spearton Phalanx: Formasi dinding perisai baja kebal & pantulkan serangan (T)">
+                <div class="orb-sphere">
+                    <div class="orb-glint"></div>
+                    <span class="orb-icon">🔱</span>
+                    <div class="orb-cd-overlay hidden"></div>
+                </div>
+                <div class="orb-wood-base"></div>
+                <span class="orb-stock-badge">3</span>
+                <span class="orb-key-badge">T</span>
+            </div>
+
+            <!-- 16. Wind Sprint (G) - Foto 2 -->
+            <div class="spell-orb-card hidden-by-page" id="spell-sprintHaste" data-spell="sprintHaste" title="Wind Sprint: Seluruh prajurit bergerak secepat kilat (+90% Speed) (G)">
+                <div class="orb-sphere">
+                    <div class="orb-glint"></div>
+                    <span class="orb-icon">🌪️</span>
+                    <div class="orb-cd-overlay hidden"></div>
+                </div>
+                <div class="orb-wood-base"></div>
+                <span class="orb-stock-badge">3</span>
+                <span class="orb-key-badge">G</span>
+            </div>
+
+            <!-- 17. Toxic Mist (H) - Foto 2 -->
+            <div class="spell-orb-card hidden-by-page" id="spell-toxicCloud" data-spell="toxicCloud" title="Toxic Mist: Hembusan kabut racun hijau melumpuhkan barisan lawan (H)">
+                <div class="orb-sphere">
+                    <div class="orb-glint"></div>
+                    <span class="orb-icon">☣️</span>
+                    <div class="orb-cd-overlay hidden"></div>
+                </div>
+                <div class="orb-wood-base"></div>
+                <span class="orb-stock-badge">3</span>
+                <span class="orb-key-badge">H</span>
+            </div>
+
+            <!-- 18. Royal Champion (J) - Foto 2 -->
+            <div class="spell-orb-card hidden-by-page" id="spell-royalCrown" data-spell="royalCrown" title="Royal Champion: Panggil Panglima Spearton Bermahkota Emas 1400 HP (J)">
+                <div class="orb-sphere">
+                    <div class="orb-glint"></div>
+                    <span class="orb-icon">👑</span>
+                    <div class="orb-cd-overlay hidden"></div>
+                </div>
+                <div class="orb-wood-base"></div>
+                <span class="orb-stock-badge">2</span>
+                <span class="orb-key-badge">J</span>
+            </div>
+
+            <!-- 19. Undead Horde (K) - Foto 2 -->
+            <div class="spell-orb-card hidden-by-page" id="spell-undeadHorde" data-spell="undeadHorde" title="Undead Horde: Bangkitkan kawanan 5 tengkorak mayat hidup dari tanah (K)">
+                <div class="orb-sphere">
+                    <div class="orb-glint"></div>
+                    <span class="orb-icon">💀</span>
+                    <div class="orb-cd-overlay hidden"></div>
+                </div>
+                <div class="orb-wood-base"></div>
+                <span class="orb-stock-badge">3</span>
+                <span class="orb-key-badge">K</span>
+            </div>
+
+            <!-- 20. Golden Thunder (U) - Foto 2 -->
+            <div class="spell-orb-card hidden-by-page" id="spell-electricStorm" data-spell="electricStorm" title="Golden Thunder: 10 petir emas membakar patung & musuh bertubi-tubi (U)">
+                <div class="orb-sphere">
+                    <div class="orb-glint"></div>
+                    <span class="orb-icon">⚡</span>
                     <div class="orb-cd-overlay hidden"></div>
                 </div>
                 <div class="orb-wood-base"></div>
@@ -1852,16 +2380,42 @@ body {
         <div id="cheat-modal" class="modal-overlay hidden">
             <div class="modal-card">
                 <h2 class="modal-title" style="font-size: 26px;">📜 KODE RAHASIA / CHEAT</h2>
-                <p class="modal-desc" style="margin-bottom: 16px;">
-                    Ketik kode rahasia atau aktifkan langsung lewat tombol di bawah:
+                <p class="modal-desc" style="margin-bottom: 12px;">
+                    Ketik kode rahasia atau pilih target dan aktifkan langsung lewat tombol di bawah:
                 </p>
 
+                <!-- Target Cheat: Pemain, Musuh, atau Keduanya -->
+                <div class="cheat-target-selector">
+                    <span class="target-label">🎯 Target Kode:</span>
+                    <div class="target-btn-group">
+                        <button class="target-btn active" data-target="player" id="btn-target-player">👑 PEMAIN (KITA)</button>
+                        <button class="target-btn" data-target="enemy" id="btn-target-enemy">💀 MUSUH</button>
+                        <button class="target-btn" data-target="both" id="btn-target-both">⚔️ KEDUANYA (PEMAIN & MUSUH)</button>
+                    </div>
+                </div>
+
                 <div class="cheat-input-wrap">
-                    <input type="text" id="cheat-input" class="cheat-input" placeholder="Ketik 'gemsnotreal', 'upgradereal', 'minegoldrich', 'cooldownnotspawn'..." autocomplete="off">
+                    <input type="text" id="cheat-input" class="cheat-input" placeholder="Ketik 'heartnothave', 'hittingmebro', 'minegoldrich', 'gemsnotreal'..." autocomplete="off">
                     <button class="primary-btn" id="btn-submit-cheat" style="padding: 10px 18px;">Gunakan</button>
                 </div>
 
                 <div class="cheat-list">
+                    <div class="cheat-card" style="border-left: 4px solid #ef4444;">
+                        <div class="cheat-card-info">
+                            <b>❤️ heartnothave (1heartnothave)</b>
+                            <p>Semua pasukan tak pernah mati (Immortal Army). Darah selalu penuh & kebal terhadap serangan normal.</p>
+                        </div>
+                        <button class="cheat-toggle-btn" id="toggle-cheat-heart">AKTIFKAN</button>
+                    </div>
+
+                    <div class="cheat-card" style="border-left: 4px solid #f59e0b;">
+                        <div class="cheat-card-info">
+                            <b>💀 hittingmebro (2hittingmebro)</b>
+                            <p>Satu kali hit langsung mati (One-hit Kill). TAPI saat mengenai target yang tak pernah mati, target tetap gugur setelah 10 hit!</p>
+                        </div>
+                        <button class="cheat-toggle-btn" id="toggle-cheat-hitting">AKTIFKAN</button>
+                    </div>
+
                     <div class="cheat-card">
                         <div class="cheat-card-info">
                             <b>💎 gemsnotreal</b>
@@ -1908,6 +2462,22 @@ body {
                             <p>Spell tak terbatas (stok selalu 99 & tanpa waktu cooldown)</p>
                         </div>
                         <button class="cheat-toggle-btn" id="toggle-cheat-spell">AKTIFKAN</button>
+                    </div>
+
+                    <div class="cheat-card">
+                        <div class="cheat-card-info">
+                            <b>👁️ lookinvisble (1lookinvisble)</b>
+                            <p>Radar Intelijen Musuh: melihat progress emas musuh, stance, pasukan, dan mantra yang dipakai</p>
+                        </div>
+                        <button class="cheat-toggle-btn" id="toggle-cheat-spy">AKTIFKAN</button>
+                    </div>
+
+                    <div class="cheat-card">
+                        <div class="cheat-card-info">
+                            <b>🛡️ mymart (2mymart)</b>
+                            <p>Patung kebal abadi: patung kerajaan pemain tak pernah hancur & kebal dari seluruh serangan musuh</p>
+                        </div>
+                        <button class="cheat-toggle-btn" id="toggle-cheat-statue">AKTIFKAN</button>
                     </div>
                 </div>
 
@@ -2397,6 +2967,48 @@ class SoundController {
         });
     }
 
+    playBombExplosion() {
+        // High impact explosive bomb detonation
+        if (this.muted || !this.ctx) return;
+        this.playNoise(0.45, 0.6, 1200);
+        this.playTone(65, 'sawtooth', 0.5, 0.45, true);
+        this.playTone(40, 'triangle', 0.6, 0.5, false);
+    }
+
+    playVampireBite() {
+        // Sinister dark vampire slash & life siphon
+        if (this.muted || !this.ctx) return;
+        this.playTone(320, 'sawtooth', 0.15, 0.28, true);
+        this.playTone(160, 'square', 0.2, 0.22, true);
+        this.playNoise(0.12, 0.25, 4500);
+    }
+
+    playMinionSummon() {
+        // Bone rattle & dark minion rise
+        if (this.muted || !this.ctx) return;
+        this.playTone(420, 'sine', 0.12, 0.22, false);
+        this.playTone(680, 'triangle', 0.14, 0.25, false);
+        this.playNoise(0.15, 0.28, 3800);
+    }
+
+    playDivineShield() {
+        // Resonant celestial aegis barrier
+        if (this.muted || !this.ctx) return;
+        const notes = [440, 554.37, 659.25, 880];
+        notes.forEach((freq, idx) => {
+            setTimeout(() => {
+                this.playTone(freq, 'sine', 0.35, 0.18, false);
+            }, idx * 45);
+        });
+    }
+
+    playToxicPoison() {
+        // Bubbling noxious toxic cloud hiss
+        if (this.muted || !this.ctx) return;
+        this.playNoise(0.35, 0.35, 1800);
+        this.playTone(190, 'sine', 0.25, 0.15, true);
+    }
+
     playBrassNote(freq, duration = 0.28, gainVal = 0.12) {
         if (this.muted || !this.musicEnabled || !this.ctx) return;
         const now = this.ctx.currentTime;
@@ -2745,6 +3357,14 @@ class StickmanRenderer {
             bodyColor = '#082f49';
             teamColor = isPlayer ? '#00f0ff' : '#38bdf8';
             skinGlow = '#38bdf8';
+        } else if (skin === 'bomb') {
+            bodyColor = '#1c1917';
+            teamColor = isPlayer ? '#f59e0b' : '#ea580c';
+            skinGlow = '#f59e0b';
+        } else if (skin === 'vampire') {
+            bodyColor = '#1c0f16';
+            teamColor = isPlayer ? '#f43f5e' : '#be123c';
+            skinGlow = '#e11d48';
         } else if (isZombie) {
             bodyColor = '#273822';
             teamColor = '#ef4444';
@@ -2790,6 +3410,30 @@ class StickmanRenderer {
             ctx.restore();
         }
 
+        // Draw Bomb Skin Aura
+        if (skin === 'bomb') {
+            ctx.save();
+            ctx.beginPath();
+            ctx.ellipse(0, 0, 22, 6, 0, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(245, 158, 11, 0.45)';
+            ctx.shadowColor = '#f59e0b';
+            ctx.shadowBlur = 14;
+            ctx.fill();
+            ctx.restore();
+        }
+
+        // Draw Vampire Skin Aura
+        if (skin === 'vampire') {
+            ctx.save();
+            ctx.beginPath();
+            ctx.ellipse(0, 0, 22, 6, 0, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(225, 29, 72, 0.45)';
+            ctx.shadowColor = '#e11d48';
+            ctx.shadowBlur = 14;
+            ctx.fill();
+            ctx.restore();
+        }
+
         // Draw Zombie Swamp Rot Aura
         if (isZombie) {
             ctx.save();
@@ -2829,7 +3473,7 @@ class StickmanRenderer {
             ctx.restore();
         }
 
-        // Procedural joint positions
+        // Procedural joint positions & HD Real Animation
         const cycle = unit.animProgress;
         const isWalking = unit.state === 'walk';
         const isAttacking = unit.state === 'attack';
@@ -2837,11 +3481,31 @@ class StickmanRenderer {
         const isBlocking = unit.state === 'block';
         const isHurt = unit.hurtTimer > 0;
         const isDead = unit.state === 'dead';
+        const isIdle = !isWalking && !isAttacking && !isMining && !isBlocking && !isHurt && !isDead;
+
+        // HD Real Animation: Dynamic Realistic Radial Ground Shadow
+        if (window.game && window.game.isHD && !isDead) {
+            ctx.save();
+            const shadowBounce = isWalking ? (1.0 + Math.sin(cycle * Math.PI * 4) * 0.14) : (1.0 + Math.sin((time || 0) * 2.5) * 0.05);
+            const sGrad = ctx.createRadialGradient(0, 0, 2, 0, 0, 20 * shadowBounce);
+            sGrad.addColorStop(0, 'rgba(0, 0, 0, 0.42)');
+            sGrad.addColorStop(0.55, 'rgba(0, 0, 0, 0.18)');
+            sGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+            ctx.fillStyle = sGrad;
+            ctx.beginPath();
+            ctx.ellipse(0, 0, 22 * shadowBounce, 6.5 * shadowBounce, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+        }
+
+        // HD Real Animation: Natural Breathing Bobbing & Secondary Physics
+        const breathBob = (window.game && window.game.isHD && isIdle) ? Math.sin((time || 0) * 2.8 + (unit.x % 90) * 0.1) * 1.5 : 0;
+        const walkBob = (window.game && window.game.isHD && isWalking) ? Math.abs(Math.sin(cycle * Math.PI * 2)) * 2.0 : 0;
 
         // Calculate dynamic limb angles
         let legSwing = isWalking ? Math.sin(cycle * Math.PI * 2) * 0.6 : 0;
         let spineTilt = isWalking ? 0.15 : (isBlocking ? -0.1 : 0);
-        let headTilt = 0;
+        let headTilt = isWalking ? Math.sin(cycle * Math.PI * 2) * 0.08 : 0;
 
         if (isAttacking) {
             spineTilt = 0.25;
@@ -2857,10 +3521,10 @@ class StickmanRenderer {
             return;
         }
 
-        // Baseline offsets
-        const hipY = -35;
-        const neckY = -68;
-        const headY = -82;
+        // Baseline offsets (responsive to natural breathing)
+        const hipY = -35 + breathBob * 0.4 - walkBob * 0.5;
+        const neckY = -68 + breathBob - walkBob;
+        const headY = -82 + breathBob * 1.2 - walkBob;
         const headR = 10;
 
         // Limbs calculation
@@ -2921,9 +3585,20 @@ class StickmanRenderer {
             this.drawGiantFeatures(ctx, hX, hY);
         } else if (unit.type === 'undead') {
             this.drawUndeadSkull(ctx, hX, hY);
+        } else if (unit.type === 'minion') {
+            this.drawMinionSkullMask(ctx, hX, hY);
         } else if (unit.type === 'marrowkai') {
             this.drawMarrowkaiHorns(ctx, hX, hY);
             this.drawMarrowkaiWings(ctx, neckX, neckY);
+        }
+
+        // Skin specific accessories
+        if (skin === 'bomb') {
+            this.drawBombFuse(ctx, hX, hY);
+            this.drawBombBelt(ctx, neckX, neckY, hipY);
+        } else if (skin === 'vampire') {
+            this.drawVampireCape(ctx, neckX, neckY, hipY, isWalking, cycle);
+            this.drawVampireFangs(ctx, hX, hY);
         }
 
         // Arms & Weapons
@@ -3207,10 +3882,168 @@ class StickmanRenderer {
             this.drawGiantClub(ctx, shoulderX, shoulderY, unit, isAttacking, progress);
         } else if (type === 'undead') {
             this.drawUndeadClaws(ctx, shoulderX, shoulderY, unit, isAttacking, progress);
+        } else if (type === 'minion') {
+            this.drawMinionBoneDagger(ctx, shoulderX, shoulderY, unit, isAttacking, progress);
         } else if (type === 'marrowkai') {
             this.drawMarrowkaiScythe(ctx, shoulderX, shoulderY, unit, isAttacking, progress);
         }
 
+        ctx.restore();
+    }
+
+    static drawMinionSkullMask(ctx, hX, hY) {
+        ctx.save();
+        // White curved bone skull mask covering face with crest horn
+        ctx.beginPath();
+        ctx.moveTo(hX - 6, hY - 6);
+        ctx.quadraticCurveTo(hX - 11, hY - 14, hX - 2, hY - 17); // horn crest pointing back
+        ctx.quadraticCurveTo(hX + 6, hY - 12, hX + 9, hY - 2);
+        ctx.lineTo(hX + 6, hY + 8);
+        ctx.lineTo(hX - 2, hY + 7);
+        ctx.lineTo(hX - 6, hY);
+        ctx.closePath();
+        ctx.fillStyle = '#f8fafc';
+        ctx.fill();
+        ctx.lineWidth = 1.5;
+        ctx.strokeStyle = '#475569';
+        ctx.stroke();
+
+        // Dark hollow eye socket
+        ctx.beginPath();
+        ctx.ellipse(hX + 3, hY - 1, 3.5, 2.5, 0.2, 0, Math.PI * 2);
+        ctx.fillStyle = '#0f172a';
+        ctx.fill();
+
+        // Jagged teeth lines on jaw
+        ctx.strokeStyle = '#334155';
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        ctx.moveTo(hX + 1, hY + 4);
+        ctx.lineTo(hX + 5, hY + 4);
+        ctx.moveTo(hX + 2, hY + 2);
+        ctx.lineTo(hX + 2, hY + 6);
+        ctx.moveTo(hX + 4, hY + 2);
+        ctx.lineTo(hX + 4, hY + 6);
+        ctx.stroke();
+
+        ctx.restore();
+    }
+
+    static drawMinionBoneDagger(ctx, sx, sy, unit, isAttacking, progress) {
+        let armAngle = 0.6;
+        if (isAttacking) {
+            armAngle = -0.7 + Math.sin(progress * Math.PI) * 1.9;
+        }
+
+        const handX = sx + Math.cos(armAngle) * 16;
+        const handY = sy + Math.sin(armAngle) * 16;
+
+        ctx.beginPath();
+        ctx.moveTo(sx, sy);
+        ctx.lineTo(handX, handY);
+        ctx.stroke();
+
+        ctx.save();
+        ctx.translate(handX, handY);
+        ctx.rotate(armAngle + 0.3);
+
+        // Handle
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(8, -2);
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = '#78350f';
+        ctx.stroke();
+
+        // Jagged bone dagger blade (from reference photo 3)
+        ctx.beginPath();
+        ctx.moveTo(8, -2);
+        ctx.lineTo(14, -6);
+        ctx.lineTo(18, -3);
+        ctx.lineTo(26, -10); // sharp point
+        ctx.lineTo(21, 1);
+        ctx.lineTo(13, 1);
+        ctx.closePath();
+        ctx.fillStyle = '#e2e8f0';
+        ctx.fill();
+        ctx.lineWidth = 1.2;
+        ctx.strokeStyle = '#94a3b8';
+        ctx.stroke();
+
+        ctx.restore();
+    }
+
+    static drawBombFuse(ctx, hX, hY) {
+        ctx.save();
+        // Burning fuse from head
+        ctx.beginPath();
+        ctx.moveTo(hX, hY - 10);
+        ctx.quadraticCurveTo(hX + 4, hY - 16, hX + 2, hY - 20);
+        ctx.strokeStyle = '#78350f';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Spark at fuse tip
+        const sparkTime = Date.now() * 0.01;
+        const sSize = 3 + Math.sin(sparkTime) * 1.5;
+        ctx.beginPath();
+        ctx.arc(hX + 2, hY - 20, sSize, 0, Math.PI * 2);
+        ctx.fillStyle = '#f59e0b';
+        ctx.shadowColor = '#ef4444';
+        ctx.shadowBlur = 8;
+        ctx.fill();
+        ctx.restore();
+    }
+
+    static drawBombBelt(ctx, nX, nY, hipY) {
+        ctx.save();
+        const midY = (nY + hipY) * 0.5;
+        // Belt strap
+        ctx.beginPath();
+        ctx.moveTo(-6, midY - 2);
+        ctx.lineTo(6, midY + 4);
+        ctx.strokeStyle = '#451a03';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        // 3 Red dynamite sticks
+        ctx.fillStyle = '#dc2626';
+        ctx.fillRect(-5, midY - 6, 3, 10);
+        ctx.fillRect(-1, midY - 5, 3, 10);
+        ctx.fillRect(3, midY - 4, 3, 10);
+        ctx.restore();
+    }
+
+    static drawVampireCape(ctx, neckX, neckY, hipY, isWalking, cycle) {
+        ctx.save();
+        const flutter = isWalking ? Math.sin(cycle * Math.PI * 2) * 9 : Math.sin(Date.now() * 0.006) * 4;
+        ctx.beginPath();
+        ctx.moveTo(neckX - 3, neckY + 2);
+        ctx.quadraticCurveTo(-14 - flutter, hipY + 8, -26 - flutter, hipY + 28);
+        ctx.lineTo(-12 - flutter, hipY + 25);
+        ctx.lineTo(0, hipY);
+        ctx.fillStyle = 'rgba(159, 18, 57, 0.85)'; // Crimson vampire cape
+        ctx.fill();
+        ctx.restore();
+    }
+
+    static drawVampireFangs(ctx, hX, hY) {
+        ctx.save();
+        // Red glowing vampire eyes
+        ctx.beginPath();
+        ctx.arc(hX + 4, hY - 2, 2, 0, Math.PI * 2);
+        ctx.fillStyle = '#ff0033';
+        ctx.shadowColor = '#ff0033';
+        ctx.shadowBlur = 6;
+        ctx.fill();
+
+        // White fangs
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.moveTo(hX + 2, hY + 4);
+        ctx.lineTo(hX + 4, hY + 4);
+        ctx.lineTo(hX + 3, hY + 7);
+        ctx.fill();
         ctx.restore();
     }
 
@@ -3436,6 +4269,16 @@ class StickmanRenderer {
         ctx.lineWidth = 2.5;
         ctx.strokeStyle = '#cbd5e0';
         ctx.stroke();
+
+        // HD Specular Weapon Blade Sheen Glint
+        if (window.game && window.game.isHD) {
+            ctx.beginPath();
+            ctx.arc(0, -22, 1.8, 0, Math.PI * 2);
+            ctx.fillStyle = '#ffffff';
+            ctx.shadowColor = '#ffffff';
+            ctx.shadowBlur = 6;
+            ctx.fill();
+        }
         ctx.restore();
     }
 
@@ -3611,6 +4454,16 @@ class StickmanRenderer {
         ctx.lineWidth = 1;
         ctx.strokeStyle = '#a0aec0';
         ctx.stroke();
+
+        // HD Specular Spearhead Glint
+        if (window.game && window.game.isHD) {
+            ctx.beginPath();
+            ctx.arc(58, 0, 1.8, 0, Math.PI * 2);
+            ctx.fillStyle = '#ffffff';
+            ctx.shadowColor = '#ffffff';
+            ctx.shadowBlur = 6;
+            ctx.fill();
+        }
 
         ctx.restore();
     }
@@ -3906,12 +4759,12 @@ class StickWarGame {
         this.canvas = document.getElementById('gameCanvas');
         this.ctx = this.canvas.getContext('2d');
 
-        // Dimensions & World
-        this.worldWidth = 3200;
+        // Dimensions & World (Perluas wilayah 50 meter jauh dari patung kita dan musuh: 5000px)
+        this.worldWidth = 5000;
         this.worldHeight = 650;
         this.groundY = 490;
-        this.cameraX = 0;
-        this.targetCameraX = 0;
+        this.cameraX = 500;
+        this.targetCameraX = 500;
 
         // Game State
         this.running = false;
@@ -3929,9 +4782,9 @@ class StickWarGame {
 
         // Ambient HD Atmospheric Dust / Embers
         this.ambientParticles = [];
-        for (let i = 0; i < 40; i++) {
+        for (let i = 0; i < 60; i++) {
             this.ambientParticles.push({
-                x: Math.random() * 3200,
+                x: Math.random() * 5000,
                 y: Math.random() * 480,
                 radius: 1 + Math.random() * 2.5,
                 speedX: 0.15 + Math.random() * 0.45,
@@ -3940,8 +4793,9 @@ class StickWarGame {
             });
         }
 
-        // 10 Crystal Ball Spells System (Crafted from Wizard Shop in reference photos)
+        // 20 Crystal Ball Spells System (Crafted from Wizard Shop in reference photos)
         this.spells = {
+            // --- Halaman 1 ---
             minerHustle: {
                 id: 'minerHustle',
                 name: 'Miner Hustle',
@@ -4047,8 +4901,122 @@ class StickWarGame {
                 maxStock: 2,
                 cooldown: 0,
                 maxCooldown: 35
+            },
+            // --- Halaman 2 (10 Spell Baru dari Foto 1 & Foto 2) ---
+            flameHelm: {
+                id: 'flameHelm',
+                name: 'Flame War Cry',
+                icon: '🪖',
+                key: 'Q',
+                stock: 3,
+                maxStock: 3,
+                cooldown: 0,
+                maxCooldown: 25,
+                activeTimer: 0,
+                duration: 18
+            },
+            divineShield: {
+                id: 'divineShield',
+                name: 'Divine Aegis',
+                icon: '🛡️',
+                key: 'W',
+                stock: 3,
+                maxStock: 3,
+                cooldown: 0,
+                maxCooldown: 28,
+                activeTimer: 0,
+                duration: 14
+            },
+            archidonFury: {
+                id: 'archidonFury',
+                name: 'Archidon Volley',
+                icon: '🏹',
+                key: 'E',
+                stock: 3,
+                maxStock: 3,
+                cooldown: 0,
+                maxCooldown: 24,
+                activeTimer: 0,
+                duration: 16
+            },
+            massMend: {
+                id: 'massMend',
+                name: 'Mass Holy Mend',
+                icon: '✨',
+                key: 'F',
+                stock: 3,
+                maxStock: 3,
+                cooldown: 0,
+                maxCooldown: 22
+            },
+            speartonPhalanx: {
+                id: 'speartonPhalanx',
+                name: 'Spearton Phalanx',
+                icon: '🔱',
+                key: 'T',
+                stock: 3,
+                maxStock: 3,
+                cooldown: 0,
+                maxCooldown: 28,
+                activeTimer: 0,
+                duration: 15
+            },
+            sprintHaste: {
+                id: 'sprintHaste',
+                name: 'Wind Sprint',
+                icon: '🏃',
+                key: 'G',
+                stock: 3,
+                maxStock: 3,
+                cooldown: 0,
+                maxCooldown: 20,
+                activeTimer: 0,
+                duration: 16
+            },
+            toxicCloud: {
+                id: 'toxicCloud',
+                name: 'Toxic Mist',
+                icon: '☣️',
+                key: 'H',
+                stock: 3,
+                maxStock: 3,
+                cooldown: 0,
+                maxCooldown: 26,
+                activeTimer: 0,
+                duration: 12
+            },
+            royalCrown: {
+                id: 'royalCrown',
+                name: 'Royal King Crown',
+                icon: '👑',
+                key: 'J',
+                stock: 2,
+                maxStock: 2,
+                cooldown: 0,
+                maxCooldown: 32
+            },
+            undeadHorde: {
+                id: 'undeadHorde',
+                name: 'Undead Horde',
+                icon: '💀',
+                key: 'K',
+                stock: 2,
+                maxStock: 2,
+                cooldown: 0,
+                maxCooldown: 30
+            },
+            electricStorm: {
+                id: 'electricStorm',
+                name: 'Golden Thunder',
+                icon: '⚡',
+                key: 'U',
+                stock: 3,
+                maxStock: 3,
+                cooldown: 0,
+                maxCooldown: 25
             }
         };
+        this.spellPage = 1; // 1 or 2 (switched via green arrow button)
 
         // Level Progression System (Level 1 to 100)
         this.maxLevel = 100;
@@ -4073,7 +5041,9 @@ class StickWarGame {
         this.skins = {
             classic: true,
             fire: false,
-            ice: false
+            ice: false,
+            bomb: false,
+            vampire: false
         };
         this.equippedSkin = 'classic';
 
@@ -4085,9 +5055,9 @@ class StickWarGame {
         this.isNight = false;
         this.isZombieMode = false;
         this.nightStars = [];
-        for (let i = 0; i < 80; i++) {
+        for (let i = 0; i < 120; i++) {
             this.nightStars.push({
-                x: Math.random() * 3200,
+                x: Math.random() * 5000,
                 y: Math.random() * 350,
                 radius: 0.8 + Math.random() * 1.8,
                 alpha: 0.3 + Math.random() * 0.7,
@@ -4102,8 +5072,23 @@ class StickWarGame {
             noPopulation: false,
             infiniteSpells: false,
             infiniteGems: false,
-            maxUpgrades: false
+            maxUpgrades: false,
+            spyInvisible: false,
+            statueInvulnerable: false,
+            heartNotHave: false,
+            hittingMeBro: false
         };
+        this.enemyCheats = {
+            infiniteGold: false,
+            noCooldown: false,
+            noPopulation: false,
+            infiniteSpells: false,
+            statueInvulnerable: false,
+            heartNotHave: false,
+            hittingMeBro: false
+        };
+        this.cheatTarget = 'player'; // 'player', 'enemy', 'both'
+        this.enemyCastleSkin = 'classic';
         this.keyBuffer = '';
 
         // Load Persistent Progress
@@ -4120,9 +5105,9 @@ class StickWarGame {
         this.enemyStance = 'defend';
         this.enemyAiTimer = 0;
 
-        // Bases / Statues
+        // Bases / Statues (Diperluas wilayah 50 meter di belakang patung pemain dan patung musuh)
         this.playerStatue = {
-            x: 250,
+            x: 1000,
             y: this.groundY,
             hp: 1200,
             maxHp: 1200,
@@ -4132,7 +5117,7 @@ class StickWarGame {
         };
 
         this.enemyStatue = {
-            x: 2950,
+            x: 4000,
             y: this.groundY,
             hp: 1200,
             maxHp: 1200,
@@ -4148,12 +5133,14 @@ class StickWarGame {
         this.floatingTexts = [];
         this.stuckArrows = [];
 
-        // Gold Mines
+        // Gold Mines (Minimal 6 tambang emas dengan kapasitas masing-masing minimal 6 penambang)
         this.goldMines = [
-            { x: 550, y: this.groundY, goldLeft: 9999, capacity: 3, miners: [] },
-            { x: 1100, y: this.groundY, goldLeft: 9999, capacity: 4, miners: [] },
-            { x: 2100, y: this.groundY, goldLeft: 9999, capacity: 4, miners: [] },
-            { x: 2650, y: this.groundY, goldLeft: 9999, capacity: 3, miners: [] }
+            { x: 1300, y: this.groundY, goldLeft: 9999, capacity: 6, miners: [] },
+            { x: 1750, y: this.groundY, goldLeft: 9999, capacity: 6, miners: [] },
+            { x: 2200, y: this.groundY, goldLeft: 9999, capacity: 6, miners: [] },
+            { x: 2800, y: this.groundY, goldLeft: 9999, capacity: 6, miners: [] },
+            { x: 3250, y: this.groundY, goldLeft: 9999, capacity: 6, miners: [] },
+            { x: 3700, y: this.groundY, goldLeft: 9999, capacity: 6, miners: [] }
         ];
 
         // Unit Spawning Definitions & Cooldowns
@@ -4245,6 +5232,17 @@ class StickWarGame {
                 attackCooldown: 1.5,
                 range: 85,
                 cooldownTime: 15.0
+            },
+            minion: {
+                name: 'Minion Magikill',
+                cost: 0,
+                hp: 130,
+                speed: 3.5,
+                scale: 0.9,
+                attackDmg: 22,
+                attackCooldown: 0.7,
+                range: 36,
+                cooldownTime: 0
             }
         };
 
@@ -4256,18 +5254,21 @@ class StickWarGame {
             magikill: 0,
             giant: 0,
             undead: 0,
-            marrowkai: 0
+            marrowkai: 0,
+            minion: 0
         };
 
         // Screen Shake
         this.shakeTime = 0;
         this.shakeIntensity = 0;
 
-        // Castle Wall Archers
+        // Castle Wall Archers (diawali 0 pemanah, bertambah saat mundur 2 pasukan)
         this.castleArchers = {
-            player: { x: 120, y: this.groundY - 140, timer: 0 },
-            enemy: { x: 3080, y: this.groundY - 140, timer: 0 }
+            player: { x: 120, y: this.groundY - 140, timer: 0, count: 0 },
+            enemy: { x: 3080, y: this.groundY - 140, timer: 0, count: 0 }
         };
+        this.playerGarrisonCount = 0;
+        this.enemyGarrisonCount = 0;
 
         // Input state
         this.keys = {};
@@ -4396,6 +5397,25 @@ class StickWarGame {
         this.enemyStance = 'defend';
         this.controlledUnit = null;
 
+        // Castle skin assignment
+        if (this.difficulty === 'insane') {
+            const insaneSkins = ['fire', 'ice', 'bomb', 'vampire'];
+            this.enemyCastleSkin = insaneSkins[Math.floor(Math.random() * insaneSkins.length)];
+        } else {
+            this.enemyCastleSkin = 'classic';
+        }
+
+        // Reset Castle Wall Archers: diawali 0 pemanah di menara!
+        this.castleArchers = {
+            player: { x: 750, y: this.groundY - 140, timer: 0, count: 0 },
+            enemy: { x: 4250, y: this.groundY - 140, timer: 0, count: 0 }
+        };
+        this.playerGarrisonCount = 0;
+        this.enemyGarrisonCount = 0;
+        this.garrisonedUnits = { player: [], enemy: [] };
+        this.spellTrayCollapsed = false;
+        this.enemySpyCollapsed = false;
+
         this.playerStatue.hp = this.playerStatue.maxHp;
         this.enemyStatue.hp = this.enemyStatue.maxHp;
 
@@ -4405,24 +5425,23 @@ class StickWarGame {
         this.floatingTexts = [];
         this.stuckArrows = [];
 
-        // Spawn initial miners
-        this.spawnUnit('miner', 'player', 280);
-        this.spawnUnit('miner', 'player', 300);
-
-        this.spawnUnit('miner', 'enemy', 2900);
-        this.spawnUnit('miner', 'enemy', 2880);
-        if (this.currentLevel >= 30) {
-            this.spawnUnit('miner', 'enemy', 2860);
+        // Spawn initial miners: MINIMAL 5-6 PENAMBANG UNTUK KITA DAN MUSUH!
+        const initialMiners = 5;
+        for (let i = 0; i < initialMiners; i++) {
+            this.spawnUnit('miner', 'player', 1040 + i * 25);
+            this.spawnUnit('miner', 'enemy', 3960 - i * 25);
         }
-        if (this.currentLevel >= 70) {
-            this.spawnUnit('miner', 'enemy', 2840);
+        if (this.difficulty === 'insane') {
+            // Mode gila-gilaan: 6 penambang penuh sejak detik pertama
+            this.spawnUnit('miner', 'player', 1040 + initialMiners * 25);
+            this.spawnUnit('miner', 'enemy', 3960 - initialMiners * 25);
         }
 
         // Enemy initial army dynamically crafted for Levels 1 to 100
         this.setupLevel(this.currentLevel);
 
-        this.cameraX = 0;
-        this.targetCameraX = 0;
+        this.cameraX = 500;
+        this.targetCameraX = 500;
 
         // Update UI
         this.updateUI();
@@ -4447,7 +5466,20 @@ class StickWarGame {
 
     setupLevel(level) {
         const isHard = this.difficulty === 'hard';
+        const originalSpawn = this.spawnUnit.bind(this);
+        const prevSpawn = this.spawnUnit;
+        this.spawnUnit = (type, team, x) => {
+            const adjustedX = (team === 'enemy' && x < 3500) ? (x + 1050) : x;
+            return originalSpawn(type, team, adjustedX);
+        };
+        try {
+            this._setupLevelInternal(level, isHard);
+        } finally {
+            this.spawnUnit = prevSpawn;
+        }
+    }
 
+    _setupLevelInternal(level, isHard) {
         // Level 100: FINAL APOCALYPTIC BATTLE OF INAMORTA
         if (level === 100) {
             const titan = this.spawnUnit('marrowkai', 'enemy', 2850);
@@ -4591,20 +5623,43 @@ class StickWarGame {
                 } else if (this.keyBuffer.endsWith('upgradereal')) {
                     this.applyCheat('upgradereal');
                     this.keyBuffer = '';
+                } else if (this.keyBuffer.endsWith('lookinvisble') || this.keyBuffer.endsWith('lookinvisible') || this.keyBuffer.endsWith('1lookinvisble') || this.keyBuffer.endsWith('1lookinvisible')) {
+                    this.applyCheat('lookinvisble');
+                    this.keyBuffer = '';
+                } else if (this.keyBuffer.endsWith('mymart') || this.keyBuffer.endsWith('2mymart')) {
+                    this.applyCheat('mymart');
+                    this.keyBuffer = '';
+                } else if (this.keyBuffer.endsWith('heartnothave') || this.keyBuffer.endsWith('1heartnothave')) {
+                    this.applyCheat('heartnothave');
+                    this.keyBuffer = '';
+                } else if (this.keyBuffer.endsWith('hittingmebro') || this.keyBuffer.endsWith('2hittingmebro') || this.keyBuffer.endsWith('2.hittingmebro')) {
+                    this.applyCheat('hittingmebro');
+                    this.keyBuffer = '';
+                } else if (this.keyBuffer.endsWith('enemyheartnothave')) {
+                    this.applyCheat('enemyheartnothave');
+                    this.keyBuffer = '';
+                } else if (this.keyBuffer.endsWith('enemyhittingmebro')) {
+                    this.applyCheat('enemyhittingmebro');
+                    this.keyBuffer = '';
+                } else if (this.keyBuffer.endsWith('enemymart')) {
+                    this.applyCheat('enemymart');
+                    this.keyBuffer = '';
+                } else if (this.keyBuffer.endsWith('enemygold')) {
+                    this.applyCheat('enemygold');
+                    this.keyBuffer = '';
                 }
             }
 
-            // Crystal Ball Spell Shortcuts (10 Spells: Q, W, E, F, T, G, H, J, K, U)
-            if (e.code === 'KeyQ') this.castSpell('minerHustle');
-            if (e.code === 'KeyW') this.castSpell('arrowRain');
-            if (e.code === 'KeyE') this.castSpell('healWave');
-            if (e.code === 'KeyF') this.castSpell('swordRage');
-            if (e.code === 'KeyT') this.castSpell('goldenSpearton');
-            if (e.code === 'KeyG') this.castSpell('trainingHaste');
-            if (e.code === 'KeyH') this.castSpell('lightningStorm');
-            if (e.code === 'KeyJ') this.castSpell('summonDead');
-            if (e.code === 'KeyK') this.castSpell('goldRush');
-            if (e.code === 'KeyU') this.castSpell('summonMarrowkai');
+            // Crystal Ball Spell Shortcuts (Disesuaikan menurut Halaman Mantra 1 atau 2)
+            const p1Keys = { KeyQ: 'minerHustle', KeyW: 'arrowRain', KeyE: 'healWave', KeyF: 'swordRage', KeyT: 'goldenSpearton', KeyG: 'trainingHaste', KeyH: 'lightningStorm', KeyJ: 'summonDead', KeyK: 'goldRush', KeyU: 'summonMarrowkai' };
+            const p2Keys = { KeyQ: 'flameHelm', KeyW: 'divineShield', KeyE: 'archidonFury', KeyF: 'massMend', KeyT: 'speartonPhalanx', KeyG: 'sprintHaste', KeyH: 'toxicCloud', KeyJ: 'royalCrown', KeyK: 'undeadHorde', KeyU: 'electricStorm' };
+            const activeSpellMap = this.spellPage === 1 ? p1Keys : p2Keys;
+            if (activeSpellMap[e.code]) {
+                this.castSpell(activeSpellMap[e.code]);
+            }
+            if (e.code === 'KeyP') {
+                this.toggleSpellPage();
+            }
 
             // Direct Unit Ability hotkeys
             if (e.code === 'KeyD' && !this.controlledUnit) {
@@ -4613,6 +5668,10 @@ class StickWarGame {
                 this.setStance('attack');
             } else if (e.code === 'KeyR' && !this.controlledUnit) {
                 this.setStance('retreat');
+            } else if (e.code === 'KeyV' && !this.controlledUnit) {
+                this.toggleSpellTray();
+            } else if (e.code === 'KeyB' && !this.controlledUnit) {
+                this.toggleEnemySpyHUD();
             }
 
             // Quick spawn shortcuts 1-6
@@ -4744,9 +5803,14 @@ class StickWarGame {
             this.controlledUnit.isControlled = false;
             this.controlledUnit.isManualBlock = false;
             this.controlledUnit = null;
-            this.updateControlUI();
-            this.showToast('Mode Komandan (Auto)');
         }
+        for (const u of this.units) {
+            if (u.team === 'player' && u.isControlled) {
+                u.isControlled = false;
+                u.isManualBlock = false;
+            }
+        }
+        this.updateControlUI();
     }
 
     triggerControlledAction() {
@@ -4763,6 +5827,18 @@ class StickWarGame {
             if (u.attackTimer <= 0) {
                 u.state = 'attack';
                 u.attackProgress = 0;
+            }
+        } else if (u.type === 'magikill') {
+            // Summon minion & cast blast
+            if (u.attackTimer <= 0) {
+                u.state = 'attack';
+                u.attackProgress = 0;
+                u.attackTimer = 2.0;
+                const spawnX = u.x + u.dir * 45;
+                this.spawnUnit('minion', u.team, spawnX);
+                this.createMagicExplosionParticles(spawnX, this.groundY - 30, '#c084fc');
+                this.showFloatingText(spawnX, this.groundY - 65, '💀 MINION SUMMON!', '#c084fc');
+                if (window.soundCtrl) window.soundCtrl.playMinionSummon();
             }
         } else {
             // Melee attack
@@ -4781,6 +5857,11 @@ class StickWarGame {
         document.querySelectorAll('.stance-btn').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.stance === stance);
         });
+
+        // Saat ingin menyerang atau bertahan lagi, SELURUH pasukan yang masuk ke benteng akan keluar!
+        if (stance === 'attack' || stance === 'defend') {
+            this.releaseGarrisonedUnits('player');
+        }
 
         const msg = stance === 'defend' ? '🛡️ PERTAHANAN: Berbaris dan tahan musuh!' :
                     stance === 'attack' ? '⚔️ SERANGAN PENUH: Hancurkan patung musuh!' :
@@ -4823,7 +5904,7 @@ class StickWarGame {
         this.stats.unitsSpawned++;
 
         // Spawn unit at player base
-        const spawnX = 220 + Math.random() * 40;
+        const spawnX = (this.playerStatue.x - 30) + Math.random() * 50;
         this.spawnUnit(type, 'player', spawnX);
 
         if (window.soundCtrl) window.soundCtrl.playSpawn();
@@ -4835,6 +5916,15 @@ class StickWarGame {
         let maxHp = def.hp;
         if (team === 'player' && type === 'spearton' && this.upgrades.speartonHelmet > 0) {
             maxHp += this.upgrades.speartonHelmet * 120;
+        }
+
+        // Mode Gila-Gilaan: Musuh mendapatkan skin acak (Api, Es, Bom, Vampire, Klasik) dengan efek aslinya!
+        let assignedSkin = 'classic';
+        if (team === 'player') {
+            assignedSkin = this.equippedSkin;
+        } else if (this.difficulty === 'insane') {
+            const insaneSkinPool = ['classic', 'fire', 'ice', 'bomb', 'vampire'];
+            assignedSkin = insaneSkinPool[Math.floor(Math.random() * insaneSkinPool.length)];
         }
 
         const unit = {
@@ -4857,7 +5947,7 @@ class StickWarGame {
             chilledTimer: 0,
             frozenTimer: 0,
             burnTimer: 0,
-            skin: (team === 'player') ? this.equippedSkin : 'classic',
+            skin: assignedSkin,
             isZombie: (team === 'enemy' && this.isZombieMode),
 
             // Miner specifics
@@ -4910,6 +6000,9 @@ class StickWarGame {
         if (this.cheats.infiniteGold) {
             this.gold = 999999;
         }
+        if (this.enemyCheats.infiniteGold) {
+            this.enemyGold = Math.max(this.enemyGold, 999999);
+        }
         if (this.cheats.infiniteGems) {
             this.gems = 999999;
         }
@@ -4925,6 +6018,29 @@ class StickWarGame {
                 this.spells[k].stock = 99;
                 this.spells[k].cooldown = 0;
             }
+        }
+        if (this.cheats.statueInvulnerable) {
+            this.playerStatue.hp = this.playerStatue.maxHp;
+        }
+        if (this.enemyCheats.statueInvulnerable) {
+            this.enemyStatue.hp = this.enemyStatue.maxHp;
+        }
+        if (this.cheats.heartNotHave) {
+            for (const u of this.units) {
+                if (u.team === 'player' && u.state !== 'dead') {
+                    u.hp = u.maxHp;
+                }
+            }
+        }
+        if (this.enemyCheats.heartNotHave) {
+            for (const u of this.units) {
+                if (u.team === 'enemy' && u.state !== 'dead') {
+                    u.hp = u.maxHp;
+                }
+            }
+        }
+        if (this.cheats.spyInvisible) {
+            this.updateEnemySpyHUD();
         }
 
         // Update Spells Cooldowns & Active Buff Timers
@@ -4988,26 +6104,44 @@ class StickWarGame {
     }
 
     updateCastleArchers(dt) {
-        // Player Castle Archer: fires if enemy comes within 600px of player base
+        // Player Castle Archers (diawali 0 pemanah; bertambah saat 2 pasukan mundur masuk benteng, max 4)
         const pArcher = this.castleArchers.player;
-        pArcher.timer -= dt;
-        if (pArcher.timer <= 0) {
-            const enemyThreat = this.units.find(u => u.team === 'enemy' && u.state !== 'dead' && u.x < 750);
-            if (enemyThreat) {
-                const dmg = 24 + (this.upgrades.castleArcher || 0) * 10;
-                this.fireArrow(pArcher.x, pArcher.y, enemyThreat.x, enemyThreat.y - 30, 'player', dmg);
-                pArcher.timer = Math.max(0.65, 1.6 - (this.upgrades.castleArcher || 0) * 0.3);
+        if (pArcher.count > 0) {
+            pArcher.timer -= dt;
+            if (pArcher.timer <= 0) {
+                const enemyThreats = this.units.filter(u => u.team === 'enemy' && u.state !== 'dead' && u.x < 1550);
+                if (enemyThreats.length > 0) {
+                    const dmg = 26 + (this.upgrades.castleArcher || 0) * 10;
+                    const shots = Math.min(pArcher.count, 4);
+                    for (let s = 0; s < shots; s++) {
+                        const target = enemyThreats[s % enemyThreats.length];
+                        const archerX = pArcher.x - 24 + s * 16;
+                        const archerY = pArcher.y - (s % 2) * 8;
+                        this.fireArrow(archerX, archerY, target.x, target.y - 30, 'player', dmg);
+                    }
+                    if (window.soundCtrl) window.soundCtrl.playBowShoot();
+                    pArcher.timer = Math.max(0.65, 1.5 - (this.upgrades.castleArcher || 0) * 0.25);
+                }
             }
         }
 
-        // Enemy Castle Archer: fires if player approaches enemy base
+        // Enemy Castle Archers (diawali 0 pemanah; bertambah saat 2 pasukan mundur masuk benteng, max 4)
         const eArcher = this.castleArchers.enemy;
-        eArcher.timer -= dt;
-        if (eArcher.timer <= 0) {
-            const playerThreat = this.units.find(u => u.team === 'player' && u.state !== 'dead' && u.x > 2450);
-            if (playerThreat) {
-                this.fireArrow(eArcher.x, eArcher.y, playerThreat.x, playerThreat.y - 30, 'enemy', 24);
-                eArcher.timer = 1.6;
+        if (eArcher.count > 0) {
+            eArcher.timer -= dt;
+            if (eArcher.timer <= 0) {
+                const playerThreats = this.units.filter(u => u.team === 'player' && u.state !== 'dead' && u.x > 3450);
+                if (playerThreats.length > 0) {
+                    const shots = Math.min(eArcher.count, 4);
+                    for (let s = 0; s < shots; s++) {
+                        const target = playerThreats[s % playerThreats.length];
+                        const archerX = eArcher.x - 24 + s * 16;
+                        const archerY = eArcher.y - (s % 2) * 8;
+                        this.fireArrow(archerX, archerY, target.x, target.y - 30, 'enemy', 24);
+                    }
+                    if (window.soundCtrl) window.soundCtrl.playBowShoot();
+                    eArcher.timer = 1.5;
+                }
             }
         }
     }
@@ -5066,6 +6200,19 @@ class StickWarGame {
                 continue;
             }
 
+            // Magikill Minion Summoning (Penyihir memanggil minion tengkorak dari Foto 3)
+            if (u.type === 'magikill' && u.state !== 'dead') {
+                u.minionSummonTimer = (u.minionSummonTimer !== undefined ? u.minionSummonTimer : (u.team === 'player' ? 3.0 : 6.0)) - dt;
+                if (u.minionSummonTimer <= 0) {
+                    u.minionSummonTimer = 11.0;
+                    const spawnX = u.x + u.dir * 45;
+                    this.spawnUnit('minion', u.team, spawnX);
+                    this.createMagicExplosionParticles(spawnX, this.groundY - 30, '#c084fc');
+                    this.showFloatingText(spawnX, this.groundY - 65, '💀 SUMMON MINION!', '#c084fc');
+                    if (window.soundCtrl) window.soundCtrl.playMinionSummon();
+                }
+            }
+
             // Controlled vs AI behavior
             if (u.isEnemyControlled) {
                 this.handleEnemyControlledMicro(u, dt);
@@ -5079,6 +6226,11 @@ class StickWarGame {
 
             // Boundary clamp
             u.x = Math.max(80, Math.min(this.worldWidth - 80, u.x));
+
+            // Mode HD Real Animation: Efek partikel debu langkah kaki saat berlari/berjalan
+            if (this.isHD && u.state === 'walk' && Math.random() < 0.1) {
+                this.createDustPuff(u.x, this.groundY);
+            }
         }
     }
 
@@ -5147,6 +6299,85 @@ class StickWarGame {
         }
     }
 
+    handleUnitGarrison(u) {
+        if (!this.garrisonedUnits) {
+            this.garrisonedUnits = { player: [], enemy: [] };
+        }
+
+        // Unit masuk ke dalam kastil untuk berlindung (bukan mati)
+        if (u.isControlled || this.controlledUnit === u) {
+            this.deselectUnit();
+        }
+        if (u.isEnemyControlled || this.enemyControlledUnit === u) {
+            this.enemyControlledUnit = null;
+        }
+
+        u.inCastle = true;
+        u.state = 'garrisoned';
+        this.garrisonedUnits[u.team].push(u);
+
+        // Hapus sementara dari unit aktif di lapangan agar tidak menerima damage / tabrakan
+        const idx = this.units.indexOf(u);
+        if (idx !== -1) {
+            this.units.splice(idx, 1);
+        }
+
+        const isPlayer = u.team === 'player';
+        if (isPlayer) {
+            this.playerGarrisonCount = (this.playerGarrisonCount || 0) + 1;
+            this.showFloatingText(120, this.groundY - 110, `🏰 Masuk Benteng (${this.garrisonedUnits.player.length} Pasukan Siaga)`, '#38bdf8');
+            // Saat mundur ada 2 pasukan akan memunculkan 1 pemanah kastil di menara, batas 4 pemanah
+            if (this.playerGarrisonCount >= 2 && this.castleArchers.player.count < 4) {
+                this.playerGarrisonCount -= 2;
+                this.castleArchers.player.count++;
+                this.showToast(`🏹 Pemanah Kastil Aktif! (${this.castleArchers.player.count}/4 Pemanah Menara)`, 'gold');
+                if (window.soundCtrl) window.soundCtrl.playOrderHorn();
+            }
+        } else {
+            this.enemyGarrisonCount = (this.enemyGarrisonCount || 0) + 1;
+            this.showFloatingText(3080, this.groundY - 110, `🏰 Masuk Benteng (${this.garrisonedUnits.enemy.length} Pasukan Siaga)`, '#ef4444');
+            if (this.enemyGarrisonCount >= 2 && this.castleArchers.enemy.count < 4) {
+                this.enemyGarrisonCount -= 2;
+                this.castleArchers.enemy.count++;
+            }
+        }
+    }
+
+    releaseGarrisonedUnits(team) {
+        if (!this.garrisonedUnits || !this.garrisonedUnits[team]) return;
+        const list = this.garrisonedUnits[team];
+        if (list.length === 0) return;
+
+        const isPlayer = team === 'player';
+        const exitX = isPlayer ? 785 : 4215;
+        const exitDir = isPlayer ? 1 : -1;
+        const count = list.length;
+
+        for (let i = 0; i < count; i++) {
+            const u = list[i];
+            u.inCastle = false;
+            u.state = 'walk';
+            u.deathAlpha = 1.0;
+            u.x = exitX + exitDir * (i * 24);
+            u.y = this.groundY;
+            u.dir = exitDir;
+            u.targetX = null;
+            u.animProgress = Math.random();
+            this.units.push(u);
+            this.createSparks(u.x, u.y - 25, isPlayer ? '#00e5ff' : '#ff3344', 6);
+        }
+
+        // Kosongkan pasukan di dalam benteng, pemanah kastil di menara TETAP bertahan di posisinya
+        this.garrisonedUnits[team] = [];
+
+        if (isPlayer) {
+            this.showFloatingText(exitX, this.groundY - 110, `⚔️ ${count} PASUKAN KELUAR BENTENG!`, '#ffd700');
+            this.showToast(`⚔️ Seluruh ${count} pasukan keluar dari benteng untuk ${this.playerStance === 'attack' ? 'Menyerang' : 'Bertahan'}!`, 'gold');
+            if (window.soundCtrl) window.soundCtrl.playOrderHorn();
+            this.triggerScreenShake(0.2, 5);
+        }
+    }
+
     handleMinerAI(u, dt) {
         const baseStatue = u.team === 'player' ? this.playerStatue : this.enemyStatue;
         const stance = u.team === 'player' ? this.playerStance : this.enemyStance;
@@ -5155,17 +6386,21 @@ class StickWarGame {
         const chilledMult = (u.chilledTimer > 0 ? 0.65 : 1.0);
         const minerSpeed = u.speed * (isHustling ? 1.85 : 1.0) * (1 + miningUpgradeBonus * 0.15) * chilledMult;
 
-        // If retreat stance: run into safe garrison behind statue
+        // If retreat stance: run into safe castle tower garrison
         if (stance === 'retreat') {
-            const safeX = u.team === 'player' ? 140 : 3060;
-            if (Math.abs(u.x - safeX) > 15) {
-                u.dir = safeX > u.x ? 1 : -1;
-                u.x += u.dir * minerSpeed * 60 * dt;
-                u.state = 'walk';
-                u.animProgress += dt * (isHustling ? 4.5 : 3.0);
-            } else {
-                u.state = 'idle';
+            const isPlayer = u.team === 'player';
+            if (isPlayer && u.x <= 770) {
+                this.handleUnitGarrison(u);
+                return;
+            } else if (!isPlayer && u.x >= 4230) {
+                this.handleUnitGarrison(u);
+                return;
             }
+            const safeX = isPlayer ? 760 : 4240;
+            u.dir = safeX > u.x ? 1 : -1;
+            u.x += u.dir * minerSpeed * 65 * dt;
+            u.state = 'walk';
+            u.animProgress += dt * (isHustling ? 4.5 : 3.0);
             return;
         }
 
@@ -5202,8 +6437,8 @@ class StickWarGame {
         let bestDist = Infinity;
         for (const mine of this.goldMines) {
             // Player miners prefer mines on left side, enemy prefers right side
-            if (u.team === 'player' && mine.x > 2200) continue;
-            if (u.team === 'enemy' && mine.x < 1000) continue;
+            if (u.team === 'player' && mine.x > 2800) continue;
+            if (u.team === 'enemy' && mine.x < 2200) continue;
 
             const d = Math.abs(u.x - mine.x);
             if (d < bestDist) {
@@ -5212,7 +6447,7 @@ class StickWarGame {
             }
         }
 
-        if (!targetMine) targetMine = this.goldMines[u.team === 'player' ? 0 : 3];
+        if (!targetMine) targetMine = this.goldMines[u.team === 'player' ? 0 : 5];
 
         const mineX = targetMine.x;
         const distToMine = Math.abs(u.x - mineX);
@@ -5285,22 +6520,25 @@ class StickWarGame {
             return;
         }
 
-        // Tactical Stance Logic
+        // Tactical Stance Logic: Mundur Masuk Menara Benteng
         if (stance === 'retreat') {
-            const garrisonX = isPlayer ? 140 : 3060;
-            if (Math.abs(u.x - garrisonX) > 20) {
-                u.dir = garrisonX > u.x ? 1 : -1;
-                u.x += u.dir * u.speed * 60 * dt;
-                u.state = 'walk';
-                u.animProgress += dt * 3.5;
-            } else {
-                u.state = 'idle';
+            if (isPlayer && u.x <= 770) {
+                this.handleUnitGarrison(u);
+                return;
+            } else if (!isPlayer && u.x >= 4230) {
+                this.handleUnitGarrison(u);
+                return;
             }
+            const garrisonX = isPlayer ? 750 : 4250;
+            u.dir = garrisonX > u.x ? 1 : -1;
+            u.x += u.dir * u.speed * 65 * dt;
+            u.state = 'walk';
+            u.animProgress += dt * 3.5;
             return;
         }
 
         // Defense stance line
-        const defendLineX = isPlayer ? 450 : 2750;
+        const defendLineX = isPlayer ? 1250 : 3750;
 
         // If target is in combat range
         const attackRange = def.range;
@@ -5478,6 +6716,48 @@ class StickWarGame {
     dealDamage(target, rawDamage, attacker) {
         let finalDamage = rawDamage;
 
+        // CHEAT: hittingmebro & heartnothave Interaction
+        const attackerHas1Hit = (attacker && attacker.team === 'player' && this.cheats.hittingMeBro) || 
+                                (attacker && attacker.team === 'enemy' && this.enemyCheats.hittingMeBro);
+        const targetHasImmortal = (target.team === 'player' && this.cheats.heartNotHave) || 
+                                  (target.team === 'enemy' && this.enemyCheats.heartNotHave);
+
+        if (attackerHas1Hit && target.state !== 'dead') {
+            if (targetHasImmortal) {
+                // "tapi saat meggunakan pasukan tak pernah mati tetap pasukannya mati dengan 10 hit"
+                target.immortalHits = (target.immortalHits || 0) + 1;
+                this.triggerScreenShake(0.2, 5);
+                this.createSparks(target.x, target.y - 40, '#ffd700', 8);
+                if (target.immortalHits < 10) {
+                    this.showFloatingText(target.x, target.y - 75, `💔 HIT ${target.immortalHits}/10 (hittingmebro)`, '#fbbf24');
+                    target.hp = Math.max(1, target.maxHp * (1 - target.immortalHits / 10));
+                    return;
+                } else {
+                    // Hit ke-10 tembus! Unit mati!
+                    this.showFloatingText(target.x, target.y - 85, '💥 10 HIT TEMBUS! GUGUR!', '#ef4444');
+                    this.triggerScreenShake(0.45, 9);
+                    this.createShockwave(target.x, target.y);
+                    this.killUnit(target, attacker ? attacker.dir : 1);
+                    return;
+                }
+            } else {
+                // "satu kali hit ke musuh dan mati"
+                this.showFloatingText(target.x, target.y - 75, '💀 1-HIT KILL! (hittingmebro)', '#ef4444');
+                this.triggerScreenShake(0.35, 7);
+                this.createSparks(target.x, target.y - 40, '#ef4444', 12);
+                this.killUnit(target, attacker ? attacker.dir : 1);
+                return;
+            }
+        }
+
+        if (targetHasImmortal && target.state !== 'dead') {
+            // Serangan biasa tidak akan pernah membunuh unit ini
+            this.showFloatingText(target.x, target.y - 65, '❤️ IMMORTAL (heartnothave)', '#22c55e');
+            this.createSparks(target.x, target.y - 30, '#10b981', 6);
+            target.hp = target.maxHp;
+            return;
+        }
+
         // Controlled Troop Multiplier: "dan saat mengontrolkan pasukan dan musuh menerima damage akan X2 damage tersebut"
         const isAttackerControlled = attacker && (attacker.isControlled || attacker.isEnemyControlled || (attacker.team === 'player' && this.controlledUnit === attacker));
         if (isAttackerControlled && target.state !== 'dead') {
@@ -5512,7 +6792,7 @@ class StickWarGame {
             this.createBloodSpurt(target.x, target.y - 40, target.team === 'player' ? '#00e5ff' : '#ff3344');
         }
 
-        // Elemental Skins Effects (Fire / Ice)
+        // Elemental Skins Effects (Fire, Ice, Bomb, Vampire)
         const attackerSkin = (attacker && attacker.skin) ? attacker.skin : (attacker && attacker.team === 'player' ? this.equippedSkin : 'classic');
         const targetSkin = (target && target.skin) ? target.skin : (target && target.team === 'player' ? this.equippedSkin : 'classic');
 
@@ -5534,6 +6814,36 @@ class StickWarGame {
             target.chilledTimer = 2.5;
             this.createSparks(target.x, target.y - 30, '#00f0ff', 7);
             this.showFloatingText(target.x, target.y - 50, 'CHILLED ❄️', '#38bdf8');
+        }
+
+        // VAMPIRE SKIN ATTACK: "saat memukul musuh dan nyawa pasukan kita menipis saat memukul akan x2 kan, dan lifesteal"
+        if (attackerSkin === 'vampire' && target.state !== 'dead') {
+            const isLowHp = attacker && attacker.hp <= (attacker.maxHp * 0.45);
+            if (isLowHp) {
+                finalDamage = Math.round(finalDamage * 2);
+                this.showFloatingText(attacker.x, attacker.y - 75, '🧛 2X VAMPIRE CRIT!', '#e11d48');
+                if (window.soundCtrl) window.soundCtrl.playVampireBite();
+                this.triggerScreenShake(0.2, 5);
+            }
+            // Lifesteal heal
+            const healVal = Math.max(5, Math.round(finalDamage * 0.35));
+            attacker.hp = Math.min(attacker.maxHp, attacker.hp + healVal);
+            this.showFloatingText(attacker.x, attacker.y - 45, `+${healVal} HP 🩸`, '#22c55e');
+            this.createSparks(attacker.x, attacker.y - 30, '#be123c', 8);
+        }
+
+        // Active Buff: Flame War Cry (All friendly troops burn targets)
+        if (attacker && attacker.team === 'player' && this.spells.flameHelm && this.spells.flameHelm.activeTimer > 0) {
+            target.burnTimer = 3.0;
+            target.hp -= 12;
+            this.showFloatingText(target.x, target.y - 45, '🔥 WAR CRY -12', '#ea580c');
+            this.createSparks(target.x, target.y - 25, '#f97316', 6);
+        }
+
+        // Active Buff: Divine Shield Aegis (Reduces incoming damage by 70%)
+        if (target.team === 'player' && this.spells.divineShield && this.spells.divineShield.activeTimer > 0) {
+            finalDamage = Math.max(1, Math.round(finalDamage * 0.3));
+            this.showFloatingText(target.x, target.y - 75, '🛡️ AEGIS -70%', '#38bdf8');
         }
 
         // Apply primary damage to target
@@ -5564,6 +6874,19 @@ class StickWarGame {
             if (window.soundCtrl) window.soundCtrl.playIceFreeze();
         }
 
+        // VAMPIRE SKIN RETALIATION: saat menerima damage dan nyawa menipis, membalas hisap darah!
+        if (targetSkin === 'vampire' && attacker && attacker.hp > 0 && attacker.team !== target.team) {
+            if (target.hp <= target.maxHp * 0.45) {
+                const retalDrain = Math.max(4, Math.round(finalDamage * 0.25));
+                attacker.hp -= retalDrain;
+                target.hp = Math.min(target.maxHp, target.hp + retalDrain);
+                this.showFloatingText(target.x, target.y - 55, `🩸 SEDOT +${retalDrain}`, '#e11d48');
+                if (attacker.hp <= 0) {
+                    this.killUnit(attacker, target ? target.dir : 1);
+                }
+            }
+        }
+
         if (attacker && attacker.team === 'player') {
             this.stats.damageDealt += finalDamage;
         }
@@ -5584,9 +6907,15 @@ class StickWarGame {
         unit.deathVy = -180 - Math.random() * 120;
         unit.deathRotation = knockbackDir * (Math.PI * 0.4);
 
+        // BOMB SKIN ON DEATH: "skin ini saat mati menciptakan 3x3 area kena boom"
+        const skin = unit.skin || (unit.team === 'player' ? this.equippedSkin : 'classic');
+        if (skin === 'bomb') {
+            this.createExplosion(unit.x, unit.y - 30, 140, 75, unit.team);
+        }
+
         if (unit.isControlled && unit.team === 'player') {
             this.deselectUnit();
-            this.showToast('⚠️ Unit Anda Gugur!', 'warning');
+            this.showToast('⭐ Komandan Pasukan Anda Telah Gugur! (Kembali ke Mode Normal)', 'warning');
         }
 
         if (unit.isEnemyControlled) {
@@ -5595,19 +6924,55 @@ class StickWarGame {
             this.gems += 50;
             this.enemyControlledUnit = null;
             this.enemyControlCooldown = 12;
-            this.updateHUD();
+            this.updateUI(); // Fixed: was this.updateHUD() which caused game crash & freeze!
         }
 
         if (unit.team === 'enemy') {
             this.stats.enemiesKilled++;
             // Bounty reward
-            const bounty = Math.round(this.unitDefs[unit.type].cost * 0.35);
+            const cost = this.unitDefs[unit.type] ? this.unitDefs[unit.type].cost : 100;
+            const bounty = Math.round(cost * 0.35);
             this.gold += bounty;
             this.showFloatingText(unit.x, unit.y - 40, `+${bounty}G`, '#ffd700');
         }
     }
 
+    createExplosion(x, y, radius, damage, sourceTeam) {
+        if (window.soundCtrl) window.soundCtrl.playBombExplosion();
+        this.triggerScreenShake(0.38, 9);
+        this.createShockwave(x, this.groundY);
+        this.createMagicExplosionParticles(x, y, '#f59e0b');
+        this.showFloatingText(x, y - 50, `💥 BOOM 3x3! (-${damage})`, '#f97316');
+
+        const enemyTeam = sourceTeam === 'player' ? 'enemy' : 'player';
+        for (const target of this.units) {
+            if (target.team === enemyTeam && target.state !== 'dead') {
+                const dist = Math.hypot(target.x - x, (target.y - 30) - y);
+                if (dist <= radius) {
+                    this.dealDamage(target, damage, null);
+                }
+            }
+        }
+
+        const enemyStatue = sourceTeam === 'player' ? this.enemyStatue : this.playerStatue;
+        if (Math.abs(enemyStatue.x - x) <= radius) {
+            this.damageStatue(enemyStatue, damage);
+        }
+    }
+
     damageStatue(statue, dmg) {
+        // CHEAT mymart: Patung pemain & musuh tak pernah hancur!
+        if (statue.team === 'player' && this.cheats.statueInvulnerable) {
+            this.showFloatingText(statue.x, this.groundY - 180, '🛡️ KEBAL (mymart)!', '#38bdf8');
+            this.createSparks(statue.x, this.groundY - 90, '#38bdf8', 6);
+            return;
+        }
+        if (statue.team === 'enemy' && this.enemyCheats.statueInvulnerable) {
+            this.showFloatingText(statue.x, this.groundY - 180, '🛡️ KEBAL MUSUH (enemymart)!', '#ef4444');
+            this.createSparks(statue.x, this.groundY - 90, '#ef4444', 6);
+            return;
+        }
+
         statue.hp = Math.max(0, statue.hp - dmg);
         this.triggerScreenShake(0.18, 5);
         this.createSparks(statue.x, this.groundY - 90, '#cbd5e0', 8);
@@ -5754,7 +7119,7 @@ class StickWarGame {
             this.updateEnemyControlledUnit(dt);
         }
 
-        // Enemy Spellcasting AI
+        // Enemy Spellcasting AI (Cerdik & Jenius dalam Mode Gila-Gilaan)
         if (this.enemySpellCooldown <= 0) {
             const enemyUnits = this.units.filter(u => u.team === 'enemy' && u.state !== 'dead');
             const enemyCombat = enemyUnits.filter(u => u.type !== 'miner');
@@ -5762,12 +7127,16 @@ class StickWarGame {
             const playerCombat = playerUnits.filter(u => u.type !== 'miner');
 
             let spellToCast = null;
-            if (this.enemyStatue.hp < this.enemyStatue.maxHp * 0.45) {
-                spellToCast = 'healWave';
-            } else if (playerCombat.some(u => u.x > 1800)) {
-                spellToCast = Math.random() < 0.5 ? 'lightningStorm' : 'arrowRain';
+            if (this.enemyStatue.hp < this.enemyStatue.maxHp * 0.5) {
+                spellToCast = (this.difficulty === 'insane' && Math.random() < 0.5) ? 'massMend' : 'healWave';
+            } else if (playerCombat.some(u => u.x > 3200)) {
+                // Pemain mendekati area markas musuh: musuh melepas badai / racun / panah api
+                const dangerSpells = ['lightningStorm', 'arrowRain'];
+                if (this.difficulty === 'insane') dangerSpells.push('toxicCloud', 'electricStorm');
+                spellToCast = dangerSpells[Math.floor(Math.random() * dangerSpells.length)];
             } else if (this.enemyStance === 'attack') {
                 const atkChoices = ['swordRage', 'trainingHaste'];
+                if (this.difficulty === 'insane') atkChoices.push('flameHelm', 'divineShield');
                 if (this.currentLevel >= 15) atkChoices.push('summonDead');
                 if (this.currentLevel >= 35) atkChoices.push('summonMarrowkai');
                 spellToCast = atkChoices[Math.floor(Math.random() * atkChoices.length)];
@@ -5781,21 +7150,26 @@ class StickWarGame {
                 this.castSpell(spellToCast, 'enemy');
                 const spellNames = {
                     healWave: 'Healing Wave 💖',
+                    massMend: 'Holy Mass Mend ✨',
                     arrowRain: 'Hujan Panah Api 🏹',
                     lightningStorm: 'Badai Petir Halilintar ⚡',
+                    electricStorm: 'Golden Thunder ⚡',
+                    toxicCloud: 'Kabut Racun Melumpuhkan ☣️',
                     swordRage: 'Sword Rage Membara ⚔️',
+                    flameHelm: 'Flame War Cry 🔥',
+                    divineShield: 'Divine Aegis Shield 🛡️',
                     trainingHaste: 'Training Haste ➰',
                     summonDead: 'Bangkitkan Mayat Hidup 💀',
                     summonMarrowkai: 'Titan Marrowkai ☠️'
                 };
                 this.showEnemySpellAlert(`⚠️ MUSUH MENGELUARKAN MANTRA: ${spellNames[spellToCast] || spellToCast}!`);
-                const spellCdBase = (this.difficulty === 'insane') ? 22 : 42;
-                const spellCdMin = (this.difficulty === 'insane') ? 9 : 16;
+                const spellCdBase = (this.difficulty === 'insane') ? 18 : 38;
+                const spellCdMin = (this.difficulty === 'insane') ? 8 : 14;
                 this.enemySpellCooldown = Math.max(spellCdMin, spellCdBase - Math.min(20, this.currentLevel * 0.3));
             }
         }
 
-        const aiInterval = this.difficulty === 'insane' ? 0.45 : (this.difficulty === 'hard' ? 0.8 : 1.2);
+        const aiInterval = this.difficulty === 'insane' ? 0.4 : (this.difficulty === 'hard' ? 0.75 : 1.2);
         if (this.enemyAiTimer < aiInterval) return;
         this.enemyAiTimer = 0;
 
@@ -5806,11 +7180,11 @@ class StickWarGame {
         const playerUnits = this.units.filter(u => u.team === 'player' && u.state !== 'dead');
         const playerCombat = playerUnits.filter(u => u.type !== 'miner');
 
-        // Train miners if fewer than target
-        const maxMiners = this.difficulty === 'insane' ? 5 : (this.currentLevel >= 60 ? 4 : (this.currentLevel >= 25 ? 3 : 2));
+        // Train miners: musuh selalu menjaga minimal 5-6 penambang emas!
+        const maxMiners = this.difficulty === 'insane' ? 6 : 5;
         if (enemyMiners.length < maxMiners && this.enemyGold >= 150) {
             this.enemyGold -= 150;
-            this.spawnUnit('miner', 'enemy', 2900);
+            this.spawnUnit('miner', 'enemy', this.enemyStatue.x - 40);
             return;
         }
 
@@ -5844,20 +7218,51 @@ class StickWarGame {
             const def = this.unitDefs[chosen];
             if (this.enemyGold >= def.cost) {
                 this.enemyGold -= def.cost;
-                this.spawnUnit(chosen, 'enemy', 2920);
+                this.spawnUnit(chosen, 'enemy', this.enemyStatue.x - 60);
             }
         }
 
-        // Strategic Stance Management
+        // Strategic Stance Management (Mode Gila-Gilaan: AI Jenius bisa mundur taktis & serangan balik kilat)
+        const prevEnemyStance = this.enemyStance;
         if (this.enemyStatue.hp < 400 && enemyCombat.length <= 2) {
             this.enemyStance = 'retreat';
         } else if (this.difficulty === 'insane') {
-            // Insane AI is hyper-aggressive
-            this.enemyStance = (enemyCombat.length >= 2 || enemyCombat.length >= playerCombat.length) ? 'attack' : 'defend';
+            // Evaluasi cerdik & jenius di mode gila-gilaan:
+            const underHeavyThreat = playerCombat.some(u => u.x > 3300) && (enemyCombat.length < playerCombat.length * 0.7);
+            const statueCritical = this.enemyStatue.hp < this.enemyStatue.maxHp * 0.55 && playerCombat.some(u => u.x > 3500);
+
+            if ((underHeavyThreat || statueCritical) && enemyCombat.length <= 3) {
+                // Taktik Mundur Jenius ke benteng untuk garrison & memicu 4 pemanah kastil
+                if (this.enemyStance !== 'retreat') {
+                    this.enemyStance = 'retreat';
+                    this.showToast('🧠 [AI JENIUS MUSUH] Membaca Ancaman! Taktik Mundur ke Benteng & Pasang Perangkap Pemanah!', 'danger');
+                    this.showEnemySpellAlert('⚠️ MUSUH MUNDUR TAKTIS KE BENTENG UNTUK MEMICU PEMANAH MENARA!');
+                    if (this.enemySpellCooldown <= 3) {
+                        this.castSpell('healWave', 'enemy');
+                    }
+                }
+            } else if (this.enemyStance === 'retreat') {
+                // Selesai mundur saat pasukan sudah terhimpun kuat (>= 4 atau seimbang), serang balik kilat!
+                if (enemyCombat.length >= 4 || enemyCombat.length >= playerCombat.length || !playerCombat.some(u => u.x > 3200)) {
+                    this.enemyStance = 'attack';
+                    this.releaseGarrisonedUnits('enemy');
+                    this.showToast('⚡ [AI JENIUS MUSUH] SERANGAN BALIK KILAT! Pasukan keluar serempak dari benteng!', 'warning');
+                    if (this.enemySpellCooldown <= 3) {
+                        this.castSpell('swordRage', 'enemy');
+                    }
+                }
+            } else {
+                // Attack jika pasukan cukup, Defend jika formasi belum matang
+                this.enemyStance = (enemyCombat.length >= 3 && enemyCombat.length >= playerCombat.length) ? 'attack' : 'defend';
+            }
         } else if (enemyCombat.length >= 4 + Math.min(10, Math.floor(this.currentLevel * 0.15)) || enemyCombat.length > playerCombat.length * 1.3) {
             this.enemyStance = 'attack';
         } else {
             this.enemyStance = 'defend';
+        }
+
+        if (prevEnemyStance === 'retreat' && (this.enemyStance === 'attack' || this.enemyStance === 'defend')) {
+            this.releaseGarrisonedUnits('enemy');
         }
     }
 
@@ -6036,6 +7441,23 @@ class StickWarGame {
                 size: 2.5 + Math.random() * 2,
                 alpha: 1.0,
                 decay: 1.8 + Math.random() * 1.5
+            });
+        }
+    }
+
+    createDustPuff(x, y) {
+        if (!this.particles) return;
+        for (let i = 0; i < 2; i++) {
+            this.particles.push({
+                x: x + (Math.random() - 0.5) * 8,
+                y: y - Math.random() * 3,
+                vx: (Math.random() - 0.5) * 20,
+                vy: -Math.random() * 12 - 4,
+                gravity: 30,
+                color: 'rgba(214, 180, 140, 0.5)',
+                size: 2.5 + Math.random() * 2,
+                alpha: 0.6,
+                decay: 2.2
             });
         }
     }
@@ -6408,57 +7830,330 @@ class StickWarGame {
 
     drawBases() {
         // Player Base & Castle
-        this.drawCastle(60, this.groundY, 'player');
+        this.drawCastle(750, this.groundY, 'player');
         this.drawStatue(this.playerStatue);
 
         // Enemy Base & Castle
-        this.drawCastle(3080, this.groundY, 'enemy');
+        this.drawCastle(4250, this.groundY, 'enemy');
         this.drawStatue(this.enemyStatue);
     }
 
     drawCastle(x, y, team) {
         const isPlayer = team === 'player';
-        this.ctx.save();
-        this.ctx.fillStyle = '#2d3748';
-        this.ctx.strokeStyle = '#1a202c';
-        this.ctx.lineWidth = 3;
+        const skin = (isPlayer ? this.equippedSkin : (this.enemyCastleSkin || (this.difficulty === 'insane' ? 'fire' : 'classic'))) || 'classic';
+        const ctx = this.ctx;
+        ctx.save();
 
-        // Castle Wall Tower
-        this.ctx.fillRect(x - 45, y - 180, 90, 180);
-        this.ctx.strokeRect(x - 45, y - 180, 90, 180);
+        // 1. Draw Castle Tower Body based on Equipped Skin
+        if (skin === 'fire') {
+            // FIRE SKIN: Obsidian Magma Fortress
+            ctx.fillStyle = '#1c1917';
+            ctx.fillRect(x - 45, y - 180, 90, 180);
+            ctx.strokeStyle = '#ea580c';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(x - 45, y - 180, 90, 180);
 
-        // Crenellations / battlements on top
-        for (let i = -40; i <= 30; i += 24) {
-            this.ctx.fillRect(x + i, y - 195, 14, 16);
-            this.ctx.strokeRect(x + i, y - 195, 14, 16);
+            // Glowing Magma Cracks
+            ctx.save();
+            ctx.strokeStyle = '#ff6b00';
+            ctx.shadowColor = '#f97316';
+            ctx.shadowBlur = 8;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(x - 30, y - 160); ctx.lineTo(x - 10, y - 130); ctx.lineTo(x - 20, y - 90); ctx.lineTo(x - 5, y - 60);
+            ctx.moveTo(x + 15, y - 170); ctx.lineTo(x + 28, y - 120); ctx.lineTo(x + 10, y - 80); ctx.lineTo(x + 25, y - 40);
+            ctx.moveTo(x - 15, y - 110); ctx.lineTo(x + 5, y - 95); ctx.lineTo(x + 12, y - 50);
+            ctx.stroke();
+            ctx.restore();
+
+            // Magma crenellations on top
+            for (let i = -40; i <= 30; i += 24) {
+                ctx.fillStyle = '#292524';
+                ctx.fillRect(x + i, y - 195, 14, 16);
+                ctx.strokeStyle = '#f97316';
+                ctx.strokeRect(x + i, y - 195, 14, 16);
+            }
+
+            // Magma Cauldrons / Torches at left and right of battlements
+            const flameWobble = Math.sin(Date.now() * 0.008) * 3;
+            [-42, 34].forEach(bx => {
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(x + bx, y - 198, 10, 6);
+                ctx.beginPath();
+                ctx.moveTo(x + bx, y - 198);
+                ctx.lineTo(x + bx + 5, y - 212 + flameWobble);
+                ctx.lineTo(x + bx + 10, y - 198);
+                ctx.fillStyle = '#ff6b00';
+                ctx.fill();
+                ctx.beginPath();
+                ctx.moveTo(x + bx + 2, y - 198);
+                ctx.lineTo(x + bx + 5, y - 208 + flameWobble * 0.7);
+                ctx.lineTo(x + bx + 8, y - 198);
+                ctx.fillStyle = '#fef08a';
+                ctx.fill();
+            });
+
+            // Glowing Lava Gate
+            ctx.fillStyle = '#7c2d12';
+            ctx.fillRect(x - 16, y - 60, 32, 60);
+            ctx.strokeStyle = '#f97316';
+            ctx.strokeRect(x - 16, y - 60, 32, 60);
+        } else if (skin === 'ice') {
+            // ICE SKIN: Frost Cryo Glacier Citadel
+            const iceGrad = ctx.createLinearGradient(x - 45, y - 180, x + 45, y);
+            iceGrad.addColorStop(0, '#0284c7');
+            iceGrad.addColorStop(0.5, '#38bdf8');
+            iceGrad.addColorStop(1, '#0369a1');
+            ctx.fillStyle = iceGrad;
+            ctx.fillRect(x - 45, y - 180, 90, 180);
+            ctx.strokeStyle = '#bae6fd';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(x - 45, y - 180, 90, 180);
+
+            // Crystalline highlights
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(x - 35, y - 170); ctx.lineTo(x - 10, y - 110); ctx.lineTo(x + 20, y - 130);
+            ctx.moveTo(x + 10, y - 160); ctx.lineTo(x + 35, y - 70);
+            ctx.moveTo(x - 30, y - 80); ctx.lineTo(x - 5, y - 30);
+            ctx.stroke();
+
+            // Ice crenellations on top
+            for (let i = -40; i <= 30; i += 24) {
+                ctx.fillStyle = '#7dd3fc';
+                ctx.fillRect(x + i, y - 195, 14, 16);
+                ctx.strokeStyle = '#e0f2fe';
+                ctx.strokeRect(x + i, y - 195, 14, 16);
+                // Icicles hanging down below crenellations
+                ctx.beginPath();
+                ctx.moveTo(x + i, y - 179);
+                ctx.lineTo(x + i + 7, y - 165 + (Math.abs(i) % 7));
+                ctx.lineTo(x + i + 14, y - 179);
+                ctx.fillStyle = '#f0f9ff';
+                ctx.fill();
+            }
+
+            // Translucent Ice Gate
+            ctx.fillStyle = 'rgba(224, 242, 254, 0.45)';
+            ctx.fillRect(x - 16, y - 60, 32, 60);
+            ctx.strokeStyle = '#e0f2fe';
+            ctx.strokeRect(x - 16, y - 60, 32, 60);
+        } else if (skin === 'bomb') {
+            // BOMB SKIN: Industrial Blast Bastion with hazard stripes and TNT
+            ctx.fillStyle = '#334155';
+            ctx.fillRect(x - 45, y - 180, 90, 180);
+            ctx.strokeStyle = '#1e293b';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(x - 45, y - 180, 90, 180);
+
+            // Steel armor plates with rivets
+            ctx.fillStyle = '#475569';
+            ctx.fillRect(x - 40, y - 140, 80, 45);
+            ctx.strokeRect(x - 40, y - 140, 80, 45);
+            ctx.fillStyle = '#94a3b8';
+            [-36, -12, 12, 34].forEach(rx => {
+                ctx.beginPath(); ctx.arc(x + rx, y - 135, 2.5, 0, Math.PI * 2); ctx.fill();
+                ctx.beginPath(); ctx.arc(x + rx, y - 100, 2.5, 0, Math.PI * 2); ctx.fill();
+            });
+
+            // Yellow-Black Hazard Stripes in middle
+            ctx.save();
+            ctx.beginPath();
+            ctx.rect(x - 45, y - 85, 90, 20);
+            ctx.clip();
+            ctx.fillStyle = '#eab308';
+            ctx.fillRect(x - 45, y - 85, 90, 20);
+            ctx.fillStyle = '#0f172a';
+            for (let hx = -60; hx <= 60; hx += 16) {
+                ctx.beginPath();
+                ctx.moveTo(x + hx, y - 85);
+                ctx.lineTo(x + hx + 10, y - 85);
+                ctx.lineTo(x + hx - 5, y - 65);
+                ctx.lineTo(x + hx - 15, y - 65);
+                ctx.fill();
+            }
+            ctx.restore();
+
+            // Crenellations with hazard stripe tops
+            for (let i = -40; i <= 30; i += 24) {
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(x + i, y - 195, 14, 16);
+                ctx.strokeStyle = '#eab308';
+                ctx.strokeRect(x + i, y - 195, 14, 16);
+            }
+
+            // TNT Barrels on top battlements
+            [-38, 22].forEach(tx => {
+                ctx.fillStyle = '#dc2626';
+                ctx.fillRect(x + tx, y - 206, 12, 12);
+                ctx.strokeStyle = '#7f1d1d';
+                ctx.strokeRect(x + tx, y - 206, 12, 12);
+                ctx.fillStyle = '#fff';
+                ctx.font = 'bold 7px sans-serif';
+                ctx.fillText('TNT', x + tx + 1, y - 197);
+            });
+
+            // Heavy Iron Gate
+            ctx.fillStyle = '#1e293b';
+            ctx.fillRect(x - 16, y - 60, 32, 60);
+            ctx.strokeStyle = '#eab308';
+            ctx.strokeRect(x - 16, y - 60, 32, 60);
+        } else if (skin === 'vampire') {
+            // VAMPIRE SKIN: Gothic Dracula Spire with Blood Red Windows
+            ctx.fillStyle = '#0f172a';
+            ctx.fillRect(x - 45, y - 180, 90, 180);
+            ctx.strokeStyle = '#e11d48';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(x - 45, y - 180, 90, 180);
+
+            // Dark stone block textures
+            ctx.strokeStyle = '#1e1b4b';
+            ctx.lineWidth = 1.5;
+            for (let ly = y - 160; ly <= y - 20; ly += 24) {
+                ctx.beginPath(); ctx.moveTo(x - 45, ly); ctx.lineTo(x + 45, ly); ctx.stroke();
+            }
+
+            // Tall Gothic Arch Window glowing blood red
+            ctx.fillStyle = '#881337';
+            ctx.beginPath();
+            ctx.moveTo(x - 10, y - 140);
+            ctx.lineTo(x - 10, y - 100);
+            ctx.lineTo(x + 10, y - 100);
+            ctx.lineTo(x + 10, y - 140);
+            ctx.arc(x, y - 140, 10, 0, Math.PI, true);
+            ctx.fill();
+            ctx.strokeStyle = '#e11d48';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+            // Iron cross bars on window
+            ctx.beginPath();
+            ctx.moveTo(x, y - 150); ctx.lineTo(x, y - 100);
+            ctx.moveTo(x - 10, y - 120); ctx.lineTo(x + 10, y - 120);
+            ctx.strokeStyle = '#000';
+            ctx.stroke();
+
+            // Gothic spiky crenellations on top
+            for (let i = -40; i <= 30; i += 24) {
+                ctx.fillStyle = '#18181b';
+                ctx.fillRect(x + i, y - 195, 14, 16);
+                ctx.strokeStyle = '#e11d48';
+                ctx.strokeRect(x + i, y - 195, 14, 16);
+                ctx.beginPath();
+                ctx.moveTo(x + i + 2, y - 195);
+                ctx.lineTo(x + i + 7, y - 205);
+                ctx.lineTo(x + i + 12, y - 195);
+                ctx.fillStyle = '#e11d48';
+                ctx.fill();
+            }
+
+            // Hanging Crimson Lanterns
+            ctx.save();
+            ctx.fillStyle = '#be123c';
+            ctx.shadowColor = '#e11d48';
+            ctx.shadowBlur = 10;
+            ctx.beginPath(); ctx.arc(x - 38, y - 170, 4.5, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.arc(x + 38, y - 170, 4.5, 0, Math.PI * 2); ctx.fill();
+            ctx.restore();
+
+            // Gothic Spiked Gate
+            ctx.fillStyle = '#18181b';
+            ctx.fillRect(x - 16, y - 60, 32, 60);
+            ctx.strokeStyle = '#e11d48';
+            ctx.strokeRect(x - 16, y - 60, 32, 60);
+        } else {
+            // CLASSIC SKIN: Stone Order of Inamorta Fortress
+            ctx.fillStyle = '#2d3748';
+            ctx.fillRect(x - 45, y - 180, 90, 180);
+            ctx.strokeStyle = '#1a202c';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(x - 45, y - 180, 90, 180);
+
+            // Stone brick texture lines
+            ctx.strokeStyle = '#1a202c';
+            ctx.lineWidth = 1.2;
+            for (let by = y - 160; by < y; by += 22) {
+                ctx.beginPath(); ctx.moveTo(x - 45, by); ctx.lineTo(x + 45, by); ctx.stroke();
+            }
+
+            // Crenellations on top
+            for (let i = -40; i <= 30; i += 24) {
+                ctx.fillRect(x + i, y - 195, 14, 16);
+                ctx.strokeRect(x + i, y - 195, 14, 16);
+            }
+
+            // Wooden Gate with iron bars
+            ctx.fillStyle = '#78350f';
+            ctx.fillRect(x - 16, y - 60, 32, 60);
+            ctx.strokeStyle = '#475569';
+            ctx.strokeRect(x - 16, y - 60, 32, 60);
         }
 
-        // Castle Banner / Flag
-        this.ctx.fillStyle = isPlayer ? '#00e5ff' : '#ff3344';
-        this.ctx.beginPath();
-        this.ctx.moveTo(x, y - 200);
-        this.ctx.lineTo(x + (isPlayer ? 35 : -35), y - 188);
-        this.ctx.lineTo(x, y - 176);
-        this.ctx.closePath();
-        this.ctx.fill();
+        // 2. Castle Banner & Flagpole (reflecting skin)
+        let flagColor = isPlayer ? '#00e5ff' : '#ff3344';
+        let flagSymbol = isPlayer ? '👑' : '💀';
+        if (skin === 'fire') { flagColor = '#f97316'; flagSymbol = '🔥'; }
+        else if (skin === 'ice') { flagColor = '#38bdf8'; flagSymbol = '❄️'; }
+        else if (skin === 'bomb') { flagColor = '#eab308'; flagSymbol = '💣'; }
+        else if (skin === 'vampire') { flagColor = '#e11d48'; flagSymbol = '🦇'; }
 
         // Flagpole
-        this.ctx.beginPath();
-        this.ctx.moveTo(x, y - 180);
-        this.ctx.lineTo(x, y - 215);
-        this.ctx.strokeStyle = '#d69e2e';
-        this.ctx.lineWidth = 2.5;
-        this.ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(x, y - 180);
+        ctx.lineTo(x, y - 222);
+        ctx.strokeStyle = (skin === 'bomb' ? '#64748b' : (skin === 'vampire' ? '#991b1b' : '#d69e2e'));
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
 
-        // Castle Archer Silhoutte on wall
+        // Flag cloth waving
+        const flagWave = Math.sin(Date.now() * 0.006) * 3;
+        ctx.fillStyle = flagColor;
+        ctx.beginPath();
+        ctx.moveTo(x, y - 220);
+        ctx.lineTo(x + (isPlayer ? 36 : -36), y - 208 + flagWave);
+        ctx.lineTo(x, y - 196);
+        ctx.closePath();
+        ctx.fill();
+
+        // Flag Symbol Icon
+        ctx.font = '10px sans-serif';
+        ctx.fillText(flagSymbol, x + (isPlayer ? 10 : -20), y - 205);
+
+        // 3. Castle Archers (reflecting skin)
+        const archerCount = this.castleArchers[team] ? (this.castleArchers[team].count || 0) : 0;
         const aY = y - 195;
-        this.ctx.beginPath();
-        this.ctx.arc(x, aY - 14, 6, 0, Math.PI * 2);
-        this.ctx.fillStyle = '#111';
-        this.ctx.fill();
-        this.ctx.fillRect(x - 3, aY - 8, 6, 12);
+        for (let i = 0; i < archerCount; i++) {
+            const archerX = x - 26 + i * 16;
+            const archerOffset = (i % 2) * 4;
 
-        this.ctx.restore();
+            // Archer Head & Colors
+            ctx.beginPath();
+            ctx.arc(archerX, aY - 14 - archerOffset, 5, 0, Math.PI * 2);
+            if (skin === 'fire') ctx.fillStyle = '#ff6b00';
+            else if (skin === 'ice') ctx.fillStyle = '#00f0ff';
+            else if (skin === 'bomb') ctx.fillStyle = '#f59e0b';
+            else if (skin === 'vampire') ctx.fillStyle = '#e11d48';
+            else ctx.fillStyle = isPlayer ? '#00e5ff' : '#ff3344';
+            ctx.fill();
+
+            // Archer Torso
+            ctx.fillRect(archerX - 2.5, aY - 9 - archerOffset, 5, 10);
+
+            // Archer Eyes
+            if (skin === 'vampire') {
+                ctx.fillStyle = '#ff0000';
+                ctx.beginPath(); ctx.arc(archerX + (isPlayer ? 2 : -2), aY - 14 - archerOffset, 1.2, 0, Math.PI * 2); ctx.fill();
+            }
+
+            // Bow Aiming Outward
+            ctx.beginPath();
+            ctx.arc(archerX + (isPlayer ? 5 : -5), aY - 5 - archerOffset, 7, -Math.PI * 0.35, Math.PI * 0.35);
+            ctx.strokeStyle = (skin === 'ice' ? '#bae6fd' : (skin === 'fire' ? '#ff4500' : (skin === 'bomb' ? '#475569' : '#d97706')));
+            ctx.lineWidth = 1.8;
+            ctx.stroke();
+        }
+
+        ctx.restore();
     }
 
     drawStatue(statue) {
@@ -6739,7 +8434,8 @@ class StickWarGame {
         }
 
         const popEl = document.getElementById('pop-count');
-        const currentPop = this.units.filter(u => u.team === 'player' && u.state !== 'dead').length;
+        const garrisonPop = (this.garrisonedUnits && this.garrisonedUnits.player) ? this.garrisonedUnits.player.length : 0;
+        const currentPop = this.units.filter(u => u.team === 'player' && u.state !== 'dead').length + garrisonPop;
         if (popEl) popEl.innerText = `${currentPop}/${this.maxPopulation}`;
 
         // Statue Health Percentages
@@ -6808,6 +8504,10 @@ class StickWarGame {
         }
     }
 
+    updateHUD() {
+        this.updateUI();
+    }
+
     setDifficulty(diff) {
         if (!['easy', 'medium', 'hard', 'insane'].includes(diff)) return;
         this.difficulty = diff;
@@ -6861,8 +8561,8 @@ class StickWarGame {
             this.triggerScreenShake(0.6, 7);
             if (isPlayer) this.showToast('🏹 SPELL: Hujan Panah Membakar diluncurkan ke musuh!', 'danger');
 
-            const minX = isPlayer ? Math.max(1200, this.cameraX) : 250;
-            const maxX = isPlayer ? Math.min(2950, this.cameraX + this.viewWidth + 400) : 1800;
+            const minX = isPlayer ? Math.max(this.playerStatue.x + 300, this.cameraX) : 750;
+            const maxX = isPlayer ? Math.min(this.enemyStatue.x + 200, this.cameraX + this.viewWidth + 400) : 2600;
             for (let i = 0; i < 35; i++) {
                 setTimeout(() => {
                     if (!this.running) return;
@@ -6938,8 +8638,8 @@ class StickWarGame {
             if (isPlayer) this.showToast('⚡ SPELL: Badai Petir Halilintar menghantam barisan lawan!', 'info');
 
             const opposingTeam = isPlayer ? 'enemy' : 'player';
-            const minX = isPlayer ? Math.max(800, this.cameraX) : 250;
-            const maxX = isPlayer ? Math.min(2950, this.cameraX + this.viewWidth + 300) : 1800;
+            const minX = isPlayer ? Math.max(this.playerStatue.x + 200, this.cameraX) : 750;
+            const maxX = isPlayer ? Math.min(this.enemyStatue.x + 200, this.cameraX + this.viewWidth + 300) : 2600;
 
             for (let i = 0; i < 12; i++) {
                 setTimeout(() => {
@@ -7014,16 +8714,202 @@ class StickWarGame {
                 this.createShockwave(marrowkai.x, this.groundY);
                 this.showFloatingText(marrowkai.x, marrowkai.y - 90, '☠️ TITAN MARROWKAI ☠️', '#a855f7');
             }
+        } else if (spellId === 'flameHelm') {
+            if (isPlayer) spell.activeTimer = spell.duration;
+            if (window.soundCtrl) window.soundCtrl.playFireBurn();
+            this.triggerScreenShake(0.35, 6);
+            if (isPlayer) this.showToast('🔥 SPELL: Flame War Cry! Seluruh pasukan membara kobaran api (+12 Burn)!', 'gold');
+            for (const u of this.units) {
+                if (u.team === team && u.state !== 'dead') {
+                    u.burnTimer = 4.0;
+                    this.createMagicExplosionParticles(u.x, u.y - 35, '#ff4500');
+                    this.showFloatingText(u.x, u.y - 55, '🔥 WAR CRY', '#ff6b00');
+                }
+            }
+        } else if (spellId === 'divineShield') {
+            if (isPlayer) spell.activeTimer = spell.duration;
+            if (window.soundCtrl) window.soundCtrl.playDivineShield();
+            this.triggerScreenShake(0.4, 7);
+            if (isPlayer) this.showToast('🛡️ SPELL: Divine Aegis! Kubah perlindungan suci meredam 70% damage musuh!', 'info');
+            for (const u of this.units) {
+                if (u.team === team && u.state !== 'dead') {
+                    this.createMagicExplosionParticles(u.x, u.y - 35, '#38bdf8');
+                    this.showFloatingText(u.x, u.y - 55, '🛡️ AEGIS SHIELD', '#38bdf8');
+                }
+            }
+        } else if (spellId === 'archidonFury') {
+            if (isPlayer) spell.activeTimer = spell.duration;
+            if (window.soundCtrl) window.soundCtrl.playBowShoot();
+            if (isPlayer) this.showToast('🏹 SPELL: Archidon Volley! Pemanah menembakkan 3 panah serentak!', 'gold');
+            for (const u of this.units) {
+                if (u.team === team && u.type === 'archidon' && u.state !== 'dead') {
+                    this.createSparks(u.x, u.y - 40, '#ffd700', 8);
+                    this.showFloatingText(u.x, u.y - 60, '🏹 TRIPLE SHOT', '#ffd700');
+                }
+            }
+        } else if (spellId === 'massMend') {
+            if (window.soundCtrl) window.soundCtrl.playSpellHeal();
+            if (isPlayer) this.showToast('✨ SPELL: Holy Cross Mass Mend! Seluruh pasukan disembuhkan +350 HP!', 'success');
+            for (const u of this.units) {
+                if (u.team === team && u.state !== 'dead') {
+                    u.hp = Math.min(u.maxHp, u.hp + 350);
+                    u.burnTimer = 0;
+                    u.frozenTimer = 0;
+                    u.chilledTimer = 0;
+                    this.createMagicExplosionParticles(u.x, u.y - 35, '#22c55e');
+                    this.showFloatingText(u.x, u.y - 50, '+350 HP ✨', '#22c55e');
+                }
+            }
+            const statue = isPlayer ? this.playerStatue : this.enemyStatue;
+            statue.hp = Math.min(statue.maxHp, statue.hp + 350);
+        } else if (spellId === 'speartonPhalanx') {
+            if (isPlayer) spell.activeTimer = spell.duration;
+            if (window.soundCtrl) window.soundCtrl.playOrderHorn();
+            if (isPlayer) this.showToast('🔱 SPELL: Spearton Phalanx! Formasi perisai baja kebal & memantulkan serangan!', 'info');
+            for (const u of this.units) {
+                if (u.team === team && u.type === 'spearton' && u.state !== 'dead') {
+                    u.isManualBlock = true;
+                    this.createSparks(u.x, u.y - 40, '#d97706', 10);
+                    this.showFloatingText(u.x, u.y - 65, '🔱 PHALANX', '#fbbf24');
+                }
+            }
+        } else if (spellId === 'sprintHaste') {
+            if (isPlayer) spell.activeTimer = spell.duration;
+            if (window.soundCtrl) window.soundCtrl.playOrderHorn();
+            if (isPlayer) this.showToast('🏃 SPELL: Wind Sprint! Pasukan bergerak secepat kilat (+90% Speed)!', 'info');
+            for (const u of this.units) {
+                if (u.team === team && u.state !== 'dead') {
+                    this.createSparks(u.x, u.y - 20, '#34d399', 6);
+                    this.showFloatingText(u.x, u.y - 50, '⚡ SPRINT', '#34d399');
+                }
+            }
+        } else if (spellId === 'toxicCloud') {
+            if (window.soundCtrl) window.soundCtrl.playToxicPoison();
+            this.triggerScreenShake(0.3, 5);
+            if (isPlayer) this.showToast('☣️ SPELL: Toxic Mist! Kabut racun hijau melumpuhkan pasukan musuh!', 'danger');
+            const oppTeam = isPlayer ? 'enemy' : 'player';
+            for (const u of this.units) {
+                if (u.team === oppTeam && u.state !== 'dead') {
+                    u.burnTimer = 5.0;
+                    u.chilledTimer = 5.0;
+                    u.hp -= 40;
+                    this.createMagicExplosionParticles(u.x, u.y - 30, '#10b981');
+                    this.showFloatingText(u.x, u.y - 55, '☣️ POISON -40', '#10b981');
+                }
+            }
+        } else if (spellId === 'royalCrown') {
+            if (window.soundCtrl) window.soundCtrl.playSpellSummon();
+            this.triggerScreenShake(0.5, 8);
+            if (isPlayer) this.showToast('👑 SPELL: Royal King Champion! Panglima emas bermahkota turun ke medan laga!', 'gold');
+            const spawnX = isPlayer ? (this.playerStatue.x + 100) : (this.enemyStatue.x - 100);
+            const champ = this.spawnUnit('spearton', team, spawnX);
+            if (champ) {
+                champ.maxHp = 1400;
+                champ.hp = 1400;
+                champ.isGolden = true;
+                champ.scale = 1.35;
+                this.createMagicExplosionParticles(champ.x, champ.y - 45, '#ffd700');
+                this.showFloatingText(champ.x, champ.y - 80, '👑 ROYAL CHAMPION', '#ffd700');
+            }
+        } else if (spellId === 'undeadHorde') {
+            if (window.soundCtrl) window.soundCtrl.playSpellDead();
+            this.triggerScreenShake(0.5, 8);
+            if (isPlayer) this.showToast('💀 SPELL: Undead Horde! Kawanan 5 tengkorak mayat hidup bangkit serentak!', 'success');
+            const baseX = isPlayer ? (this.playerStatue.x + 90) : (this.enemyStatue.x - 90);
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    if (!this.running) return;
+                    const x = baseX + (isPlayer ? 1 : -1) * (i * 30);
+                    const undead = this.spawnUnit('undead', team, x);
+                    if (undead) {
+                        this.createMagicExplosionParticles(undead.x, undead.y - 30, '#059669');
+                        this.showFloatingText(undead.x, undead.y - 55, '💀 SKELETON', '#10b981');
+                    }
+                }, i * 70);
+            }
+        } else if (spellId === 'electricStorm') {
+            if (window.soundCtrl) window.soundCtrl.playSpellMarrowkai();
+            this.triggerScreenShake(0.7, 10);
+            if (isPlayer) this.showToast('⚡ SPELL: Golden Thunder! Sambaran petir emas dahsyat membakar musuh!', 'gold');
+            const minX = isPlayer ? Math.max(this.playerStatue.x + 200, this.cameraX) : 750;
+            const maxX = isPlayer ? Math.min(this.enemyStatue.x + 200, this.cameraX + this.viewWidth + 300) : 2600;
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => {
+                    if (!this.running) return;
+                    const strikeX = minX + Math.random() * (maxX - minX);
+                    this.particles.push({
+                        type: 'lightning',
+                        x: strikeX,
+                        y: 0,
+                        targetY: this.groundY,
+                        alpha: 1.0,
+                        decay: 4.0
+                    });
+                    this.createShockwave(strikeX, this.groundY);
+                    this.createSparks(strikeX, this.groundY - 20, '#ffd700', 12);
+                    const oppTeam = isPlayer ? 'enemy' : 'player';
+                    for (const u of this.units) {
+                        if (u.team === oppTeam && u.state !== 'dead') {
+                            if (Math.abs(u.x - strikeX) < 110) {
+                                this.dealDamage(u, 90);
+                                u.x += (u.x > strikeX ? 1 : -1) * 35;
+                            }
+                        }
+                    }
+                }, i * 140);
+            }
         }
 
         if (isPlayer) this.updateSpellUI();
     }
 
+    toggleSpellPage() {
+        this.spellPage = this.spellPage === 1 ? 2 : 1;
+        this.updateSpellUI();
+        if (window.soundCtrl) window.soundCtrl.playOrderHorn();
+        this.showToast(`🔮 Halaman Mantra ${this.spellPage}/2 (Gunakan tombol > atau tekan P)`);
+    }
+
+    toggleSpellTray() {
+        this.spellTrayCollapsed = !this.spellTrayCollapsed;
+        const hud = document.getElementById('spells-hud');
+        const btn = document.getElementById('btn-spell-toggle');
+        if (hud) hud.classList.toggle('collapsed', this.spellTrayCollapsed);
+        if (btn) {
+            btn.innerText = this.spellTrayCollapsed ? '▲' : '▼';
+            btn.title = this.spellTrayCollapsed ? 'Tampilkan Rak Mantra (Panah Atas)' : 'Sembunyikan Rak Mantra (Panah Bawah)';
+        }
+        if (window.soundCtrl) window.soundCtrl.playOrderHorn();
+        this.showToast(this.spellTrayCollapsed ? '🔽 Rak Mantra Disembunyikan (Klik ▲ untuk membuka kembali)' : '🔼 Rak Mantra Ditampilkan!');
+    }
+
     updateSpellUI() {
+        const page1Ids = ['minerHustle', 'arrowRain', 'healWave', 'swordRage', 'goldenSpearton', 'trainingHaste', 'lightningStorm', 'summonDead', 'goldRush', 'summonMarrowkai'];
+        const page2Ids = ['flameHelm', 'divineShield', 'archidonFury', 'massMend', 'speartonPhalanx', 'sprintHaste', 'toxicCloud', 'royalCrown', 'undeadHorde', 'electricStorm'];
+        const activeIds = this.spellPage === 1 ? page1Ids : page2Ids;
+
+        // Update page button label
+        const pageBtn = document.getElementById('btn-spell-page');
+        if (pageBtn) {
+            pageBtn.innerText = this.spellPage === 1 ? '▶' : '◀';
+            pageBtn.title = `Ganti ke Halaman ${this.spellPage === 1 ? '2' : '1'} Mantra (Tekan P)`;
+        }
+        const pageIndicator = document.getElementById('spell-page-indicator');
+        if (pageIndicator) {
+            pageIndicator.innerText = `HAL ${this.spellPage}/2`;
+        }
+
         for (const k in this.spells) {
             const spell = this.spells[k];
             const card = document.getElementById(`spell-${spell.id}`);
             if (!card) continue;
+
+            // Toggle card visibility based on active page
+            if (activeIds.includes(spell.id)) {
+                card.classList.remove('hidden-by-page');
+            } else {
+                card.classList.add('hidden-by-page');
+            }
 
             const stockEl = card.querySelector('.orb-stock-badge');
             if (stockEl) {
@@ -7048,169 +8934,411 @@ class StickWarGame {
         }
     }
 
+    setCheatTarget(target) {
+        this.cheatTarget = target || 'player'; // 'player', 'enemy', 'both'
+        const names = {
+            player: '👑 PEMAIN (KITA)',
+            enemy: '💀 MUSUH',
+            both: '⚔️ KEDUANYA (PEMAIN & MUSUH)'
+        };
+        this.showToast(`🎯 Target Kode: ${names[this.cheatTarget] || this.cheatTarget}`, 'gold');
+        this.updateCheatUI();
+    }
+
     applyCheat(code) {
-        const clean = (code || '').toLowerCase().trim();
-        if (clean === 'minegoldrich') {
-            this.cheats.infiniteGold = !this.cheats.infiniteGold;
-            if (this.cheats.infiniteGold) {
-                this.gold = 999999;
-                if (window.soundCtrl) window.soundCtrl.playGold();
-                this.showToast('✨ CHEAT AKTIF: Emas Tak Terbatas (minegoldrich)!', 'gold');
-            } else {
-                this.gold = 500;
-                this.showToast('Emas Tak Terbatas dinonaktifkan.');
-            }
-            this.updateCheatUI();
-            this.updateUI();
-            return true;
-        } else if (clean === 'cooldownnotspawn') {
-            this.cheats.noCooldown = !this.cheats.noCooldown;
-            if (this.cheats.noCooldown) {
-                for (const key in this.spawnCooldowns) this.spawnCooldowns[key] = 0;
-                if (window.soundCtrl) window.soundCtrl.playOrderHorn();
-                this.showToast('⚡ CHEAT AKTIF: Tanpa Cooldown (cooldownnotspawn)!', 'info');
-            } else {
-                this.showToast('Cooldown rekrutmen diaktifkan kembali.');
-            }
-            this.updateCheatUI();
-            this.updateUI();
-            return true;
-        } else if (clean === 'nopopuation' || clean === 'nopopulation') {
-            this.cheats.noPopulation = !this.cheats.noPopulation;
-            if (this.cheats.noPopulation) {
-                this.maxPopulation = 9999;
-                if (window.soundCtrl) window.soundCtrl.playOrderHorn();
-                this.showToast('👥 CHEAT AKTIF: Populasi Tak Terbatas (nopopuation)!', 'info');
-            } else {
-                this.maxPopulation = 35;
-                this.showToast('Batas populasi normal (35) dikembalikan.');
-            }
-            this.updateCheatUI();
-            this.updateUI();
-            return true;
-        } else if (clean === 'spellol') {
-            this.cheats.infiniteSpells = !this.cheats.infiniteSpells;
-            if (this.cheats.infiniteSpells) {
-                for (const k in this.spells) {
-                    this.spells[k].stock = 99;
-                    this.spells[k].cooldown = 0;
+        let clean = (code || '').toLowerCase().trim();
+        if (!clean) return false;
+
+        // Cek prefix eksplisit enemy / player
+        let target = this.cheatTarget || 'player';
+        if (clean.startsWith('enemy')) {
+            target = 'enemy';
+            clean = clean.replace(/^enemy/, '');
+        } else if (clean.startsWith('player')) {
+            target = 'player';
+            clean = clean.replace(/^player/, '');
+        }
+
+        const isPlayerTarget = target === 'player' || target === 'both';
+        const isEnemyTarget = target === 'enemy' || target === 'both';
+
+        // 1. heartnothave / 1heartnothave: Semua pasukan tak pernah mati
+        if (clean === 'heartnothave' || clean === '1heartnothave' || clean === '1.heartnothave') {
+            if (target === 'both') {
+                const newState = !this.cheats.heartNotHave;
+                this.cheats.heartNotHave = newState;
+                this.enemyCheats.heartNotHave = newState;
+                if (newState) {
+                    for (const u of this.units) { if (u.state !== 'dead') { u.hp = u.maxHp; u.immortalHits = 0; } }
+                    if (window.soundCtrl) window.soundCtrl.playSpellSummon();
+                    this.showToast('❤️⚔️ CHEAT AKTIF: Pasukan KEDUA PIHAK Tak Pernah Mati (heartnothave)!', 'gold');
+                } else {
+                    this.showToast('Pasukan Tak Pernah Mati (Kedua Pihak) dinonaktifkan.');
                 }
-                if (window.soundCtrl) window.soundCtrl.playSpellSummon();
-                this.showToast('🔮 CHEAT AKTIF: Spell Tak Terbatas (spellol)!', 'gold');
-            } else {
-                for (const k in this.spells) {
-                    this.spells[k].stock = this.spells[k].maxStock;
+            } else if (target === 'enemy') {
+                this.enemyCheats.heartNotHave = !this.enemyCheats.heartNotHave;
+                if (this.enemyCheats.heartNotHave) {
+                    for (const u of this.units) { if (u.team === 'enemy' && u.state !== 'dead') { u.hp = u.maxHp; u.immortalHits = 0; } }
+                    if (window.soundCtrl) window.soundCtrl.playSpellDead();
+                    this.showToast('💀❤️ CHEAT AKTIF: Semua Pasukan MUSUH Tak Pernah Mati (heartnothave)!', 'gold');
+                } else {
+                    this.showToast('Pasukan Tak Pernah Mati (Musuh) dinonaktifkan.');
                 }
-                this.showToast('Spell Tak Terbatas dinonaktifkan.');
+            } else {
+                this.cheats.heartNotHave = !this.cheats.heartNotHave;
+                if (this.cheats.heartNotHave) {
+                    for (const u of this.units) { if (u.team === 'player' && u.state !== 'dead') { u.hp = u.maxHp; u.immortalHits = 0; } }
+                    if (window.soundCtrl) window.soundCtrl.playSpellSummon();
+                    this.showToast('❤️ CHEAT AKTIF: Semua Pasukan PEMAIN Tak Pernah Mati (heartnothave)!', 'gold');
+                } else {
+                    this.showToast('Pasukan Tak Pernah Mati (Pemain) dinonaktifkan.');
+                }
             }
+            this.updateCheatUI();
+            this.updateUI();
+            return true;
+        }
+
+        // 2. hittingmebro / 2hittingmebro: Satu kali hit ke musuh langsung mati (10 hit tembus immortal)
+        if (clean === 'hittingmebro' || clean === '2hittingmebro' || clean === '2.hittingmebro') {
+            if (target === 'both') {
+                const newState = !this.cheats.hittingMeBro;
+                this.cheats.hittingMeBro = newState;
+                this.enemyCheats.hittingMeBro = newState;
+                if (newState) {
+                    if (window.soundCtrl) window.soundCtrl.playOrderHorn();
+                    this.showToast('💀⚔️ CHEAT AKTIF: 1-Hit Kill KEDUA PIHAK (hittingmebro)! [10 Hit tembus Immortal]', 'gold');
+                } else {
+                    this.showToast('1-Hit Kill (Kedua Pihak) dinonaktifkan.');
+                }
+            } else if (target === 'enemy') {
+                this.enemyCheats.hittingMeBro = !this.enemyCheats.hittingMeBro;
+                if (this.enemyCheats.hittingMeBro) {
+                    if (window.soundCtrl) window.soundCtrl.playOrderHorn();
+                    this.showToast('💀 CHEAT AKTIF: 1-Hit Kill Serangan MUSUH (hittingmebro)! [10 Hit tembus Immortal]', 'warning');
+                } else {
+                    this.showToast('1-Hit Kill (Musuh) dinonaktifkan.');
+                }
+            } else {
+                this.cheats.hittingMeBro = !this.cheats.hittingMeBro;
+                if (this.cheats.hittingMeBro) {
+                    if (window.soundCtrl) window.soundCtrl.playOrderHorn();
+                    this.showToast('💀 CHEAT AKTIF: 1-Hit Kill Serangan PEMAIN (hittingmebro)! [10 Hit tembus Immortal]', 'gold');
+                } else {
+                    this.showToast('1-Hit Kill (Pemain) dinonaktifkan.');
+                }
+            }
+            this.updateCheatUI();
+            this.updateUI();
+            return true;
+        }
+
+        // 3. minegoldrich / gold
+        if (clean === 'minegoldrich' || clean === 'gold') {
+            if (isPlayerTarget) {
+                this.cheats.infiniteGold = !this.cheats.infiniteGold;
+                this.gold = this.cheats.infiniteGold ? 999999 : 500;
+            }
+            if (isEnemyTarget) {
+                this.enemyCheats.infiniteGold = !this.enemyCheats.infiniteGold;
+                this.enemyGold = this.enemyCheats.infiniteGold ? 999999 : 500;
+            }
+            if (window.soundCtrl) window.soundCtrl.playGold();
+            const label = target === 'both' ? 'Kedua Pihak' : (target === 'enemy' ? 'Musuh' : 'Pemain');
+            this.showToast(`✨ CHEAT AKTIF: Emas Tak Terbatas ${label} (minegoldrich)!`, 'gold');
+            this.updateCheatUI();
+            this.updateUI();
+            return true;
+        }
+
+        // 4. mymart / mart: Patung kebal abadi
+        if (clean === 'mymart' || clean === '2mymart' || clean === 'mart') {
+            if (isPlayerTarget) {
+                this.cheats.statueInvulnerable = !this.cheats.statueInvulnerable;
+                if (this.cheats.statueInvulnerable) this.playerStatue.hp = this.playerStatue.maxHp;
+            }
+            if (isEnemyTarget) {
+                this.enemyCheats.statueInvulnerable = !this.enemyCheats.statueInvulnerable;
+                if (this.enemyCheats.statueInvulnerable) this.enemyStatue.hp = this.enemyStatue.maxHp;
+            }
+            if (window.soundCtrl) window.soundCtrl.playSpellSummon();
+            const label = target === 'both' ? 'Kedua Pihak' : (target === 'enemy' ? 'Musuh' : 'Pemain');
+            this.showToast(`🛡️ CHEAT AKTIF: Patung Kebal Abadi ${label} (mymart)!`, 'gold');
+            this.updateCheatUI();
+            return true;
+        }
+
+        // 5. cooldownnotspawn / cd
+        if (clean === 'cooldownnotspawn' || clean === 'cd') {
+            if (isPlayerTarget) {
+                this.cheats.noCooldown = !this.cheats.noCooldown;
+                if (this.cheats.noCooldown) { for (const key in this.spawnCooldowns) this.spawnCooldowns[key] = 0; }
+            }
+            if (isEnemyTarget) {
+                this.enemyCheats.noCooldown = !this.enemyCheats.noCooldown;
+            }
+            if (window.soundCtrl) window.soundCtrl.playOrderHorn();
+            const label = target === 'both' ? 'Kedua Pihak' : (target === 'enemy' ? 'Musuh' : 'Pemain');
+            this.showToast(`⚡ CHEAT AKTIF: Tanpa Cooldown ${label} (cooldownnotspawn)!`, 'info');
+            this.updateCheatUI();
+            this.updateUI();
+            return true;
+        }
+
+        // 6. nopopuation / nopopulation / pop
+        if (clean === 'nopopuation' || clean === 'nopopulation' || clean === 'pop') {
+            if (isPlayerTarget) {
+                this.cheats.noPopulation = !this.cheats.noPopulation;
+                this.maxPopulation = this.cheats.noPopulation ? 9999 : 35;
+            }
+            if (isEnemyTarget) {
+                this.enemyCheats.noPopulation = !this.enemyCheats.noPopulation;
+            }
+            if (window.soundCtrl) window.soundCtrl.playOrderHorn();
+            const label = target === 'both' ? 'Kedua Pihak' : (target === 'enemy' ? 'Musuh' : 'Pemain');
+            this.showToast(`👥 CHEAT AKTIF: Populasi Tak Terbatas ${label} (nopopuation)!`, 'info');
+            this.updateCheatUI();
+            this.updateUI();
+            return true;
+        }
+
+        // 7. spellol / spell
+        if (clean === 'spellol' || clean === 'spell') {
+            if (isPlayerTarget) {
+                this.cheats.infiniteSpells = !this.cheats.infiniteSpells;
+                for (const k in this.spells) {
+                    this.spells[k].stock = this.cheats.infiniteSpells ? 99 : this.spells[k].maxStock;
+                    if (this.cheats.infiniteSpells) this.spells[k].cooldown = 0;
+                }
+            }
+            if (isEnemyTarget) {
+                this.enemyCheats.infiniteSpells = !this.enemyCheats.infiniteSpells;
+            }
+            if (window.soundCtrl) window.soundCtrl.playSpellSummon();
+            const label = target === 'both' ? 'Kedua Pihak' : (target === 'enemy' ? 'Musuh' : 'Pemain');
+            this.showToast(`🔮 CHEAT AKTIF: Spell Tak Terbatas ${label} (spellol)!`, 'gold');
             this.updateCheatUI();
             this.updateSpellUI();
             return true;
-        } else if (clean === 'gemsnotreal') {
+        }
+
+        // 8. gemsnotreal (Profil pemain)
+        if (clean === 'gemsnotreal') {
             this.cheats.infiniteGems = !this.cheats.infiniteGems;
-            if (this.cheats.infiniteGems) {
-                this.gems = 999999;
-                if (window.soundCtrl) window.soundCtrl.playSpellSummon();
-                this.showToast('💎 CHEAT AKTIF: Gems Tak Terbatas (gemsnotreal)!', 'gold');
-            } else {
-                this.gems = 1250;
-                this.showToast('Gems Tak Terbatas dinonaktifkan.');
-            }
+            this.gems = this.cheats.infiniteGems ? 999999 : 1250;
+            if (window.soundCtrl) window.soundCtrl.playSpellSummon();
+            this.showToast('💎 CHEAT AKTIF: Gems Tak Terbatas (gemsnotreal)!', 'gold');
             this.saveProfile();
             this.updateCheatUI();
             this.updateUI();
             this.updateShopUI();
             return true;
-        } else if (clean === 'upgradereal') {
+        }
+
+        // 9. upgradereal (Profil pemain)
+        if (clean === 'upgradereal') {
             this.cheats.maxUpgrades = !this.cheats.maxUpgrades;
             if (this.cheats.maxUpgrades) {
                 for (const k in this.upgrades) this.upgrades[k] = 3;
                 this.upgradePoints = 999;
-                if (window.soundCtrl) window.soundCtrl.playOrderHorn();
-                this.showToast('⚔️ CHEAT AKTIF: Peningkatan Tak Terbatas (upgradereal)!', 'gold');
             } else {
                 for (const k in this.upgrades) this.upgrades[k] = 0;
                 this.upgradePoints = 0;
-                this.showToast('Peningkatan Tak Terbatas dinonaktifkan.');
             }
+            if (window.soundCtrl) window.soundCtrl.playOrderHorn();
+            this.showToast('⚔️ CHEAT AKTIF: Peningkatan Tak Terbatas (upgradereal)!', 'gold');
             this.saveProfile();
             this.updateCheatUI();
             this.updateUI();
             this.updateShopUI();
             return true;
-        } else {
-            this.showToast('❌ Kode tidak valid! Gunakan: minegoldrich, cooldownnotspawn, nopopuation, spellol, gemsnotreal, atau upgradereal', 'warning');
-            return false;
         }
+
+        // 10. lookinvisble (Radar mata-mata musuh)
+        if (clean === 'lookinvisble' || clean === 'lookinvisible' || clean === '1lookinvisble' || clean === '1lookinvisible') {
+            this.cheats.spyInvisible = !this.cheats.spyInvisible;
+            if (this.cheats.spyInvisible) {
+                if (window.soundCtrl) window.soundCtrl.playOrderHorn();
+                this.showToast('👁️ CHEAT AKTIF: Radar Intelijen Musuh (lookinvisble)!', 'gold');
+            } else {
+                this.showToast('Radar Intelijen Musuh dinonaktifkan.');
+            }
+            this.updateCheatUI();
+            return true;
+        }
+
+        this.showToast('❌ Kode tidak valid! Gunakan: heartnothave, hittingmebro, minegoldrich, cooldownnotspawn, nopopuation, spellol, gemsnotreal, upgradereal, lookinvisble, mymart', 'warning');
+        return false;
     }
 
     updateCheatUI() {
-        // Update Cheat Buttons in modal
-        const goldBtn = document.getElementById('toggle-cheat-gold');
-        if (goldBtn) {
-            goldBtn.innerText = this.cheats.infiniteGold ? 'AKTIF ✅' : 'AKTIFKAN';
-            goldBtn.classList.toggle('active', this.cheats.infiniteGold);
+        // Update Target Selector Buttons
+        const currentTarget = this.cheatTarget || 'player';
+        ['player', 'enemy', 'both'].forEach(t => {
+            const btn = document.getElementById(`btn-target-${t}`);
+            if (btn) btn.classList.toggle('active', currentTarget === t);
+        });
+
+        // Tentukan state cheat yang ditampilkan pada tombol modal sesuai target yang dipilih
+        const isEnemyView = currentTarget === 'enemy';
+        const isBothView = currentTarget === 'both';
+        const getCheatActive = (key) => {
+            if (isEnemyView) return !!this.enemyCheats[key];
+            if (isBothView) return !!(this.cheats[key] && this.enemyCheats[key]);
+            return !!this.cheats[key];
+        };
+
+        const updateBtn = (id, isActive) => {
+            const btn = document.getElementById(id);
+            if (!btn) return;
+            btn.innerText = isActive ? 'AKTIF ✅' : 'AKTIFKAN';
+            btn.classList.toggle('active', isActive);
+        };
+
+        // Update modal cheat buttons
+        updateBtn('toggle-cheat-heart', getCheatActive('heartNotHave'));
+        updateBtn('toggle-cheat-hitting', getCheatActive('hittingMeBro'));
+        updateBtn('toggle-cheat-gold', getCheatActive('infiniteGold'));
+        updateBtn('toggle-cheat-cd', getCheatActive('noCooldown'));
+        updateBtn('toggle-cheat-pop', getCheatActive('noPopulation'));
+        updateBtn('toggle-cheat-spell', getCheatActive('infiniteSpells'));
+        updateBtn('toggle-cheat-statue', getCheatActive('statueInvulnerable'));
+
+        // Player Profile Cheats
+        updateBtn('toggle-cheat-gems', this.cheats.infiniteGems);
+        updateBtn('toggle-cheat-upgrade', this.cheats.maxUpgrades);
+        updateBtn('toggle-cheat-spy', this.cheats.spyInvisible);
+
+        // Update pills in Top HUD (Player)
+        const updatePill = (id, active) => {
+            const pill = document.getElementById(id);
+            if (pill) pill.classList.toggle('hidden', !active);
+        };
+
+        updatePill('pill-cheat-gold', this.cheats.infiniteGold);
+        updatePill('pill-cheat-cd', this.cheats.noCooldown);
+        updatePill('pill-cheat-pop', this.cheats.noPopulation);
+        updatePill('pill-cheat-spell', this.cheats.infiniteSpells);
+        updatePill('pill-cheat-gems', this.cheats.infiniteGems);
+        updatePill('pill-cheat-upgrade', this.cheats.maxUpgrades);
+        updatePill('pill-cheat-spy', this.cheats.spyInvisible);
+        updatePill('pill-cheat-statue', this.cheats.statueInvulnerable);
+        updatePill('pill-cheat-heart', this.cheats.heartNotHave);
+        updatePill('pill-cheat-hitting', this.cheats.hittingMeBro);
+
+        // Update pills in Top HUD (Enemy)
+        updatePill('pill-enemy-heart', this.enemyCheats.heartNotHave);
+        updatePill('pill-enemy-hitting', this.enemyCheats.hittingMeBro);
+        updatePill('pill-enemy-gold', this.enemyCheats.infiniteGold);
+        updatePill('pill-enemy-statue', this.enemyCheats.statueInvulnerable);
+
+        this.updateEnemySpyHUD();
+    }
+
+    toggleEnemySpyHUD() {
+        this.enemySpyCollapsed = !this.enemySpyCollapsed;
+        const hud = document.getElementById('enemy-spy-hud');
+        const btn = document.getElementById('btn-spy-toggle');
+        if (hud) hud.classList.toggle('collapsed', this.enemySpyCollapsed);
+        if (btn) {
+            btn.innerText = this.enemySpyCollapsed ? '▲' : '▼';
+            btn.title = this.enemySpyCollapsed ? 'Tampilkan Detail Radar Musuh (Panah Atas)' : 'Sembunyikan Radar Musuh (Panah Bawah)';
+        }
+        if (window.soundCtrl) window.soundCtrl.playOrderHorn();
+        this.showToast(this.enemySpyCollapsed ? '🔽 Radar Musuh Diciutkan (Klik ▲ untuk melihat lengkap)' : '🔼 Radar Musuh Dibuka Lengkap!');
+    }
+
+    updateEnemySpyHUD() {
+        const hud = document.getElementById('enemy-spy-hud');
+        if (!hud) return;
+        if (!this.cheats.spyInvisible) {
+            hud.classList.add('hidden');
+            return;
+        }
+        hud.classList.remove('hidden');
+        hud.classList.toggle('collapsed', !!this.enemySpyCollapsed);
+
+        const toggleBtn = document.getElementById('btn-spy-toggle');
+        if (toggleBtn) {
+            toggleBtn.innerText = this.enemySpyCollapsed ? '▲' : '▼';
+            toggleBtn.title = this.enemySpyCollapsed ? 'Tampilkan Detail Radar Musuh (Panah Atas)' : 'Sembunyikan Radar Musuh (Panah Bawah)';
         }
 
-        const cdBtn = document.getElementById('toggle-cheat-cd');
-        if (cdBtn) {
-            cdBtn.innerText = this.cheats.noCooldown ? 'AKTIF ✅' : 'AKTIFKAN';
-            cdBtn.classList.toggle('active', this.cheats.noCooldown);
+        // Stance badge
+        const stanceBadge = document.getElementById('spy-stance-badge');
+        if (stanceBadge) {
+            const stanceLabels = {
+                defend: '🛡️ BERTAHAN',
+                attack: '⚔️ MENYERANG',
+                retreat: '🏰 MUNDUR (MASUK KASTIL)'
+            };
+            stanceBadge.innerText = stanceLabels[this.enemyStance] || this.enemyStance.toUpperCase();
+            stanceBadge.className = `spy-badge ${this.enemyStance}`;
         }
 
-        const popBtn = document.getElementById('toggle-cheat-pop');
-        if (popBtn) {
-            popBtn.innerText = this.cheats.noPopulation ? 'AKTIF ✅' : 'AKTIFKAN';
-            popBtn.classList.toggle('active', this.cheats.noPopulation);
+        // Gold & Economy
+        const goldVal = document.getElementById('spy-gold-val');
+        if (goldVal) {
+            const enemyMiners = this.units.filter(u => u.team === 'enemy' && u.type === 'miner' && u.state !== 'dead').length;
+            goldVal.innerText = `${Math.floor(this.enemyGold)} G (${enemyMiners} Penambang)`;
         }
 
-        const spellBtn = document.getElementById('toggle-cheat-spell');
-        if (spellBtn) {
-            spellBtn.innerText = this.cheats.infiniteSpells ? 'AKTIF ✅' : 'AKTIFKAN';
-            spellBtn.classList.toggle('active', this.cheats.infiniteSpells);
+        // Skin used by enemy
+        const skinVal = document.getElementById('spy-skin-val');
+        if (skinVal) {
+            const skinNames = {
+                classic: 'Klasik 🛡️',
+                fire: 'Api (Bakar & Retaliasi) 🔥',
+                ice: 'Es (Bekukan & Chill) ❄️',
+                bomb: 'Bom (Ledakan 3x3 AoE) 💣',
+                vampire: 'Vampire (Lifesteal & 2X DMG) 🧛'
+            };
+            const enemyActiveSkins = [...new Set(this.units.filter(u => u.team === 'enemy' && u.state !== 'dead').map(u => u.skin || 'classic'))];
+            if (enemyActiveSkins.length > 1) {
+                skinVal.innerText = `Teracak: ${enemyActiveSkins.map(s => skinNames[s] || s).join(', ')}`;
+            } else {
+                const s = enemyActiveSkins[0] || (this.difficulty === 'insane' ? 'Teracak 🎲' : 'Klasik 🛡️');
+                skinVal.innerText = skinNames[s] || s;
+            }
         }
 
-        const gemsBtn = document.getElementById('toggle-cheat-gems');
-        if (gemsBtn) {
-            gemsBtn.innerText = this.cheats.infiniteGems ? 'AKTIF ✅' : 'AKTIFKAN';
-            gemsBtn.classList.toggle('active', this.cheats.infiniteGems);
+        // Army composition
+        const armyVal = document.getElementById('spy-army-val');
+        const breakdownEl = document.getElementById('spy-army-breakdown');
+        const enemyAlive = this.units.filter(u => u.team === 'enemy' && u.state !== 'dead');
+        if (armyVal) {
+            armyVal.innerText = `${enemyAlive.length}/35 Prajurit (Pemanah Menara: ${this.castleArchers.enemy.count}/4)`;
+        }
+        if (breakdownEl) {
+            const counts = {};
+            enemyAlive.forEach(u => counts[u.type] = (counts[u.type] || 0) + 1);
+            const iconMap = {
+                miner: '⛏️ Miner',
+                swordwrath: '⚔️ Sword',
+                archidon: '🏹 Archer',
+                spearton: '🛡️ Spearton',
+                magikill: '🧙 Magikill',
+                giant: '🧌 Giant',
+                minion: '💀 Minion',
+                undead: '🧟 Mayat',
+                marrowkai: '☠️ Marrowkai'
+            };
+            const parts = Object.keys(counts).map(k => `${iconMap[k] || k}: ${counts[k]}`);
+            breakdownEl.innerText = parts.length > 0 ? parts.join(' | ') : 'Tidak ada prajurit di lapangan';
         }
 
-        const upBtn = document.getElementById('toggle-cheat-upgrade');
-        if (upBtn) {
-            upBtn.innerText = this.cheats.maxUpgrades ? 'AKTIF ✅' : 'AKTIFKAN';
-            upBtn.classList.toggle('active', this.cheats.maxUpgrades);
+        // Spell used / status
+        const spellVal = document.getElementById('spy-spell-val');
+        if (spellVal) {
+            const nextSpell = this.enemyNextSpell || (this.enemySpellCooldown > 0 ? `Siap dalam ${Math.ceil(this.enemySpellCooldown)}s` : 'Siaga Meluncurkan Mantra!');
+            spellVal.innerText = nextSpell;
         }
 
-        // Update pills in Top HUD
-        const pillGold = document.getElementById('pill-cheat-gold');
-        if (pillGold) {
-            pillGold.classList.toggle('hidden', !this.cheats.infiniteGold);
-        }
-
-        const pillCd = document.getElementById('pill-cheat-cd');
-        if (pillCd) {
-            pillCd.classList.toggle('hidden', !this.cheats.noCooldown);
-        }
-
-        const pillPop = document.getElementById('pill-cheat-pop');
-        if (pillPop) {
-            pillPop.classList.toggle('hidden', !this.cheats.noPopulation);
-        }
-
-        const pillSpell = document.getElementById('pill-cheat-spell');
-        if (pillSpell) {
-            pillSpell.classList.toggle('hidden', !this.cheats.infiniteSpells);
-        }
-
-        const pillGems = document.getElementById('pill-cheat-gems');
-        if (pillGems) {
-            pillGems.classList.toggle('hidden', !this.cheats.infiniteGems);
-        }
-
-        const pillUp = document.getElementById('pill-cheat-upgrade');
-        if (pillUp) {
-            pillUp.classList.toggle('hidden', !this.cheats.maxUpgrades);
+        // Training queue
+        const trainVal = document.getElementById('spy-train-val');
+        if (trainVal) {
+            const queueUnit = this.enemyNextTrainUnit ? (this.unitDefs[this.enemyNextTrainUnit]?.name || this.enemyNextTrainUnit) : 'Menganalisis Medan...';
+            trainVal.innerText = `Rencana Rekrut: ${queueUnit}`;
         }
     }
 
@@ -7401,13 +9529,16 @@ class StickWarGame {
 
     buySpell(spellId) {
         const spellCosts = {
-            minerHustle: 20, arrowRain: 30, healWave: 40, trainingHaste: 50,
-            goldenSpearton: 100, goldRush: 250, summonDead: 300, swordRage: 400,
-            lightningStorm: 750, summonMarrowkai: 1000
+            minerHustle: 20, arrowRain: 30, healWave: 150, swordRage: 40,
+            goldenSpearton: 300, trainingHaste: 50, lightningStorm: 750, summonDead: 750,
+            goldRush: 100, summonMarrowkai: 1000,
+            flameHelm: 50, divineShield: 500, archidonFury: 40, massMend: 150,
+            speartonPhalanx: 250, sprintHaste: 30, toxicCloud: 20, royalCrown: 100,
+            undeadHorde: 300, electricStorm: 400
         };
         const cost = spellCosts[spellId] || 50;
         if (this.gems < cost && !this.cheats.infiniteGems) {
-            this.showToast('💎 Permata (Gems) tidak cukup!', 'warning');
+            this.showToast(`💎 Permata (Gems) tidak cukup! (${cost} Gems)`, 'warning');
             return;
         }
         if (!this.cheats.infiniteGems) this.gems -= cost;
@@ -7428,11 +9559,19 @@ class StickWarGame {
             this.equipSkin(skinId);
             return;
         }
-        if (this.gems < 750 && !this.cheats.infiniteGems) {
-            this.showToast('💎 Permata tidak cukup untuk skin ini (750 Gems)!', 'warning');
+        const skinCosts = {
+            classic: 0,
+            fire: 750,
+            ice: 750,
+            bomb: 850,
+            vampire: 950
+        };
+        const cost = skinCosts[skinId] || 750;
+        if (this.gems < cost && !this.cheats.infiniteGems) {
+            this.showToast(`💎 Permata tidak cukup untuk skin ini (${cost} Gems)!`, 'warning');
             return;
         }
-        if (!this.cheats.infiniteGems) this.gems -= 750;
+        if (!this.cheats.infiniteGems) this.gems -= cost;
         this.skins[skinId] = true;
         this.equippedSkin = skinId;
         if (window.soundCtrl) window.soundCtrl.playSpellSummon();
@@ -7530,11 +9669,13 @@ class StickWarGame {
             }
         }
 
-        // Update Skins Tab items (Api & Es)
+        // Update Skins Tab items (Klasik, Api, Es, Bom, Vampire)
         const skinDefs = [
             { id: 'classic', name: 'Skin Klasik (Stick War Classic)', cost: 0, icon: '🛡️', color: '#00e5ff', desc: 'Tampilan stickman orisinal prajurit kerajaan Order of Inamorta.' },
             { id: 'fire', name: 'Skin Api (Blazing Fire)', cost: 750, icon: '🔥', color: '#ff6b00', desc: 'Aura api magma! Serangan memiliki efek bakar 10 kerusakan, dan saat menerima damage membalas 5 kerusakan api ke musuh!' },
-            { id: 'ice', name: 'Skin Es (Frost Ice Cryo)', cost: 750, icon: '❄️', color: '#00f0ff', desc: 'Aura kristal es kutub! Saat menerima damage, musuh yang menyerang akan MEMBEKU selama 3 detik! Serangan juga memberikan efek chill slow -35%.' }
+            { id: 'ice', name: 'Skin Es (Frost Ice Cryo)', cost: 750, icon: '❄️', color: '#00f0ff', desc: 'Aura kristal es kutub! Saat menerima damage, musuh yang menyerang akan MEMBEKU selama 3 detik! Serangan juga memberikan efek chill slow -35%.' },
+            { id: 'bomb', name: 'Skin Bom (Blast Demolition)', cost: 850, icon: '💣', color: '#f59e0b', desc: 'Dilengkapi sumbu berapi & sabuk peledak dinamit! Saat gugur di medan tempur menciptakan ledakan dahsyat area 3x3 yang meluluhlantakkan pasukan lawan!' },
+            { id: 'vampire', name: 'Skin Vampire (Crimson Blood)', cost: 950, icon: '🧛', color: '#e11d48', desc: 'Jubah kelelawar & taring merah! Serangan menyedot darah musuh (lifesteal), dan saat nyawa menipis (<45%) pukulan menghasilkan 2X DAMAGE serta membalas sedot darah!' }
         ];
 
         const skinsContainer = document.getElementById('shop-skins-container');
@@ -7572,18 +9713,28 @@ class StickWarGame {
             }
         }
 
-        // Update Spells Shop Tab items (All 10 Spells)
+        // Update Spells Shop Tab items (All 20 Spells: Page 1 & Page 2 from Wizard Armory)
         const spellDefs = [
-            { id: 'minerHustle', name: 'Miner Hustle', cost: 20, icon: '⛏️', desc: 'Miner bergerak 85% lebih cepat dan membawa emas ekstra.' },
-            { id: 'arrowRain', name: 'Arrow Rain', cost: 30, icon: '🏹', desc: 'Hujan badai anak panah membakar medan perang musuh.' },
-            { id: 'healWave', name: 'Healing Wave', cost: 40, icon: '💖', desc: 'Gelombang penyembuh memulihkan seluruh prajurit dan patung.' },
-            { id: 'trainingHaste', name: 'Training Haste', cost: 50, icon: '➰', desc: 'Kecepatan rekrutmen pasukan dipercepat 4x lipat.' },
-            { id: 'goldenSpearton', name: 'Golden Spartan', cost: 100, icon: '🛡️', desc: 'Memanggil Spearton Emas perkasa dengan HP dan serangan masif.' },
-            { id: 'goldRush', name: 'Gold Rush', cost: 250, icon: '💰', desc: 'Seketika menambahkan peti harta karun +1,000 Emas.' },
-            { id: 'summonDead', name: 'Summon Undead', cost: 300, icon: '💀', desc: 'Membangkitkan 3 Prajurit Mayat Hidup dari dalam tanah.' },
-            { id: 'swordRage', name: 'Sword Rage', cost: 400, icon: '⚔️', desc: 'Seluruh Swordwrath mengamuk: serangan +55% lebih mematikan.' },
-            { id: 'lightningStorm', name: 'Lightning Storm', cost: 750, icon: '⚡', desc: 'Petir halilintar dahsyat menyambar patung dan pasukan musuh.' },
-            { id: 'summonMarrowkai', name: 'Summon Marrowkai', cost: 1000, icon: '☠️', desc: 'Memanggil Titan Marrowkai pencabut nyawa dengan sabit raksasa.' }
+            { id: 'minerHustle', name: 'Miner Hustle', cost: 20, icon: '⛏️', desc: 'Miner bergerak 85% lebih cepat dan membawa muatan emas ekstra berlipat ganda.' },
+            { id: 'arrowRain', name: 'Arrow Rain', cost: 30, icon: '🏹', desc: 'Hujan badai 35 anak panah membakar medan perang barisan musuh.' },
+            { id: 'healWave', name: 'Healing Wave', cost: 150, icon: '💖', desc: 'Gelombang penyembuh memulihkan seluruh prajurit dan patung kerajaan.' },
+            { id: 'swordRage', name: 'Sword Rage', cost: 40, icon: '⚔️', desc: 'Seluruh Swordwrath mengamuk: serangan membara kobaran api +50% lebih mematikan.' },
+            { id: 'goldenSpearton', name: 'Golden Spartan', cost: 300, icon: '🛡️', desc: 'Memanggil Spearton Emas perkasa 950 HP dengan pertahanan dan serangan masif.' },
+            { id: 'trainingHaste', name: 'Training Haste', cost: 50, icon: '➰', desc: 'Kecepatan rekrutmen pasukan dipercepat 4x lipat selama 20 detik.' },
+            { id: 'lightningStorm', name: 'Lightning Storm', cost: 750, icon: '⚡', desc: '12 petir halilintar dahsyat menghujam patung dan pasukan musuh.' },
+            { id: 'summonDead', name: 'Summon Undead', cost: 750, icon: '💀', desc: 'Membangkitkan 5 Prajurit Mayat Hidup Beracun dari dalam tanah.' },
+            { id: 'goldRush', name: 'Gold Rush', cost: 100, icon: '💰', desc: 'Seketika menambahkan peti harta karun +450 Emas & isi penuh tas penambang.' },
+            { id: 'summonMarrowkai', name: 'Summon Marrowkai', cost: 1000, icon: '☠️', desc: 'Memanggil Titan Marrowkai Raja Kematian 1500 HP dengan sabit raksasa.' },
+            { id: 'flameHelm', name: 'Flame War Cry', cost: 50, icon: '🔥', desc: 'Pekikan perang membara! Seluruh pasukan mendapat kobaran api (+12 Burn per serangan).' },
+            { id: 'divineShield', name: 'Divine Aegis', cost: 500, icon: '🛡️', desc: 'Kubah perlindungan suci! Meredam 70% seluruh kerusakan musuh selama 15 detik.' },
+            { id: 'archidonFury', name: 'Archidon Volley', cost: 40, icon: '🏹', desc: 'Pemanah Archidon menembakkan 3 anak panah mematikan secara serentak!' },
+            { id: 'massMend', name: 'Holy Mass Mend', cost: 150, icon: '💚', desc: 'Sembuhkan instan +350 HP seluruh prajurit & patung serta hilangkan efek racun & beku!' },
+            { id: 'speartonPhalanx', name: 'Spearton Phalanx', cost: 250, icon: '🔱', desc: 'Formasi dinding perisai baja kebal penuh dan memantulkan serangan balik musuh.' },
+            { id: 'sprintHaste', name: 'Wind Sprint', cost: 30, icon: '🌪️', desc: 'Kecepatan gerak seluruh prajurit dipercepat hingga +90% (lari secepat angin).' },
+            { id: 'toxicCloud', name: 'Toxic Mist', cost: 20, icon: '☣️', desc: 'Kabut racun hijau melumpuhkan barisan musuh (-40 HP instan dan efek racun).' },
+            { id: 'royalCrown', name: 'Royal Champion', cost: 100, icon: '👑', desc: 'Panggil Panglima Ksatria Bermahkota Emas 1400 HP dengan kekuatan tempur luar biasa.' },
+            { id: 'undeadHorde', name: 'Undead Horde', cost: 300, icon: '💀', desc: 'Bangkitkan kawanan 5 tengkorak mayat hidup prajurit perang dari dalam tanah.' },
+            { id: 'electricStorm', name: 'Golden Thunder', cost: 400, icon: '⚡', desc: 'Sambaran 10 petir emas bertubi-tubi membakar patung dan pasukan musuh.' }
         ];
 
         const spellsContainer = document.getElementById('shop-spells-container');
@@ -7722,6 +9873,26 @@ window.game = new StickWarGame();
             }
 
             // Toggle Cheat buttons inside modal
+            // Target Cheat Buttons (Pemain / Musuh / Keduanya)
+            document.querySelectorAll('.target-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (window.game) window.game.setCheatTarget(btn.dataset.target);
+                });
+            });
+
+            const toggleHeart = document.getElementById('toggle-cheat-heart');
+            if (toggleHeart) {
+                toggleHeart.addEventListener('click', () => {
+                    if (window.game) window.game.applyCheat('heartnothave');
+                });
+            }
+            const toggleHitting = document.getElementById('toggle-cheat-hitting');
+            if (toggleHitting) {
+                toggleHitting.addEventListener('click', () => {
+                    if (window.game) window.game.applyCheat('hittingmebro');
+                });
+            }
+
             const toggleGems = document.getElementById('toggle-cheat-gems');
             if (toggleGems) {
                 toggleGems.addEventListener('click', () => {
@@ -7756,6 +9927,18 @@ window.game = new StickWarGame();
             if (toggleSpell) {
                 toggleSpell.addEventListener('click', () => {
                     window.game.applyCheat('spellol');
+                });
+            }
+            const toggleSpy = document.getElementById('toggle-cheat-spy');
+            if (toggleSpy) {
+                toggleSpy.addEventListener('click', () => {
+                    window.game.applyCheat('lookinvisble');
+                });
+            }
+            const toggleStatue = document.getElementById('toggle-cheat-statue');
+            if (toggleStatue) {
+                toggleStatue.addEventListener('click', () => {
+                    window.game.applyCheat('mymart');
                 });
             }
 
@@ -7837,6 +10020,30 @@ window.game = new StickWarGame();
                     window.game.castSpell(spellId);
                 });
             });
+
+            // Spell Page Toggle Button (Matching green round button in reference photo)
+            const spellPageBtn = document.getElementById('btn-spell-page');
+            if (spellPageBtn) {
+                spellPageBtn.addEventListener('click', () => {
+                    if (window.game) window.game.toggleSpellPage();
+                });
+            }
+
+            // Sembunyikan / Tampilkan Rak Mantra (Panah Atas / Bawah)
+            const spellToggleBtn = document.getElementById('btn-spell-toggle');
+            if (spellToggleBtn) {
+                spellToggleBtn.addEventListener('click', () => {
+                    if (window.game) window.game.toggleSpellTray();
+                });
+            }
+
+            // Sembunyikan / Tampilkan Detail Radar Intelijen Musuh (Panah Atas / Bawah)
+            const spyToggleBtn = document.getElementById('btn-spy-toggle');
+            if (spyToggleBtn) {
+                spyToggleBtn.addEventListener('click', () => {
+                    if (window.game) window.game.toggleEnemySpyHUD();
+                });
+            }
 
             // Stance Buttons
             document.querySelectorAll('.stance-btn').forEach(btn => {

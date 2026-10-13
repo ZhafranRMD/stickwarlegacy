@@ -287,6 +287,23 @@ class SoundController {
         }, 80);
     }
 
+    playElectricShock() {
+        // High-voltage zapping electric crackle
+        this.playTone(880, 'sawtooth', 0.12, 0.28, true);
+        this.playTone(1320, 'square', 0.09, 0.22, true);
+        this.playNoise(0.14, 0.32, 4500);
+    }
+
+    playEmergencyAlert() {
+        // Dramatic double war horn siren
+        this.playTone(220, 'sawtooth', 0.55, 0.45, false);
+        this.playTone(440, 'sawtooth', 0.65, 0.4, false);
+        setTimeout(() => {
+            this.playTone(330, 'sawtooth', 0.75, 0.5, false);
+            this.playTone(660, 'sawtooth', 0.8, 0.45, false);
+        }, 280);
+    }
+
     playSpellDead() {
         // Undead dark reanimation drone & bone rattle
         this.playTone(95, 'sawtooth', 0.6, 0.4, false);
@@ -348,6 +365,48 @@ class SoundController {
                 this.playTone(freq, 'triangle', 0.2, 0.2, false);
             }, idx * 60);
         });
+    }
+
+    playBombExplosion() {
+        // High impact explosive bomb detonation
+        if (this.muted || !this.ctx) return;
+        this.playNoise(0.45, 0.6, 1200);
+        this.playTone(65, 'sawtooth', 0.5, 0.45, true);
+        this.playTone(40, 'triangle', 0.6, 0.5, false);
+    }
+
+    playVampireBite() {
+        // Sinister dark vampire slash & life siphon
+        if (this.muted || !this.ctx) return;
+        this.playTone(320, 'sawtooth', 0.15, 0.28, true);
+        this.playTone(160, 'square', 0.2, 0.22, true);
+        this.playNoise(0.12, 0.25, 4500);
+    }
+
+    playMinionSummon() {
+        // Bone rattle & dark minion rise
+        if (this.muted || !this.ctx) return;
+        this.playTone(420, 'sine', 0.12, 0.22, false);
+        this.playTone(680, 'triangle', 0.14, 0.25, false);
+        this.playNoise(0.15, 0.28, 3800);
+    }
+
+    playDivineShield() {
+        // Resonant celestial aegis barrier
+        if (this.muted || !this.ctx) return;
+        const notes = [440, 554.37, 659.25, 880];
+        notes.forEach((freq, idx) => {
+            setTimeout(() => {
+                this.playTone(freq, 'sine', 0.35, 0.18, false);
+            }, idx * 45);
+        });
+    }
+
+    playToxicPoison() {
+        // Bubbling noxious toxic cloud hiss
+        if (this.muted || !this.ctx) return;
+        this.playNoise(0.35, 0.35, 1800);
+        this.playTone(190, 'sine', 0.25, 0.15, true);
     }
 
     playBrassNote(freq, duration = 0.28, gainVal = 0.12) {
