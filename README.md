@@ -1,6 +1,7 @@
 # ⚔️ Stick War: Legacy - Perang Tongkat Legenda
 
-Game strategi web perang stickman legendaris yang kaya akan fitur taktis, kontrol manual pasukan, persenjataan elemen, dan pertempuran patung kolosal berbasis HTML5, CSS3, dan Vanilla JavaScript.
+> 🌐 **Live Demo (Cloudflare Pages)**: [https://stickwarlegacy-3ym.pages.dev](https://stickwarlegacy-3ym.pages.dev)  
+> 📦 **GitHub Repository**: [https://github.com/ZhafranRMD/stickwarlegacy](https://github.com/ZhafranRMD/stickwarlegacy)
 
 ---
 
