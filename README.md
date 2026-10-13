@@ -61,9 +61,33 @@ Ketik langsung kode di bawah saat bermain atau gunakan menu kode rahasia:
 * Level genap secara otomatis beralih ke Mode Malam dengan invasi Zombie Horde.
 * Mode Grafis HD dengan partikel atmosferik.
 
+### 8. 📱 Progressive Web App (PWA) Offline-Ready
+* Siap dipasang di desktop atau ponsel tanpa internet berkat Service Worker cache.
+
 ---
 
 ## 🚀 Cara Menjalankan
 
-1. Buka file `index.html` atau file mandiri `Uji Coba.html` langsung di browser web apa saja (Chrome, Edge, Firefox, Safari).
-2. Tidak membutuhkan instalasi dependensi tambahan — 100% Client-side Vanilla Web Technologies.
+1. Buka file `index.html` langsung di browser web (Chrome, Edge, Firefox, Safari) atau jalankan via web server lokal.
+2. Tidak membutuhkan instalasi dependensi runtime — 100% Client-side Vanilla Web Technologies.
+3. Versi prototipe monolitik terdahulu (`Uji Coba.html`) telah diarsipkan di `D:\devproject\01. Preferensi\Arsip Proyek\stick_war_prototype_monolitik\`.
+
+---
+
+## 📁 Struktur Berkas Modular
+
+```text
+Stick War Legacy/
+├── index.html            # Struktur antarmuka dan viewport medan tempur
+├── style.css             # Desain antarmuka, skin, HUD, dan dialog toko
+├── game.js               # Mesin utama permainan, state, logika AI, dan ekonomi
+├── stickman.js           # Sistem animasi & rendering prajurit stickman
+├── audio.js              # Sintesis audio dan pemutar 4 lagu BGM
+├── sw.js                 # Service worker untuk akses offline PWA
+├── manifest.json         # Manifest PWA instalasi aplikasi
+├── icon-*.png, icon.svg  # Aset ikon aplikasi berbagai resolusi
+├── scratch/              # Skrip pengujian internal & verifikasi modul
+├── .gitignore            # Filter berkas Git
+├── PEDOMAN.md            # Pedoman kerja pengembangan
+└── README.md             # Dokumentasi fitur dan panduan
+```
